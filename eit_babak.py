@@ -106,9 +106,19 @@ matern_geo = cuqipy_fenics.geometry.MaternExpansion(fenics_continuous_geo, lengt
 # c_minus and c_plus 
 c_minus = 1
 c_plus = 10
+<<<<<<< HEAD
 def heavy_map(func):
     dofs = func.vector().get_local()
     updated_dofs = c_minus*0.5*(1 + np.sign(dofs)) + c_plus*0.5*(1 - np.sign(dofs))
+=======
+
+ones_vec = np.ones(94)
+def heavy_map(func):
+    dofs = func.vector().get_local()
+    updated_dofs = c_minus*0.5*(1 + np.sign(dofs)) + c_plus*0.5*(1 - np.sign(dofs))
+
+    updated_dofs[bnd_idx] = np.ones(94)
+>>>>>>> a473cc0c6fd03bd476cb6e778b0ae11d0f0ef5f8
     func.vector().set_local(updated_dofs)
     return func
 
