@@ -39,8 +39,11 @@ zero_bc = dl.DirichletBC(solution_space, u0, boundary)
 class form():
     def set_w(self, w):
         self.w = w
-    def form(self, kappa, u, v):
-        return dl.inner( kappa*dl.grad(u), dl.grad(v) )*dl.dx + dl.inner( dl.grad(self.w), dl.grad(v) )*dl.dx
+    def lhs(self, kappa, u, v):
+        return dl.inner( kappa*dl.grad(u), dl.grad(v) )*dl.dx
+
+    def rhs(self, kappa, v):
+        return - dl.inner( dl.grad(self.w), dl.grad(v) )*dl.dx
 
 forms = []
 residuals = []
@@ -133,8 +136,15 @@ sigma2 = []
 data_dists = []
 datas = []
 
+#print(cuqipy_fenics.__version__)
+#exit()
+
 for i in range(4):
-    PDE_model = cuqipy_fenics.pde.SteadyStateLinearFEniCSPDE( forms[i].form, mesh, solution_space, parameter_space,zero_bc, observation_operator=obs_funcs[i].obs_func)
+    if (i  == 0):
+        PDE_model = cuqipy_fenics.pde.SteadyStateLinearFEniCSPDE( (forms[i].lhs, forms[i].rhs), mesh, solution_space, parameter_space,zero_bc, observation_operator=obs_funcs[i].obs_func, reuse_assembled=True)
+    else:
+        PDE_model = PDE_models[0].with_updated_rhs(forms[i].rhs)
+        PDE_model.observation_operator = PDE_model._create_observation_operator( obs_funcs[i].obs_func )
     PDE_models.append( PDE_model )
     models.append( cuqi.model.PDEModel( PDE_model,range_geometry,domain_geometry)  )
 
