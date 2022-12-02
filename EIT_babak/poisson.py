@@ -64,7 +64,10 @@ class poisson():
     def __init__(self):
         # defining the domain and mesh
         #domain = mshr.Circle(Point(0,0),1)
-        #self.mesh = mshr.generate_mesh(domain, 20)
+        #self.mesh = mshr.generate_mesh(domain, 60)
+        #mesh_file = File('mesh_fine.xml')
+        #mesh_file << self.mesh
+        #exit()
         self.mesh = Mesh('mesh.xml')
         self.V = FunctionSpace(self.mesh,'CG', 1)
 
