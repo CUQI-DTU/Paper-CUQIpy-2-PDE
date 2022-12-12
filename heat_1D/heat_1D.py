@@ -14,7 +14,7 @@ import time
 
 global_Ns = 1000000
 use_global_Ns = True
-data_folder = './data2/'
+data_folder = './data2_cont/'
 
 cases = []
 
@@ -37,7 +37,9 @@ scale = 0.001
 dg = 'Continuous1D'
 cov = 0.05**2
 x0=np.zeros(domain_dim)*0.1
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice})
+noise_level = 0.01
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level})
 
 
 
@@ -64,13 +66,67 @@ scale[2] = 0.2
 dg = 'KL'
 cov = 1
 x0=None
+noise_level = 0.01
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level})
+
+case_name = 'paper_case9'
+# Very Good results, min ESS ~60, I will use this case for the paper
+# unless we decide to increase the final time. Can display 50% CI
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.01 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 20
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = np.ones(domain_dim)
+scale[0] = 0.05
+scale[1] = 0.1
+scale[2] = 0.2
+noise_level = 0.02
+dg = 'KL'
+cov = 1
+x0=None
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level})
+
+
+case_name = 'paper_case10'
+# Very Good results, min ESS ~60, I will use this case for the paper
+# unless we decide to increase the final time. Can display 50% CI
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.01 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 20
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = np.ones(domain_dim)
+scale[0] = 0.05
+scale[1] = 0.1
+scale[2] = 0.2
+noise_level = 0.05
+dg = 'KL'
+cov = 1
+x0=None
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level})
 
 
 
 
-for case in cases:
+for case in cases[2:]:
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
@@ -88,6 +144,7 @@ for case in cases:
     cov = case['cov']
     x0 = case['x0']
     sampler_choice = case['sampler_choice']
+    noise_level = case['noise_level']
     
 
     # Grid for the heat model
@@ -149,7 +206,7 @@ for case in cases:
 
     
     ### Not to be included in the paper ###
-    sigma =1.0/np.sqrt(N)* 0.01*np.linalg.norm(y_exact)
+    sigma =1.0/np.sqrt(N)* noise_level*np.linalg.norm(y_exact)
     
 
     
