@@ -14,7 +14,7 @@ import time
 
 global_Ns = 1000000
 use_global_Ns = True
-data_folder = './data2_cont/'
+data_folder = './data2_cont2/'
 
 cases = []
 
