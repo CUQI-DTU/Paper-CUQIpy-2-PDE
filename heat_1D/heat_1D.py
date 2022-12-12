@@ -388,7 +388,7 @@ for case in cases[2:]:
     elif (dg == 'Step'):
         domain_geometry = cuqi.geometry.StepExpansion(grid, n_steps=domain_dim)
     
-    range_geometry = cuqi.geometry.Continuous1D(grid)
+    range_geometry = cuqi.geometry.Continuous1D(grid_obs)
     
     # Prepare model
     model = cuqi.model.PDEModel(PDE, range_geometry, domain_geometry)
@@ -509,12 +509,16 @@ for case in cases[2:]:
 
     # Plot trace
     plt.figure()
-    posterior_samples.plot_trace([0,1,2,3,4,5,6,7,8,9,10]);
+    idx_list = [0,1,2,3,4,5,6,7,8,9,10]
+    idx_list = [i for i in idx_list if i < model.domain_dim]
+    posterior_samples.plot_trace(idx_list);
     plt.savefig(data_folder+case_name + '/trace.png')
 
     # Plot pair
     plt.figure()
-    posterior_samples.plot_pair([0,1,5,10]);
+    idx_list = [0,1,2,5,10]
+    idx_list = [i for i in idx_list if i < model.domain_dim]
+    posterior_samples.plot_pair(idx_list);
     plt.savefig(data_folder+case_name + '/pair_plot.png')
 
     # Plot the ci as par and save the plot
