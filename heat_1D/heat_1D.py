@@ -12,7 +12,7 @@ import os
 import time
 
 
-global_Ns = 200#1000000
+global_Ns = 1000000
 use_global_Ns = True
 data_folder = './data2_cont/'
 
