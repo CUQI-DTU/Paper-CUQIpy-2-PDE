@@ -39,8 +39,9 @@ cov = 0.05**2
 x0=np.zeros(domain_dim)*0.1
 noise_level = 0.01
 obs_grid_ll = 0
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 
@@ -69,8 +70,9 @@ cov = 1
 x0=None
 noise_level = 0.01
 obs_grid_ll = 0
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 case_name = 'paper_case9'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -96,8 +98,9 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = 0
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 case_name = 'paper_case10'
@@ -124,8 +127,9 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = 0
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 case_name = 'paper_case11'
@@ -153,8 +157,9 @@ cov = 1
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(N/3)
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 case_name = 'paper_case12'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -180,9 +185,10 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = int(N/3)
+exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 case_name = 'paper_case13'
@@ -209,8 +215,9 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = int(N/3)
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 case_name = 'paper_case14'
@@ -238,8 +245,9 @@ cov = 1
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(2*N/3)
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 case_name = 'paper_case15'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -265,9 +273,10 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = int(2*N/3)
+exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 case_name = 'paper_case16'
@@ -294,8 +303,34 @@ dg = 'KL'
 cov = 1
 x0=None
 obs_grid_ll = int(2*N/3)
+exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+
+
+case_name = 'paper_case17'
+# 
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.01 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 3
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = 1
+noise_level = 0.01
+dg = 'Step'
+cov = 1
+x0=None
+obs_grid_ll = 0
+exact_func = 'Step'
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
 
 
 for case in cases[2:]:
@@ -318,6 +353,7 @@ for case in cases[2:]:
     sampler_choice = case['sampler_choice']
     noise_level = case['noise_level']
     obs_grid_ll = case['obs_grid_ll']
+    exact_func = case['exact_func']
     
 
     # Grid for the heat model
@@ -348,6 +384,9 @@ for case in cases[2:]:
                                                 num_modes=domain_dim)
     elif (dg == 'Continuous1D'):
         domain_geometry = cuqi.geometry.Continuous1D(grid)
+
+    elif (dg == 'Step'):
+        domain_geometry = cuqi.geometry.StepExpansion(grid, n_steps=domain_dim)
     
     range_geometry = cuqi.geometry.Continuous1D(grid)
     
@@ -369,10 +408,22 @@ for case in cases[2:]:
         domain_geometry.plot(s, is_par=True)
     
     # True parameters that we want to infer
-    x_exact_raw = grid*np.exp(-2*grid)*np.sin(L-grid)
+    if exact_func == "ExpSin":
+        x_exact_raw = grid*np.exp(-2*grid)*np.sin(L-grid)
+    elif exact_func == "Step":
+        n_steps = model.domain_dim
+        n_steps_values = [0,1,0]
+        x_exact_raw = np.zeros(N)
+        
+        start_idx=0
+        for i in range(n_steps):
+            end_idx = floor((i+1)*N/n_steps)
+            x_exact_raw[start_idx:end_idx] = n_steps_values[i]
+            start_idx = end_idx
+
     x_exact = cuqi.samples.CUQIarray(x_exact_raw, is_par=False,
                                      geometry=domain_geometry)
-    
+
 
     # Generate the exact data
     y_exact = model.forward(x_exact)
