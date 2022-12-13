@@ -37,13 +37,12 @@ scale = 0.001
 dg = 'Continuous1D'
 cov = 0.05**2
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=np.zeros(domain_dim)*0.1
 noise_level = 0.01
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 
@@ -70,13 +69,12 @@ scale[2] = 0.2
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 case_name = 'paper_case9'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -101,12 +99,11 @@ noise_level = 0.02
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case10'
@@ -132,12 +129,11 @@ noise_level = 0.05
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case11'
@@ -163,13 +159,12 @@ scale[2] = 0.2
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 case_name = 'paper_case12'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -194,13 +189,12 @@ noise_level = 0.02
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case13'
@@ -226,12 +220,11 @@ noise_level = 0.05
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case14'
@@ -257,13 +250,12 @@ scale[2] = 0.2
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 case_name = 'paper_case15'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -288,13 +280,12 @@ noise_level = 0.02
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case16'
@@ -320,12 +311,11 @@ noise_level = 0.05
 dg = 'KL'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 
 case_name = 'paper_case17'
@@ -347,12 +337,11 @@ noise_level = 0.01
 dg = 'Step'
 cov = 1
 mean = np.zeros(domain_dim)
-domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func = 'Step'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
 case_name = 'paper_case19'
 # 
@@ -371,16 +360,15 @@ Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
 scale = 1
 noise_level = 0.01
 dg = 'GaussianPulse'
-domain_map = lambda x0, a, grid: a*np.exp( -50 * ( (grid - x0)/L)**2 )
 cov = np.array([0.2, 0.1])
 mean = np.array([0.5, 0.2])
 x0=None
 obs_grid_ll = 0
 exact_func = 'GaussianPulse'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean})
 
-for case in cases[-2:]:
+for case in cases[-1:]:
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
@@ -402,7 +390,6 @@ for case in cases[-2:]:
     obs_grid_ll = case['obs_grid_ll']
     exact_func = case['exact_func']
     mean = case['mean']
-    domain_map = case['domain_map']
     
 
     # Grid for the heat model
@@ -419,7 +406,8 @@ for case in cases[-2:]:
     
     # PDE form (diff_op, IC, time_steps)
     if dg == 'GaussianPulse':
-        domain_map_grid = lambda x0, a: domain_map(x0, a, grid) 
+        domain_map = lambda x0, a, grid: a*np.exp( -50 * ( (grid - x0)/L)**2 )
+        domain_map_grid = lambda x: domain_map(x[0], x[1], grid) 
         def PDE_form(initial_condition, t): return (Dxx, np.zeros(N),
                                                 domain_map_grid(initial_condition))
     else:
@@ -443,7 +431,7 @@ for case in cases[-2:]:
         domain_geometry = cuqi.geometry.StepExpansion(grid, n_steps=domain_dim)
 
     elif (dg == 'GaussianPulse'):
-        domain_geometry = cuqi.geometry.Discrete1D(['x0', 'a'])
+        domain_geometry = cuqi.geometry.Discrete(['x0', 'a'])
     
     range_geometry = cuqi.geometry.Continuous1D(grid_obs)
     
@@ -478,7 +466,7 @@ for case in cases[-2:]:
             x_exact_raw[start_idx:end_idx] = n_steps_values[i]
             start_idx = end_idx
     elif exact_func == "GaussianPulse":
-        x_exact_raw = domain_map_grid(.3, .15)
+        x_exact_raw = domain_map_grid([.3, .15])
 
     x_exact = cuqi.samples.CUQIarray(x_exact_raw, is_par=False,
                                      geometry=domain_geometry)
@@ -501,11 +489,17 @@ for case in cases[-2:]:
 
     # Generate noisy data
     data = y(x = x_exact).sample()
+
     plt.figure()
-    x_exact.plot()
+    legend_list = []
+    if dg != 'GaussianPulse':
+        x_exact.plot()
+        legend_list.append('exact solution')
     y_exact.plot()
+    legend_list.append('exact data')
     data.plot()
-    plt.legend(['exact solution', 'exact data', 'noisy data']);
+    legend_list.append('noisy data')
+    plt.legend(legend_list);
     
     
     #plt.plot(data-y_exact)
@@ -555,10 +549,15 @@ for case in cases[-2:]:
 
     # Plot true solution, exact data and noisy data
     plt.figure()
-    x_exact.plot()
+    legend_list = []
+    if dg != 'GaussianPulse':
+        x_exact.plot()
+        legend_list.append('exact solution')
     y_exact.plot()
+    legend_list.append('exact data')
     data.plot()
-    plt.legend(['exact solution', 'exact data', 'noisy data']);
+    legend_list.append('noisy data')
+    plt.legend(legend_list);
     plt.savefig(data_folder+case_name + '/sol_data.png')
 
     # Plot ESS
@@ -587,10 +586,16 @@ for case in cases[-2:]:
 
     # Plot ci as funvals and save the plot
     plt.figure()
-    posterior_samples.plot_ci(95, exact=x_exact)
+    try:
+        posterior_samples.plot_ci(95, exact=x_exact)
+    except:
+        posterior_samples.plot_ci(95)	
     plt.savefig(data_folder+case_name + '/plot_ci.png')
     
     # Plot the ci after funvals conversion
     plt.figure()
-    posterior_samples.funvals.plot_ci(95, exact=x_exact)
+    try:
+        posterior_samples.funvals.plot_ci(95, exact=x_exact)
+    except:
+        posterior_samples.funvals.plot_ci(95)
     plt.savefig(data_folder+case_name + '/plot_ci_funvals.png')
