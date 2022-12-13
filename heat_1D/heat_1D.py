@@ -36,12 +36,14 @@ Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 50000 # Number of samples
 scale = 0.001
 dg = 'Continuous1D'
 cov = 0.05**2
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=np.zeros(domain_dim)*0.1
 noise_level = 0.01
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 
@@ -67,12 +69,14 @@ scale[2] = 0.2
 # Added later
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 case_name = 'paper_case9'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -96,11 +100,13 @@ scale[2] = 0.2
 noise_level = 0.02
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case10'
@@ -125,11 +131,13 @@ scale[2] = 0.2
 noise_level = 0.05
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case11'
@@ -154,12 +162,14 @@ scale[2] = 0.2
 # Added later
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 case_name = 'paper_case12'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -183,12 +193,14 @@ scale[2] = 0.2
 noise_level = 0.02
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case13'
@@ -213,11 +225,13 @@ scale[2] = 0.2
 noise_level = 0.05
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = int(N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case14'
@@ -242,12 +256,14 @@ scale[2] = 0.2
 # Added later
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 noise_level = 0.01
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 case_name = 'paper_case15'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -271,12 +287,14 @@ scale[2] = 0.2
 noise_level = 0.02
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case16'
@@ -301,11 +319,13 @@ scale[2] = 0.2
 noise_level = 0.05
 dg = 'KL'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = int(2*N/3)
 exact_func ='ExpSin'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 
 case_name = 'paper_case17'
@@ -326,12 +346,39 @@ scale = 1
 noise_level = 0.01
 dg = 'Step'
 cov = 1
+mean = np.zeros(domain_dim)
+domain_map = None
 x0=None
 obs_grid_ll = 0
 exact_func = 'Step'
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
+case_name = 'paper_case19'
+# 
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.01 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 2
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = 1
+noise_level = 0.01
+dg = 'GaussianPulse'
+domain_map = lambda x0, a, grid: a*np.exp( -50 * ( (grid - x0)/L)**2 )
+cov = np.array([0.2, 0.1])
+mean = np.array([0.5, 0.2])
+x0=None
+obs_grid_ll = 0
+exact_func = 'GaussianPulse'
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
 for case in cases[2:]:
     print("Sampling for case", case['case_name'])
@@ -354,6 +401,8 @@ for case in cases[2:]:
     noise_level = case['noise_level']
     obs_grid_ll = case['obs_grid_ll']
     exact_func = case['exact_func']
+    mean = case['mean']
+    domain_map = case['domain_map']
     
 
     # Grid for the heat model
@@ -369,7 +418,12 @@ for case in cases[2:]:
     
     
     # PDE form (diff_op, IC, time_steps)
-    def PDE_form(initial_condition, t): return (Dxx, np.zeros(N),
+    if dg == 'GaussianPulse':
+        domain_map_grid = lambda x0, a: domain_map(x0, a, grid) 
+        def PDE_form(initial_condition, t): return (Dxx, np.zeros(N),
+                                                domain_map_grid(initial_condition))
+    else:
+        def PDE_form(initial_condition, t): return (Dxx, np.zeros(N),
                                                 initial_condition)
     
     PDE = cuqi.pde.TimeDependentLinearPDE(
@@ -387,6 +441,9 @@ for case in cases[2:]:
 
     elif (dg == 'Step'):
         domain_geometry = cuqi.geometry.StepExpansion(grid, n_steps=domain_dim)
+
+    elif (dg == 'GaussianPulse'):
+        domain_geometry = cuqi.geometry.Discrete1D(['x0', 'a'])
     
     range_geometry = cuqi.geometry.Continuous1D(grid_obs)
     
@@ -394,7 +451,7 @@ for case in cases[2:]:
     model = cuqi.model.PDEModel(PDE, range_geometry, domain_geometry)
     
     # Create the prior distribution
-    x = cuqi.distribution.Gaussian(np.zeros(model.domain_dim), cov=cov,
+    x = cuqi.distribution.Gaussian(mean=mean, cov=cov,
                                    geometry=domain_geometry)
     
     
@@ -420,6 +477,8 @@ for case in cases[2:]:
             end_idx = floor((i+1)*N/n_steps)
             x_exact_raw[start_idx:end_idx] = n_steps_values[i]
             start_idx = end_idx
+    elif exact_func == "GaussianPulse":
+        x_exact_raw = domain_map_grid(.3, .15)
 
     x_exact = cuqi.samples.CUQIarray(x_exact_raw, is_par=False,
                                      geometry=domain_geometry)
