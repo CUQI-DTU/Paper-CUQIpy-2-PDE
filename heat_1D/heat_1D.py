@@ -12,9 +12,9 @@ import os
 import time
 
 
-global_Ns = 1000000
+global_Ns = 100#1000000
 use_global_Ns = True
-data_folder = './data2_cont2/'
+data_folder = './data2_cont3/'
 
 cases = []
 
@@ -380,7 +380,7 @@ exact_func = 'GaussianPulse'
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'domain_map':domain_map})
 
-for case in cases[2:]:
+for case in cases[-2:]:
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
