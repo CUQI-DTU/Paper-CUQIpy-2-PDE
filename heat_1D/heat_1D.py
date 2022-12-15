@@ -10,6 +10,7 @@ import cuqi
 cuqi.__version__
 import os
 import time
+import pickle
 
 
 global_Ns = 200#1000000
@@ -380,7 +381,7 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-for case in cases[-2:]:
+for case in cases:
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
@@ -402,6 +403,7 @@ for case in cases[-2:]:
     obs_grid_ll = case['obs_grid_ll']
     exact_func = case['exact_func']
     mean = case['mean']
+    adapt = case['adapt']
     
 
     # Grid for the heat model
@@ -512,15 +514,7 @@ for case in cases[-2:]:
     data.plot()
     legend_list.append('noisy data')
     plt.legend(legend_list);
-    pickle.dump(data, open(data_folder+case_name + '/data.pkl', 'wb'))
-    pickle.dump(x_exact, open(data_folder+case_name + '/x_exact.pkl', 'wb'))
-    pickle.dump(y_exact, open(data_folder+case_name + '/y_exact.pkl', 'wb'))
-    case['x_exact_geometry'] = x_exact.geometry
-    case['y_exact_geometry'] = y_exact.geometry
-    case['data_geometry'] = data.geometry
-    case['x_exact_is_par'] = x_exact.is_par
-    case['y_exact_is_par'] = y_exact.is_par
-    case['data_is_par'] = data.is_par
+
     
     
     #plt.plot(data-y_exact)
@@ -551,15 +545,22 @@ for case in cases[-2:]:
     ### Not to be included in the paper ###
     case["updated_scale"] = MySampler.scale
     case["ESS"] = posterior_samples.compute_ess()
-    
-    
-    
+
     # Create the reustls folder if it does not exist
     if not os.path.exists(data_folder+case_name):
         os.makedirs(data_folder+case_name)
+    pickle.dump(data, open(data_folder+case_name + '/data.pkl', 'wb'))
+    pickle.dump(x_exact, open(data_folder+case_name + '/x_exact.pkl', 'wb'))
+    pickle.dump(y_exact, open(data_folder+case_name + '/y_exact.pkl', 'wb'))
+    case['x_exact_geometry'] = x_exact.geometry
+    case['y_exact_geometry'] = y_exact.geometry
+    case['data_geometry'] = data.geometry
+    case['x_exact_is_par'] = x_exact.is_par
+    case['y_exact_is_par'] = y_exact.is_par
+    case['data_is_par'] = data.is_par
+    
     
     # Save samples:
-    import pickle
     pickle.dump(posterior_samples, open(data_folder+case_name + '/samples.pkl', 'wb'))
 
     # Save the case parameters
