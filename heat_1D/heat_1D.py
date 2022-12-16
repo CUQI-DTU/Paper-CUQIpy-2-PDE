@@ -461,7 +461,7 @@ for case in cases:
     
     ### Not to be included in the paper ###
 
-    prior_samples = x.sample(5) 
+    prior_samples = x.sample(20) 
     plt.figure()
     for s in prior_samples:
         domain_geometry.plot(s, is_par=True)
@@ -559,8 +559,10 @@ for case in cases:
     case['y_exact_is_par'] = y_exact.is_par
     case['data_is_par'] = data.is_par
     
+    # Save prior samples:
+    pickle.dump(posterior_samples, open(data_folder+case_name + '/prior_samples.pkl', 'wb'))
     
-    # Save samples:
+    # Save posterior samples:
     pickle.dump(posterior_samples, open(data_folder+case_name + '/samples.pkl', 'wb'))
 
     # Save the case parameters
