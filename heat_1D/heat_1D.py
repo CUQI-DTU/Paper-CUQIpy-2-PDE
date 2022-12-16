@@ -560,7 +560,7 @@ for case in cases:
     case['data_is_par'] = data.is_par
     
     # Save prior samples:
-    pickle.dump(posterior_samples, open(data_folder+case_name + '/prior_samples.pkl', 'wb'))
+    pickle.dump(prior_samples, open(data_folder+case_name + '/prior_samples.pkl', 'wb'))
     
     # Save posterior samples:
     pickle.dump(posterior_samples, open(data_folder+case_name + '/samples.pkl', 'wb'))
