@@ -58,7 +58,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 1,2: Case 2, cont CI
-samples, parameters, temp1, temp2, temp3 = load_case('./data2/paper_case2', load_sol_data=False, load_samples=False)
+_, samples, parameters, _, _, _ = load_case('./data2/paper_case2', load_sol_data=False, load_samples=False)
 plt.sca(axs[0,1])
 plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -87,7 +87,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 2,1: Case 10, exact solution, exact data, noisy data
-temp1, temp2, x_exact, y_exact, data = load_case('./data2_cont3/paper_case10', load_sol_data=True)
+_, _, _, x_exact, y_exact, data = load_case('./data2_cont3/paper_case10', load_sol_data=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -102,7 +102,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 1,2: Case 10, cont CI
-samples, parameters, temp1, temp2, temp3 = load_case('./data2_cont2/paper_case10', load_sol_data=False)
+_, samples, parameters, _, _, _ = load_case('./data2_cont2/paper_case10', load_sol_data=False)
 plt.sca(axs[1,1])
 plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -131,7 +131,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 3,1: Case 13, exact solution, exact data, noisy data
-temp1, temp2, x_exact, y_exact, data = load_case('./data2_cont3/paper_case13', load_sol_data=True)
+_, _, _, x_exact, y_exact, data = load_case('./data2_cont3/paper_case13', load_sol_data=True)
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -146,7 +146,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 1,2: Case 10, cont CI
-samples, parameters, temp1, temp2, temp3 = load_case('./data2_cont2/paper_case13', load_sol_data=False)
+_, samples, parameters, _, _, _ = load_case('./data2_cont2/paper_case13', load_sol_data=False)
 plt.sca(axs[2,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
