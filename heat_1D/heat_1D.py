@@ -15,7 +15,7 @@ import pickle
 
 global_Ns = 200000#1000000
 use_global_Ns = True
-data_folder = './data2_cont4/'
+data_folder = './data2_cont5/'
 
 cases = []
 
@@ -142,6 +142,68 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
+case_name = 'paper_case3_c'
+# Very Good results, min ESS ~60, I will use this case for the paper
+# unless we decide to increase the final time. Can display 50% CI
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.02 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 20
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = np.ones(domain_dim)
+scale[0] = 0.05
+scale[1] = 0.1
+scale[2] = 0.2
+# Added later
+dg = 'KL'
+cov = 1
+mean = np.zeros(domain_dim)
+x0=None
+noise_level = 0.01
+obs_grid_ll = 0
+exact_func ='Prior_sample'
+adapt = True
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
+
+
+case_name = 'paper_case3_d'
+# Very Good results, min ESS ~60, I will use this case for the paper
+# unless we decide to increase the final time. Can display 50% CI
+# Prepare PDE form
+N = 100   # Number of solution nodes
+L = 1.0  # Length of the domain
+T = 0.03 # Final time
+dx = L/(N+1)   # Space step size
+cfl = 5/11 # The cfl condition to have a stable solution
+dt_approx = cfl*dx**2 # Defining approximate time step size
+num_time_steps = int(T/dt_approx)+1 # Number of time steps
+domain_dim = 20
+sampler_choice = 'CWMH'
+Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
+Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
+scale = np.ones(domain_dim)
+scale[0] = 0.05
+scale[1] = 0.1
+scale[2] = 0.2
+# Added later
+dg = 'KL'
+cov = 1
+mean = np.zeros(domain_dim)
+x0=None
+noise_level = 0.01
+obs_grid_ll = 0
+exact_func ='Prior_sample'
+adapt = True
+
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
 case_name = 'paper_case9'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -445,7 +507,7 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-for case in cases[3:4]:
+for case in cases[3:6]:
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
