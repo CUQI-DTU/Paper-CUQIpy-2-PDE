@@ -13,9 +13,9 @@ import time
 import pickle
 
 
-global_Ns = 20000#1000000
+global_Ns = 200000#1000000
 use_global_Ns = True
-data_folder = './data2_cont3/'
+data_folder = './data2_cont4/'
 
 cases = []
 
@@ -126,10 +126,10 @@ domain_dim = 20
 sampler_choice = 'CWMH'
 Ns_factor = domain_dim if sampler_choice == 'CWMH' else 1
 Ns =  int(global_Ns/Ns_factor) if use_global_Ns  else 1000 # Number of samples
-scale = np.ones(domain_dim)*0.95
-scale[0] = 0.05
+scale = np.ones(domain_dim)*1.1
+scale[0] = 0.02
 scale[1] = 0.1
-scale[2] = 0.2
+scale[2] = 0.7
 # Added later
 dg = 'KL'
 cov = 1
