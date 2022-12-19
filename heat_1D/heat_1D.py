@@ -15,7 +15,7 @@ import pickle
 
 global_Ns = 200000#1000000
 use_global_Ns = True
-data_folder = './data2_cont5/'
+data_folder = './data2_cont6/'
 
 cases = []
 
@@ -481,7 +481,7 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-"""
+
 case_name = 'paper_case17_b'
 # 
 # Prepare PDE form
@@ -508,7 +508,7 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-
+"""
 case_name = 'paper_case17_c'
 # 
 # Prepare PDE form
@@ -564,15 +564,11 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-selected_case_names = ['paper_case17']
+selected_case_names = ['paper_case17_b']
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
     # Create the results folder if it does not exist
-    if not os.path.exists(data_folder+case_name):
-        os.makedirs(data_folder+case_name)
-    else:
-        print("The folder already exists for case"+case["case_name"]+". Please delete the folder or change the case name.")
-        break
+
 
     print("Sampling for case", case['case_name'])
     print(case)
@@ -596,7 +592,14 @@ for case in selected_cases:
     exact_func = case['exact_func']
     mean = case['mean']
     adapt = case['adapt']
-    
+
+    print("###"+data_folder+case_name)
+    if not os.path.exists(data_folder+case_name):
+        os.makedirs(data_folder+case_name)
+        print("Created folder for case", case['case_name'])
+    else:
+        print("The folder already exists for case "+case["case_name"]+". Please delete the folder or change the case name.")
+        break  
 
     # Grid for the heat model
     grid = np.linspace(dx, L, N, endpoint=False)
