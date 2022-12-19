@@ -507,7 +507,16 @@ adapt = True
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt})
 
-for case in cases[3:6]:
+selected_case_names = ['paper_case17']
+selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
+for case in selected_cases:
+    # Create the results folder if it does not exist
+    if not os.path.exists(data_folder+case_name):
+        os.makedirs(data_folder+case_name)
+    else:
+        print("The folder already exists for case"+case["case_name"]+". Please delete the folder or change the case name.")
+        break
+
     print("Sampling for case", case['case_name'])
     print(case)
     case_name = case['case_name']
@@ -598,12 +607,12 @@ for case in cases[3:6]:
         x_exact_raw = grid*np.exp(-2*grid)*np.sin(L-grid)
     elif exact_func == "Step":
         n_steps = model.domain_dim
-        n_steps_values = [0,1,0]
+        n_steps_values = [0,1,.5]
         x_exact_raw = np.zeros(N)
         
         start_idx=0
         for i in range(n_steps):
-            end_idx = floor((i+1)*N/n_steps)
+            end_idx = floor((i+1)*N/n_steps)+1
             x_exact_raw[start_idx:end_idx] = n_steps_values[i]
             start_idx = end_idx
     elif exact_func == "GaussianPulse":
@@ -678,9 +687,7 @@ for case in cases[3:6]:
     case["updated_scale"] = MySampler.scale
     case["ESS"] = posterior_samples.compute_ess()
 
-    # Create the reustls folder if it does not exist
-    if not os.path.exists(data_folder+case_name):
-        os.makedirs(data_folder+case_name)
+
     pickle.dump(data, open(data_folder+case_name + '/data.pkl', 'wb'))
     pickle.dump(x_exact, open(data_folder+case_name + '/x_exact.pkl', 'wb'))
     pickle.dump(y_exact, open(data_folder+case_name + '/y_exact.pkl', 'wb'))
