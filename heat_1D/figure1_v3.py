@@ -86,7 +86,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 
 # 2,1: Case 3_b, exact solution, exact data, noisy data
-prior_samples3_b, samples3_b, parameters3_b, x_exact, y_exact, data = load_case('./data2_cont3/paper_case3_b', load_sol_data=True, load_prior_samples=True)
+prior_samples3_c, samples3_c, parameters3_c, x_exact, y_exact, data = load_case('./data2_cont5/paper_case3_c', load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -103,7 +103,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 # 2,2: Case 3_b, cont CI
 plt.sca(axs[1,1])
 plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_b.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
+lci = samples3_c.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
 lci[0].set_label("95% CI")
 lci[1].set_label("Exact")
 lci[2].set_label("Mean")
@@ -117,7 +117,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 # 2,3: Case 3_b, disc CI
 plt.sca(axs[1,2])
 plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_b.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact)
+lci = samples3_c.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact)
 lci[0].set_label("95% CI")
 lci[1].set_label("Exact")
 lci[2].set_label("Mean")
@@ -142,7 +142,7 @@ for s in prior_samples3:
 # 3,2: posterior samples
 idx = 0
 plt.sca(axs[2,1])
-for s in samples3.burnthin(1000,5000):
+for s in samples3.burnthin(1000,1000):
     samples3.geometry.plot(s, is_par=True, color=colors[idx])   
     idx += 1
     if idx == 5:
@@ -152,7 +152,7 @@ for s in samples3.burnthin(1000,5000):
 plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[2,2])
 plt.plot(parameters3["ESS"], 'o-', label='$1\%$ noise') 
-plt.plot(parameters3_b["ESS"], '*-', label='$5\%$ noise', color='green') 
+plt.plot(parameters3_c["ESS"], '*-', label='$5\%$ noise', color='green') 
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend()#loc='center right', bbox_to_anchor=(1., 0.27))
 plt.ylabel('ESS')
