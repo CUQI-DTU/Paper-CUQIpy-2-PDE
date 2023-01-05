@@ -117,8 +117,6 @@ cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'd
 
 
 case_name = 'paper_case2_b2'
-# Very Good results, min ESS ~60, I will use this case for the paper
-# unless we decide to increase the final time. Can display 50% CI
 # Prepare PDE form
 N = 100   # Number of solution nodes
 L = 1.0  # Length of the domain
@@ -151,8 +149,6 @@ cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'd
 
 
 case_name = 'paper_case2_b3'
-# Very Good results, min ESS ~60, I will use this case for the paper
-# unless we decide to increase the final time. Can display 50% CI
 # Prepare PDE form
 N = 100   # Number of solution nodes
 L = 1.0  # Length of the domain
@@ -219,8 +215,6 @@ cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'd
 
 
 case_name = 'paper_case2_b3_1'
-# Very Good results, min ESS ~60, I will use this case for the paper
-# unless we decide to increase the final time. Can display 50% CI
 # Prepare PDE form
 N = 100   # Number of solution nodes
 L = 1.0  # Length of the domain
