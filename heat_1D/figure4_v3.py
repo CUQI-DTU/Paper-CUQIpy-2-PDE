@@ -30,17 +30,17 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-fig_file = fig_dir + 'paper_figure4_v2.pdf'
-fig_file_b = fig_dir + 'paper_figure4_v2_b.pdf'
-fig_file_c = fig_dir + 'paper_figure4_v2_c.pdf'
-fig_file_d = fig_dir + 'paper_figure4_v2_d.pdf'
+fig_file = fig_dir + 'paper_figure4_v3.pdf'
+fig_file_b = fig_dir + 'paper_figure4_v3_b.pdf'
+fig_file_c = fig_dir + 'paper_figure4_v3_c.pdf'
+fig_file_d = fig_dir + 'paper_figure4_v3_d.pdf'
 
 
 # %% Burnthin
-Nb = 1000
-Nt = None#1000# None
-Nb_2row = 6000
-Nb_3row = 3000
+Nb = 6000
+Nt =  None#1000# None
+Nb_2row = 1000
+Nb_3row = 1000
 Nb_4row = 1000
 # %% Create the figure
 cm_to_in = 1/2.54
@@ -49,7 +49,7 @@ fig, axs = plt.subplots(nrows=4, ncols=3,
                         layout="constrained")
 
 # 1,1: Case 2, exact solution, exact data, noisy data
-prior_samples_1row, samples_1row, parameters_1row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b2', load_sol_data=True, load_prior_samples=True)
+prior_samples_1row, samples_1row, parameters_1row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b6', load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[0,0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -92,7 +92,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 2,1: Case 10, exact solution, exact data, noisy data
-prior_samples_2row, samples_2row, parameters_2row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b6', load_sol_data=True, load_prior_samples=True)
+prior_samples_2row, samples_2row, parameters_2row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_2', load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -135,8 +135,8 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 3,1: Case 13, exact solution, exact data, noisy data
-prior_samples_3row, samples_3row, parameters_3row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b5', load_sol_data=True, load_prior_samples=True)
-plt.sca(axs[3,0])
+prior_samples_3row, samples_3row, parameters_3row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_3', load_sol_data=True, load_prior_samples=True)
+plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
 y_exact.plot()
@@ -150,7 +150,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 3,2: Case 13, cont CI
-plt.sca(axs[3,1])
+plt.sca(axs[2,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_3row.burnthin(Nb_3row,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
 lci[0].set_label("Mean")
@@ -164,7 +164,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 3,3: Case 10, disc CI
-plt.sca(axs[3,2])
+plt.sca(axs[2,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_3row.burnthin(Nb_3row,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE -3)
 lci[0].set_label("Mean")
@@ -180,8 +180,8 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 
 # 4,1: Case 13, exact solution, exact data, noisy data
-prior_samples_4row, samples_4row, parameters_4row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3', load_sol_data=True, load_prior_samples=True)
-plt.sca(axs[2,0])
+prior_samples_4row, samples_4row, parameters_4row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_4', load_sol_data=True, load_prior_samples=True)
+plt.sca(axs[3,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
 y_exact.plot()
@@ -195,7 +195,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 4,2: Case 13, cont CI
-plt.sca(axs[2,1])
+plt.sca(axs[3,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_4row.burnthin(Nb_4row,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
 lci[0].set_label("Mean")
@@ -209,7 +209,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 4,3: Case 10, disc CI
-plt.sca(axs[2,2])
+plt.sca(axs[3,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_4row.burnthin(Nb_4row,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE -3)
 lci[0].set_label("Mean")
