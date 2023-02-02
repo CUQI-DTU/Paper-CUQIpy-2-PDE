@@ -11,6 +11,7 @@ cuqi.__version__
 import os
 import time
 import pickle
+import copy
 
 
 global_Ns = 1000000
@@ -1020,7 +1021,44 @@ decay = 1.7
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
 
-selected_case_names = ['paper_case2_b3_5', 'paper_case2_b6_2']
+case_name = 'paper_case20'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6_2':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['decay'] = 1.7
+cases.append(case_copy)
+
+case_name = 'paper_case21'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b3_2':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['decay'] = 1.7
+cases.append(case_copy)
+
+case_name = 'paper_case22'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b3_3':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['decay'] = 1.7
+cases.append(case_copy)
+
+case_name = 'paper_case23'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b3_5':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['decay'] = 1.7
+cases.append(case_copy)
+
+selected_case_names = ['paper_case20', 'paper_case21', 'paper_case22', 'paper_case23']
+
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
     # Create the results folder if it does not exist
