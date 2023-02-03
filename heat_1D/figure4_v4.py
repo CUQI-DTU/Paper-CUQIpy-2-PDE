@@ -30,18 +30,32 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-fig_file = fig_dir + 'paper_figure4_v4.pdf'
-fig_file_b = fig_dir + 'paper_figure4_v4_b.pdf'
-fig_file_c = fig_dir + 'paper_figure4_v4_c.pdf'
-fig_file_d = fig_dir + 'paper_figure4_v4_d.pdf'
-
+version = 'v5'
+fig_file = fig_dir +   'paper_figure4_'+version+'.pdf'
+fig_file_b = fig_dir + 'paper_figure4_'+version+'_b.pdf'
+fig_file_c = fig_dir + 'paper_figure4_'+version+'_c.pdf'
+fig_file_d = fig_dir + 'paper_figure4_'+version+'_d.pdf'
 
 # %% Burnthin
-Nb = 25000
-Nt =  None#1000# None
-Nb_2row = 1000
-Nb_3row = 1000
-Nb_4row = 1000
+if version == 'v4':
+    Nb = 25000
+    Nt =  None#1000# None
+    Nb_2row = 1000
+    Nb_3row = 1000
+    Nb_4row = 1000
+
+    case_files = ['./data2_cont6/paper_case2_b6_2', './data2_cont6/paper_case2_b3_2', './data2_cont6/paper_case2_b3_3', './data2_cont6/paper_case2_b3_5']
+
+elif version == 'v5':
+    Nb = 25000
+    Nt =  10 # None#1000# None
+    Nb_2row = 25000
+    Nb_3row = 25000
+    Nb_4row = 25000
+
+    case_files = ['./data2_cont6/paper_case20','./data2_cont6/paper_case21', './data2_cont6/paper_case22', './data2_cont6/paper_case23'] 
+else:
+    raise ValueError('Unknown version')
 # %% Create the figure
 cm_to_in = 1/2.54
 fig, axs = plt.subplots(nrows=4, ncols=3,
@@ -49,7 +63,7 @@ fig, axs = plt.subplots(nrows=4, ncols=3,
                         layout="constrained")
 
 # 1,1: Case 2, exact solution, exact data, noisy data
-prior_samples_1row, samples_1row, parameters_1row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b6_2', load_sol_data=True, load_prior_samples=True)
+prior_samples_1row, samples_1row, parameters_1row, x_exact, y_exact, data = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[0,0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -92,7 +106,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 2,1: Case 10, exact solution, exact data, noisy data
-prior_samples_2row, samples_2row, parameters_2row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_2', load_sol_data=True, load_prior_samples=True)
+prior_samples_2row, samples_2row, parameters_2row, x_exact, y_exact, data = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -135,7 +149,7 @@ plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 # 3,1: Case 13, exact solution, exact data, noisy data
-prior_samples_3row, samples_3row, parameters_3row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_3', load_sol_data=True, load_prior_samples=True)
+prior_samples_3row, samples_3row, parameters_3row, x_exact, y_exact, data = load_case(case_files[2], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -180,7 +194,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 
 # 4,1: Case 13, exact solution, exact data, noisy data
-prior_samples_4row, samples_4row, parameters_4row, x_exact, y_exact, data = load_case('./data2_cont6/paper_case2_b3_5', load_sol_data=True, load_prior_samples=True)
+prior_samples_4row, samples_4row, parameters_4row, x_exact, y_exact, data = load_case(case_files[3], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[3,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
