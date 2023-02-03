@@ -148,7 +148,7 @@ obs_grid_rl = N
 exact_func ='two_peaks'
 adapt = True
 prior_obj = None
-decay = 1.5
+decay = 1.5 # (but not stored in the case, can be accessed from the geometry object)
 
 cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
 
@@ -1057,7 +1057,44 @@ case_copy['case_name'] = case_name
 case_copy['decay'] = 1.7
 cases.append(case_copy)
 
-selected_case_names = ['paper_case20', 'paper_case21', 'paper_case22', 'paper_case23']
+case_name = 'paper_case24'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+cases.append(case_copy)
+
+case_name = 'paper_case25'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.01
+cases.append(case_copy)
+
+case_name = 'paper_case26'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.05
+cases.append(case_copy)
+
+case_name = 'paper_case27'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.05
+case_copy['obs_grid_rl']= int(case_copy['N']/2)
+cases.append(case_copy)
+
+#selected_case_names = ['paper_case20', 'paper_case21', 'paper_case22', 'paper_case23']
+selected_case_names = ['paper_case24', 'paper_case25', 'paper_case26', 'paper_case27']
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
