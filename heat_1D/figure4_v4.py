@@ -258,22 +258,22 @@ plt.sca(axs[2])
 plt.plot(parameters_1row["ESS"], 'o-',
          label=str(parameters_1row["Ns"])+' '
          + str(parameters_1row["noise_level"])+' '
-               + (str(parameters_1row["decay"]) if "decay" in parameters_1row.keys() else str(1.7)))
+               + (str(parameters_1row["decay"]) if "decay" in parameters_1row.keys() else parameters_1row['x_exact_geometry'].decay_rate))
 
 plt.plot(parameters_2row["ESS"], '*-', 
          label=str(parameters_2row["Ns"])+' '
          + str(parameters_2row["noise_level"])+' '
-               + (str(parameters_2row["decay"]) if "decay" in parameters_2row.keys() else str(1.7)), color='green') 
+               + (str(parameters_2row["decay"]) if "decay" in parameters_2row.keys() else parameters_2row['x_exact_geometry'].decay_rate), color='green') 
 
 plt.plot(parameters_3row["ESS"], 'd-',
          label=str(parameters_3row["Ns"])+' '
          + str(parameters_3row["noise_level"])+' '
-               + (str(parameters_3row["decay"]) if "decay" in parameters_3row.keys() else str(1.7)), color='k')
+               + (str(parameters_3row["decay"]) if "decay" in parameters_3row.keys() else parameters_3row['x_exact_geometry'].decay_rate), color='k')
 
 plt.plot(parameters_4row["ESS"], 'd-',
          label=str(parameters_4row["Ns"])+' '
          + str(parameters_4row["noise_level"])+' '
-               + (str(parameters_4row["decay"]) if "decay" in parameters_4row.keys() else str(1.7)), color='gray') 
+               + (str(parameters_4row["decay"]) if "decay" in parameters_4row.keys() else parameters_4row['x_exact_geometry'].decay_rate), color='gray') 
 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend()#loc='center right', bbox_to_anchor=(1., 0.27))
