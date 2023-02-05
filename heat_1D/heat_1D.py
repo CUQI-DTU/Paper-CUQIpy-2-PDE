@@ -14,7 +14,7 @@ import pickle
 import copy
 
 
-global_Ns = 1000000
+global_Ns = 200#1000000
 use_global_Ns = True
 data_folder = './data2_cont6/'
 
@@ -46,8 +46,9 @@ obs_grid_rl = N
 exact_func ='ExpSin'
 adapt = True
 prior_obj = None
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 
@@ -82,8 +83,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case2_b'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -116,8 +118,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b2'
@@ -149,8 +152,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.5 # (but not stored in the case, can be accessed from the geometry object)
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b3'
@@ -182,8 +186,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b4'
@@ -217,8 +222,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.4
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b3_1'
@@ -248,8 +254,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case2_b3_2'
 # Prepare PDE form
@@ -280,8 +287,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b3_3'
@@ -313,8 +321,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b3_4'
@@ -346,8 +355,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case2_b3_5'
 # Prepare PDE form
@@ -378,8 +388,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b5'
@@ -413,8 +424,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.1
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case2_b6'
@@ -448,8 +460,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.5
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case2_b6_2'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -482,8 +495,9 @@ exact_func ='two_peaks'
 adapt = True
 prior_obj = None
 decay = 1.3
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case3'
@@ -517,8 +531,9 @@ exact_func ='Prior_sample'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case3_b'
@@ -551,8 +566,9 @@ exact_func ='Prior_sample'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case3_c'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -585,8 +601,9 @@ exact_func ='Prior_sample'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case3_d'
@@ -620,8 +637,9 @@ exact_func ='Prior_sample'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case9'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -653,8 +671,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case10'
@@ -687,8 +706,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case11'
@@ -722,8 +742,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case12'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -755,9 +776,10 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case13'
@@ -790,8 +812,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case14'
@@ -825,8 +848,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case15'
 # Very Good results, min ESS ~60, I will use this case for the paper
@@ -858,9 +882,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case16'
@@ -893,8 +917,9 @@ exact_func ='ExpSin'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case17'
@@ -923,8 +948,9 @@ exact_func = 'Step'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case17_b'
@@ -953,8 +979,9 @@ exact_func = 'Step'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case17_c'
@@ -986,9 +1013,10 @@ adapt = True
 
 prior_obj = cuqi.distribution.LMRF(np.zeros(domain_dim), 100, domain_dim, 1, 'neumann')
 decay = 1.7
+enable_FD = False
 
 
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 
 case_name = 'paper_case19'
@@ -1017,9 +1045,9 @@ exact_func = 'GaussianPulse'
 adapt = True
 prior_obj = None
 decay = 1.7
+enable_FD = False
 
-
-cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl})
+cases.append({'case_name':case_name, 'N':N, 'L':L, 'T':T, 'dx':dx, 'cfl':cfl, 'dt_approx':dt_approx, 'num_time_steps':num_time_steps, 'Ns':Ns, 'domain_dim':domain_dim, 'scale':scale, 'dg':dg, 'cov':cov, 'x0':x0, 'sampler_choice':sampler_choice, 'noise_level':noise_level, 'obs_grid_ll':obs_grid_ll, 'exact_func':exact_func, 'mean':mean, 'adapt':adapt, 'prior_obj':prior_obj, 'decay':decay, 'obs_grid_rl':obs_grid_rl, 'enable_FD':enable_FD})
 
 case_name = 'paper_case20'
 for case in cases:
@@ -1093,8 +1121,84 @@ case_copy['noise_level'] = 0.05
 case_copy['obs_grid_rl']= int(case_copy['N']/2)
 cases.append(case_copy)
 
+case_name = 'paper_case28'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.05
+case_copy['obs_grid_rl']= int(case_copy['N']*2/3)
+cases.append(case_copy)
+
+
+case_name = 'paper_case29'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.05
+case_copy['obs_grid_rl']= int(case_copy['N']/2)
+case_copy['Ns'] = case_copy['Ns']*2 
+cases.append(case_copy)
+
+
+#case_name = 'paper_case30'
+#for case in cases:
+#    if case['case_name'] == 'paper_case2_b6':
+#        case_copy = copy.deepcopy(case)
+#        break
+#case_copy['case_name'] = case_name
+#case_copy['sampler_choice'] = 'ULA'
+#case_copy['enable_FD'] = True
+#case_copy['scale'] = 1/(20)
+#cases.append(case_copy)
+#
+#
+#case_name = 'paper_case31'
+#for case in cases:
+#    if case['case_name'] == 'paper_case2_b6':
+#        case_copy = copy.deepcopy(case)
+#        break
+#case_copy['case_name'] = case_name
+#case_copy['sampler_choice'] = 'ULA'
+#case_copy['enable_FD'] = True
+#case_copy['noise_level'] = 0.01
+#case_copy['scale'] = 1/(20)
+#cases.append(case_copy)
+#
+#
+#case_name = 'paper_case32'
+#for case in cases:
+#    if case['case_name'] == 'paper_case2_b6':
+#        case_copy = copy.deepcopy(case)
+#        break
+#case_copy['case_name'] = case_name
+#case_copy['sampler_choice'] = 'ULA'
+#case_copy['enable_FD'] = True
+#case_copy['noise_level'] = 0.05
+#case_copy['scale'] = 1/(20)
+#cases.append(case_copy)
+#
+#
+#case_name = 'paper_case33'
+#for case in cases:
+#    if case['case_name'] == 'paper_case2_b6':
+#        case_copy = copy.deepcopy(case)
+#        break
+#case_copy['case_name'] = case_name
+#case_copy['sampler_choice'] = 'ULA'
+#case_copy['enable_FD'] = True
+#case_copy['noise_level'] = 0.05
+#case_copy['obs_grid_rl']= int(case_copy['N']/2)
+#case_copy['scale'] = 1/(20)
+#cases.append(case_copy)
+
 #selected_case_names = ['paper_case20', 'paper_case21', 'paper_case22', 'paper_case23']
-selected_case_names = ['paper_case24', 'paper_case25', 'paper_case26', 'paper_case27']
+#selected_case_names = ['paper_case24', 'paper_case25', 'paper_case26', 'paper_case27']
+
+selected_case_names = ['paper_case28', 'paper_case29']#, 'paper_case30', 'paper_case31', 'paper_case32', 'paper_case33']
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
@@ -1126,6 +1230,7 @@ for case in selected_cases:
     adapt = case['adapt']
     prior_obj = case['prior_obj']
     decay = case['decay']
+    enable_FD = case['enable_FD']
     
 
     print("###"+data_folder+case_name)
@@ -1283,6 +1388,11 @@ for case in selected_cases:
         MySampler = cuqi.sampler.CWMH(posterior, scale = scale, x0=x0)
     elif (sampler_choice == 'pCN'):
         MySampler = cuqi.sampler.pCN(posterior, scale = scale, x0=x0)
+    elif (sampler_choice == 'ULA'):
+        if enable_FD:
+            posterior.enable_FD()
+        MySampler = cuqi.sampler.ULA(posterior, scale = scale, x0=x0)
+
     
     t1 = time.time()    
     if adapt:
