@@ -30,7 +30,7 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v5'
+version = 'v6'
 fig_file = fig_dir +   'paper_figure4_'+version+'.pdf'
 fig_file_b = fig_dir + 'paper_figure4_'+version+'_b.pdf'
 fig_file_c = fig_dir + 'paper_figure4_'+version+'_c.pdf'
@@ -51,9 +51,18 @@ elif version == 'v5':
     Nt =  10 # None#1000# None
     Nb_2row = 25000
     Nb_3row = 25000
-    Nb_4row = 25000
+    Nb_4row = 10000
 
     case_files = ['./data2_cont6/paper_case20','./data2_cont6/paper_case21', './data2_cont6/paper_case22', './data2_cont6/paper_case23'] 
+
+elif version == 'v6':
+    Nb = 25000
+    Nt =  1 # None#1000# None
+    Nb_2row = 10000
+    Nb_3row = 10000
+    Nb_4row = 10000
+
+    case_files = ['./data2_cont6/paper_case24','./data2_cont6/paper_case25', './data2_cont6/paper_case26', './data2_cont6/paper_case29'] 
 else:
     raise ValueError('Unknown version')
 # %% Create the figure
