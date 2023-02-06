@@ -1198,7 +1198,57 @@ cases.append(case_copy)
 #selected_case_names = ['paper_case20', 'paper_case21', 'paper_case22', 'paper_case23']
 #selected_case_names = ['paper_case24', 'paper_case25', 'paper_case26', 'paper_case27']
 
-selected_case_names = ['paper_case28', 'paper_case29']#, 'paper_case30', 'paper_case31', 'paper_case32', 'paper_case33']
+#selected_case_names = ['paper_case28', 'paper_case29']#, 'paper_case30', 'paper_case31', 'paper_case32', 'paper_case33']
+
+
+case_name = 'paper_case34'
+for case in cases:
+    if case['case_name'] == 'paper_case2_b6':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['noise_level'] = 0.05
+case_copy['normalizer'] = 10
+cases.append(case_copy)
+
+case_name = 'paper_case35'
+for case in cases:
+    if case['case_name'] == 'paper_case24':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['normalizer'] = 10
+cases.append(case_copy)
+
+case_name = 'paper_case36'
+for case in cases:
+    if case['case_name'] == 'paper_case25':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['normalizer'] = 10
+cases.append(case_copy)
+
+case_name = 'paper_case37'
+for case in cases:
+    if case['case_name'] == 'paper_case26':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['normalizer'] = 10
+cases.append(case_copy)
+
+case_name = 'paper_case38'
+for case in cases:
+    if case['case_name'] == 'paper_case29':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['normalizer'] = 10
+case_copy['Ns'] = int(case_copy['Ns']/2)
+cases.append(case_copy)
+
+selected_case_names = ['paper_case35', 'paper_case36', 'paper_case37','paper_case38']
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
@@ -1231,6 +1281,10 @@ for case in selected_cases:
     prior_obj = case['prior_obj']
     decay = case['decay']
     enable_FD = case['enable_FD']
+    if 'normalizer' in case.keys():
+        normalizer = case['normalizer']
+    else:
+        normalizer = 12
     
 
     print("###"+data_folder+case_name)
@@ -1271,7 +1325,7 @@ for case in selected_cases:
     # Set up geometries for model
     if (dg == 'KL'): # (paper) remove the options
         domain_geometry = cuqi.geometry.KLExpansion(grid, decay_rate=decay,
-                                                normalizer=12, 
+                                                normalizer=normalizer, 
                                                 num_modes=domain_dim)
     elif (dg == 'Continuous1D'):
         domain_geometry = cuqi.geometry.Continuous1D(grid)
@@ -1392,6 +1446,14 @@ for case in selected_cases:
         if enable_FD:
             posterior.enable_FD()
         MySampler = cuqi.sampler.ULA(posterior, scale = scale, x0=x0)
+    elif (sampler_choice == 'MALA'):
+        if enable_FD:
+            posterior.enable_FD()
+        MySampler = cuqi.sampler.MALA(posterior, scale = scale, x0=x0)
+    elif (sampler_choice == 'NUTS'):
+        if enable_FD:
+            posterior.enable_FD()
+        MySampler = cuqi.sampler.NUTS(posterior, x0=x0,  max_depth = 9)
 
     
     t1 = time.time()    
