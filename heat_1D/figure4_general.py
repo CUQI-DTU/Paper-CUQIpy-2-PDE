@@ -30,7 +30,7 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v6'
+version = 'v7'
 fig_file = fig_dir +   'paper_figure4_'+version+'.pdf'
 fig_file_b = fig_dir + 'paper_figure4_'+version+'_b.pdf'
 fig_file_c = fig_dir + 'paper_figure4_'+version+'_c.pdf'
@@ -62,7 +62,18 @@ elif version == 'v6':
     Nb_3row = 10000
     Nb_4row = 10000
 
-    case_files = ['./data2_cont6/paper_case24','./data2_cont6/paper_case25', './data2_cont6/paper_case26', './data2_cont6/paper_case29'] 
+    case_files = ['./data2_cont6/paper_case24','./data2_cont6/paper_case25', './data2_cont6/paper_case26', './data2_cont6/paper_case29']
+
+elif version == 'v7':
+    Nb = 25000
+    Nt =  1 # None#1000# None
+    Nb_2row = 10000
+    Nb_3row = 10000
+    Nb_4row = 10000
+
+    case_files = ['./data2_cont6/paper_case35','./data2_cont6/paper_case36', './data2_cont6/paper_case37', './data2_cont6/paper_case38']
+    
+
 else:
     raise ValueError('Unknown version')
 # %% Create the figure
@@ -71,7 +82,7 @@ fig, axs = plt.subplots(nrows=4, ncols=3,
                         figsize=(17.8*cm_to_in, 17.8*cm_to_in),
                         layout="constrained")
 
-# 1,1: Case 2, exact solution, exact data, noisy data
+# 1,1: Case 1, exact solution, exact data, noisy data
 prior_samples_1row, samples_1row, parameters_1row, x_exact, y_exact, data = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[0,0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -86,7 +97,7 @@ plt.ylabel('$g(x)$')
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 1,2: Case 2, cont CI
+# 1,2: Case 1, cont CI
 plt.sca(axs[0,1])
 plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_1row.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -100,21 +111,21 @@ plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 1,2: Case 2, disc CI
+# 1,3: Case 1, disc CI
 plt.sca(axs[0,2])
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_1row.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
-plt.legend()
+plt.legend(loc = 'lower right')
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 2,1: Case 10, exact solution, exact data, noisy data
+# 2,1: Case 2, exact solution, exact data, noisy data
 prior_samples_2row, samples_2row, parameters_2row, x_exact, y_exact, data = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -129,7 +140,7 @@ plt.ylabel('$g(x)$')
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 1,2: Case 10, cont CI
+# 1,2: Case 2, cont CI
 plt.sca(axs[1,1])
 plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_2row.burnthin(Nb_2row,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -143,21 +154,21 @@ plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 1,2: Case 10, disc CI
+# 1,3: Case 2, disc CI
 plt.sca(axs[1,2])
 plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_2row.burnthin(Nb_2row,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
-plt.legend()
+plt.legend(loc = 'lower right')
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 3,1: Case 13, exact solution, exact data, noisy data
+# 3,1: Case 3, exact solution, exact data, noisy data
 prior_samples_3row, samples_3row, parameters_3row, x_exact, y_exact, data = load_case(case_files[2], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -172,7 +183,7 @@ plt.ylabel('$g(x)$')
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 3,2: Case 13, cont CI
+# 3,2: Case 3, cont CI
 plt.sca(axs[2,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_3row.burnthin(Nb_3row,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -186,14 +197,14 @@ plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 3,3: Case 10, disc CI
+# 3,3: Case 3, disc CI
 plt.sca(axs[2,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_3row.burnthin(Nb_3row,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE -3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
-plt.legend()
+plt.legend(loc = 'lower right')
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
@@ -202,7 +213,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 
 
-# 4,1: Case 13, exact solution, exact data, noisy data
+# 4,1: Case 4, exact solution, exact data, noisy data
 prior_samples_4row, samples_4row, parameters_4row, x_exact, y_exact, data = load_case(case_files[3], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[3,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -217,7 +228,7 @@ plt.ylabel('$g(x)$')
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 4,2: Case 13, cont CI
+# 4,2: Case 4, cont CI
 plt.sca(axs[3,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_4row.burnthin(Nb_4row,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
@@ -231,14 +242,14 @@ plt.xlim([0,1])
 plt.xlabel('$x$')
 plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
-# 4,3: Case 10, disc CI
+# 4,3: Case 4, disc CI
 plt.sca(axs[3,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples_4row.burnthin(Nb_4row,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE -3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
-plt.legend()
+plt.legend(loc = 'lower right')
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
