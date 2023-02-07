@@ -4,6 +4,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import os
 from load_cases import load_case
+import arviz as az
+az.style.use('default')
 
 # %%
 SMALL_SIZE = 7
@@ -326,7 +328,7 @@ plt.xticks(range(0, parameters_1row["domain_dim"], 2))
 #plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
 plt.savefig(fig_file_b, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 #%%
-## plot pair 
+## plot pair
 cm_to_in = 1/2.54
 nrows = 3
 ncols = 3
@@ -351,14 +353,28 @@ plt.savefig(fig_file_c, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 #%%
 
 #%% plot trace
+az.style.use('arviz-grayscale')
+#az.style.use('default')
+
 cm_to_in = 1/2.54
 fig, axs = plt.subplots(nrows=4, ncols=2,
                         figsize=(17.8*cm_to_in, 12*cm_to_in),
                         layout="constrained")
-samples_1row.plot_trace([0,1,5,15], axes=axs)
-fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.9)
+samples_3row.burnthin(1000,5).plot_trace([0,1,2,15], axes=axs, backend_kwargs={'facecolor':'black'}, backend="matplotlib")
+fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.5)
+
+for ax in axs.flatten():
+    ax.title.set_fontsize(BIGGER_SIZE)
+    ax.xaxis.label.set_size(MEDIUM_SIZE)
+    ax.yaxis.label.set_size(MEDIUM_SIZE) 
+    ax.tick_params(axis='both', which='major', labelsize=SMALL_SIZE, pad=3)
+    ax.tick_params(axis='both', which='minor', labelsize=SMALL_SIZE)
+    
+    ax.set_rasterized(True)
+    #ax.title.set_text(style)
 plt.savefig(fig_file_d, bbox_inches='tight', pad_inches=0.01, dpi=1200)
-# %%
+az.style.use('default')
+  # %%
 import numpy as np
 for key in parameters_1row:
     if np.any(parameters_1row[key] != parameters_2row[key]) or\
