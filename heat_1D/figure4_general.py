@@ -72,7 +72,16 @@ elif version == 'v7':
     Nb_4row = 10000
 
     case_files = ['./data2_cont6/paper_case35','./data2_cont6/paper_case36', './data2_cont6/paper_case37', './data2_cont6/paper_case38']
-    
+
+elif version == 'v7_test':
+    Nb = 25000
+    Nt =  500 # None#1000# None
+    Nb_2row = 10000
+    Nb_3row = 10000
+    Nb_4row = 10000
+
+    case_files = ['./data2_cont6/paper_case35','./data2_cont6/paper_case36', './data2_cont6/paper_case37', './data2_cont6/paper_case38']
+        
 
 else:
     raise ValueError('Unknown version')
@@ -319,13 +328,23 @@ plt.savefig(fig_file_b, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 #%%
 ## plot pair 
 cm_to_in = 1/2.54
-fig, axs = plt.subplots(nrows=3, ncols=3,
+nrows = 3
+ncols = 3
+fig, axs = plt.subplots(nrows=nrows, ncols=ncols,
                         figsize=(17.8*cm_to_in, 17.8*cm_to_in),
                         layout="constrained")
-samples_3row.burnthin(Nb).plot_pair([0,1,2,15], ax=axs)
+samples_3row.burnthin(Nb_3row).plot_pair([0,1,2,15], ax=axs)
 for ax in axs.flat:
     ax.set_rasterized(True)
-fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.9)
+
+for row_idx in range(nrows):
+    for col_idx in range(ncols):
+        if col_idx != 0:
+            axs[row_idx, col_idx].yaxis.set_ticks([])
+        if row_idx != nrows-1:
+            axs[row_idx, col_idx].xaxis.set_ticks([])
+
+fig.tight_layout(pad=0, w_pad=0, h_pad=0)
 plt.savefig(fig_file_c, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
 
