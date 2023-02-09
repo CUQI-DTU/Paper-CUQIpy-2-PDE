@@ -14,7 +14,7 @@ import pickle
 import copy
 
 
-global_Ns = 1000000
+global_Ns = 50000*3#1000000
 use_global_Ns = True
 data_folder = './data2_cont6/'
 
@@ -1248,7 +1248,27 @@ case_copy['normalizer'] = 10
 case_copy['Ns'] = int(case_copy['Ns']/2)
 cases.append(case_copy)
 
-selected_case_names = ['paper_case35', 'paper_case36', 'paper_case37','paper_case38']
+case_name = 'paper_case39'
+for case in cases:
+    if case['case_name'] == 'paper_case17':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['T'] = 0.02
+case_copy['num_time_steps'] = case_copy['num_time_steps']*2 
+cases.append(case_copy)
+
+case_name = 'paper_case40'
+for case in cases:
+    if case['case_name'] == 'paper_case17_b':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['num_time_steps'] = case_copy['num_time_steps']*2
+case_copy['T'] = 0.02
+cases.append(case_copy)
+
+selected_case_names = ['paper_case39','paper_case40'] 
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
