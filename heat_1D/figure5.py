@@ -22,20 +22,29 @@ plt.rc('lines', markersize=SMALL_SIZE-3)
 # Data directory
 fig_dir = './figs/'
 
-
 # Figure file
 fig_dir = fig_dir 
 # Check if the directory exists
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-fig_file = fig_dir + 'paper_figure5.pdf'
+version = 'v1'
+if version == 'v0':
+    fig_file = fig_dir + 'paper_figure5.pdf'
+    Nb = 100
+    Nt = None
+    case_files = ['./data2_cont5/paper_case17', './data2_cont6/paper_case17_b']
 
-
+elif version == 'v1':
+    fig_file = fig_dir + 'paper_figure5_v1.pdf'
+    Nb = 1000
+    Nt = None
+    num_var = 3
+    n_ticks = 5
+    case_files = ['./data2_cont6/paper_case39', './data2_cont6/paper_case40']
 
 # %% Burnthin
-Nb = 100
-Nt = None
+
 # %% Create the figure
 cm_to_in = 1/2.54
 fig, axs = plt.subplots(nrows=3, ncols=3,
@@ -43,7 +52,7 @@ fig, axs = plt.subplots(nrows=3, ncols=3,
                         layout="constrained")
 
 # 1,1: Case 3, exact solution, exact data, noisy data
-prior_samples17, samples17, parameters17, x_exact, y_exact, data = load_case('./data2_cont5/paper_case17', load_sol_data=True, load_prior_samples=True)
+prior_samples17, samples17, parameters17, x_exact, y_exact, data = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[0,0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -87,7 +96,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.08)
 
 
 # 2,1: Case 17_b, exact solution, exact data, noisy data
-prior_samples17_b, samples17_b, parameters17_b, x_exact, y_exact, data = load_case('./data2_cont6/paper_case17_b', load_sol_data=True, load_prior_samples=True)
+prior_samples17_b, samples17_b, parameters17_b, x_exact, y_exact, data = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
