@@ -46,9 +46,9 @@ elif version == 'v4':
 else:
     raise ValueError('Unknown version')
 
-prior_samples3_c, samples3_c, parameters3_c, x_exact, y_exact, data = load_case('./data2_cont5/paper_case3_c', load_sol_data=True, load_prior_samples=True)
+prior_samples3, samples3, parameters3, x_exact1, y_exact1, data1 = load_case('./data2_cont3/paper_case3', load_sol_data=True, load_prior_samples=True)
 
-prior_samples3, samples3, parameters3, x_exact, y_exact, data = load_case('./data2_cont3/paper_case3', load_sol_data=True, load_prior_samples=True)
+prior_samples3_c, samples3_c, parameters3_c, x_exact2, y_exact2, data2 = load_case('./data2_cont5/paper_case3_c', load_sol_data=True, load_prior_samples=True)
 
 # %% Create the figure
 cm_to_in = 1/2.54
@@ -114,9 +114,9 @@ plt.xticks(range(0, parameters3["domain_dim"], 4))
 # 1,1: Case 3, exact solution, exact data, noisy data
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
-x_exact.plot()
-y_exact.plot()
-data.plot()
+x_exact1.plot()
+y_exact1.plot()
+data1.plot()
 plt.legend(['Exact solution', 'Exact data', 'Noisy data']);
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
@@ -129,7 +129,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.14)
 # 1,2: Case 3, cont CI
 plt.sca(axs[1,1])
 plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
+lci = samples3.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact1)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -145,7 +145,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.14)
 # 1,3: Case 3, disc CI
 plt.sca(axs[1,2])
 plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE-3)
+lci = samples3.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact1, markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -165,9 +165,9 @@ plt.xticks(tick_ids, tick_ids)
 
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
-x_exact.plot()
-y_exact.plot()
-data.plot()
+x_exact2.plot()
+y_exact2.plot()
+data2.plot()
 plt.legend(['Exact solution', 'Exact data', 'Noisy data']);
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
@@ -180,7 +180,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.14)
 # 2,2: Case 3_b, cont CI
 plt.sca(axs[2,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_c.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
+lci = samples3_c.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact2)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -196,7 +196,7 @@ plt.gca().xaxis.set_label_coords(0.5, -0.14)
 # 2,3: Case 3_b, disc CI
 plt.sca(axs[2,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_c.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact,  markersize=SMALL_SIZE-3)
+lci = samples3_c.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact2,  markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
