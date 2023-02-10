@@ -101,7 +101,7 @@ plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 # 1,2: posterior samples
 idx = 0
 plt.sca(axs[0,1])
-for s in samples3.burnthin(1000,1000):
+for s in samples3_c.burnthin(1000,1000):
     samples3.geometry.plot(s, is_par=True, color=colors[idx])   
     idx += 1
     if idx == 5:
@@ -118,8 +118,8 @@ plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
 # 1,3:  ESS
 plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[0,2])
-plt.plot(parameters3["ESS"], 'd-', label=str(parameters3["noise_level"]*100)+"$\%$ noise") 
-plt.plot(parameters3_c["ESS"], 'd-', label=str(parameters3_c["noise_level"]*100)+"$\%$ noise", color='green') 
+plt.plot([0,1,2],parameters3["ESS"], 'd-', label=str(parameters3["noise_level"]*100)+"$\%$ noise") 
+plt.plot([0,1,2],parameters3_c["ESS"], 'd-', label=str(parameters3_c["noise_level"]*100)+"$\%$ noise", color='green') 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
 plt.ylabel('ESS($\\theta_i$)')
@@ -127,8 +127,8 @@ plt.ylim([50, 250])
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 
 plt.xlabel('$i$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
-plt.xticks(range(0, parameters3["domain_dim"], 2))
+plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
+plt.xticks(range(0, parameters3["domain_dim"]))
 #plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
 
 
@@ -177,9 +177,9 @@ plt.legend(ncols=1, loc ="upper right")
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
 plt.ylabel('$\\theta_i$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$i$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
 tick_ids = np.linspace(0, num_var-1, n_ticks, dtype=int)
 plt.xticks(tick_ids, tick_ids)
 
@@ -228,9 +228,9 @@ plt.legend()
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
 plt.ylabel('$\\theta_i$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$i$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
 tick_ids = np.linspace(0, num_var-1, n_ticks, dtype=int)
 plt.xticks(tick_ids, tick_ids)
 plt.legend(ncols=1, loc ="upper right")
