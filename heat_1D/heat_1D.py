@@ -14,7 +14,7 @@ import pickle
 import copy
 
 
-global_Ns = 50000*3#1000000
+global_Ns = 1000#50000*3#1000000
 use_global_Ns = True
 data_folder = './data2_cont6/'
 
@@ -1288,8 +1288,37 @@ case_copy['num_time_steps'] = case_copy['num_time_steps']*4
 case_copy['T'] = 0.04
 cases.append(case_copy)
 
+case_name = 'paper_case43'
+for case in cases:
+    if case['case_name'] == 'paper_case17':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['T'] = 0.02
+case_copy['noise_level'] = 0.05
+case_copy['scale'] = 0.0001
+case_copy['num_time_steps'] = case_copy['num_time_steps']*2 
+case_copy['sampler_choice'] = 'MALA'
+case_copy['enable_FD'] = True
+cases.append(case_copy)
+
+case_name = 'paper_case44'
+for case in cases:
+    if case['case_name'] == 'paper_case17_b':
+        case_copy = copy.deepcopy(case)
+        break
+case_copy['case_name'] = case_name
+case_copy['num_time_steps'] = case_copy['num_time_steps']*2
+case_copy['T'] = 0.02
+case_copy['noise_level'] = 0.1
+case_copy['scale'] = 0.0001
+case_copy['sampler_choice'] = 'MALA'
+case_copy['enable_FD'] = True
+cases.append(case_copy)
+
 #selected_case_names = ['paper_case39','paper_case40'] 
-selected_case_names = ['paper_case41','paper_case42']
+#selected_case_names = ['paper_case41','paper_case42']
+selected_case_names = ['paper_case43','paper_case44']
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
