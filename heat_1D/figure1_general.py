@@ -46,7 +46,9 @@ elif version == 'v4':
 else:
     raise ValueError('Unknown version')
 
+prior_samples3_c, samples3_c, parameters3_c, x_exact, y_exact, data = load_case('./data2_cont5/paper_case3_c', load_sol_data=True, load_prior_samples=True)
 
+prior_samples3, samples3, parameters3, x_exact, y_exact, data = load_case('./data2_cont3/paper_case3', load_sol_data=True, load_prior_samples=True)
 
 # %% Create the figure
 cm_to_in = 1/2.54
@@ -110,7 +112,6 @@ plt.xticks(range(0, parameters3["domain_dim"], 4))
 
 
 # 1,1: Case 3, exact solution, exact data, noisy data
-prior_samples3, samples3, parameters3, x_exact, y_exact, data = load_case('./data2_cont3/paper_case3', load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
@@ -161,7 +162,7 @@ plt.xticks(tick_ids, tick_ids)
 
 
 # 2,1: Case 3_b, exact solution, exact data, noisy data
-prior_samples3_c, samples3_c, parameters3_c, x_exact, y_exact, data = load_case('./data2_cont5/paper_case3_c', load_sol_data=True, load_prior_samples=True)
+
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact.plot()
