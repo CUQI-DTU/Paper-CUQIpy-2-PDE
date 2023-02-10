@@ -347,20 +347,16 @@ plt.gca().set_ylim(-.015, .17)
 plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[2])
 plt.plot(parameters_1row["ESS"], 'd-',
-         label='$l=$'
-         + str(parameters_1row["noise_level"]))
+         label=str(parameters_1row["noise_level"]*100)+"$\%$ noise")
 
 plt.plot(parameters_2row["ESS"], 'd-', 
-         label='$l=$'
-         + str(parameters_2row["noise_level"]), color='green') 
+         label=str(parameters_2row["noise_level"]*100)+"$\%$ noise", color='green') 
 
 plt.plot(parameters_3row["ESS"], 'd-',
-         label='$l=$'
-         + str(parameters_3row["noise_level"]), color='k')
+         label=str(parameters_3row["noise_level"]*100)+"$\%$ noise", color='k')
 
 plt.plot(parameters_4row["ESS"], 'd-',
-         label='$l=$'
-         + str(parameters_4row["noise_level"]), color='gray') 
+         label=str(parameters_4row["noise_level"]*100)+"$\%$ noise*", color='gray') 
 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
