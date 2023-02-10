@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 import os
 from load_cases import load_case
 import numpy as np
-
+from figures_util import matplotlib_setup
+import arviz as az
 
 # %%
 SMALL_SIZE = 7
@@ -32,13 +33,11 @@ if not os.path.exists(fig_dir):
 
 version = 'v4'
 if version == 'v0':
-    fig_file = fig_dir + 'paper_figure5.pdf'
     Nb = 100
     Nt = None
     case_files = ['./data2_cont5/paper_case17', './data2_cont6/paper_case17_b']
 
 elif version == 'v1':
-    fig_file = fig_dir + 'paper_figure5_v1.pdf'
     Nb = 1000
     Nt = None
     num_var = 3
@@ -46,7 +45,6 @@ elif version == 'v1':
     case_files = ['./data2_cont6/paper_case39', './data2_cont6/paper_case40']
 
 elif version == 'v2':
-    fig_file = fig_dir + 'paper_figure5_v1.pdf'
     Nb = 1000
     Nt = None
     num_var = 3
@@ -54,7 +52,6 @@ elif version == 'v2':
     case_files = ['./data2_cont6/paper_case41', './data2_cont6/paper_case42']
 
 elif version == 'v3':
-    fig_file = fig_dir + 'paper_figure5_v1.pdf'
     Nb = 200
     Nt = None
     num_var = 3
@@ -62,16 +59,22 @@ elif version == 'v3':
     case_files = ['./data2_cont6/paper_case43', './data2_cont6/paper_case44']
 
 elif version == 'v4':
-    fig_file = fig_dir + 'paper_figure5_v1.pdf'
     Nb = 200
     Nt = None
     num_var = 3
     n_ticks = 5
     case_files = ['./data2_cont6/paper_case45', './data2_cont6/paper_case46']
 
+
 else:
     raise ValueError("Unknown version")
 
+fig_file = fig_dir + 'paper_figure5_'+version+'.pdf'
+fig_file_b = fig_dir + 'paper_figure5_'+version+'_b.pdf'
+fig_file_c = fig_dir + 'paper_figure5_'+version+'_c.pdf'
+
+prior_samples1, samples1, parameters1, x_exact1, y_exact1, data1 = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
+prior_samples2, samples2, parameters2, x_exact2, y_exact2, data2 = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
 # %% Burnthin
 
 # %% Create the figure
@@ -87,8 +90,8 @@ colors = ['C0', 'green', 'purple', 'k', 'gray']
 # 1,1: prior samples
 idx = 0
 plt.sca(axs[0,0])
-for s in prior_samples3:
-    prior_samples3.geometry.plot(s, is_par=True, color=colors[idx]) 
+for s in prior_samples1:
+    prior_samples1.geometry.plot(s, is_par=True, color=colors[idx]) 
     idx += 1
     if idx == 5:
         break
@@ -101,8 +104,8 @@ plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 # 1,2: posterior samples
 idx = 0
 plt.sca(axs[0,1])
-for s in samples3_c.burnthin(1000,1000):
-    samples3.geometry.plot(s, is_par=True, color=colors[idx])   
+for s in samples2.burnthin(1000,1000):
+    samples1.geometry.plot(s, is_par=True, color=colors[idx])   
     idx += 1
     if idx == 5:
         break
@@ -118,8 +121,8 @@ plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
 # 1,3:  ESS
 plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[0,2])
-plt.plot([0,1,2],parameters3["ESS"], 'd-', label=str(parameters3["noise_level"]*100)+"$\%$ noise") 
-plt.plot([0,1,2],parameters3_c["ESS"], 'd-', label=str(parameters3_c["noise_level"]*100)+"$\%$ noise", color='green') 
+plt.plot([0,1,2],parameters1["ESS"], 'd-', label=str(parameters1["noise_level"]*100)+"$\%$ noise") 
+plt.plot([0,1,2],parameters2["ESS"], 'd-', label=str(parameters2["noise_level"]*100)+"$\%$ noise", color='green') 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
 plt.ylabel('ESS($\\theta_i$)')
@@ -128,18 +131,17 @@ plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
-plt.xticks(range(0, parameters3["domain_dim"]))
+plt.xticks(range(0, parameters1["domain_dim"]))
 #plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
 
 
 
 # 2,1: Case 3, exact solution, exact data, noisy data
-prior_samples3, samples3, parameters3, x_exact, y_exact, data = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[1,0])
 plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
-x_exact.plot()
-y_exact.plot()
-data.plot()
+x_exact1.plot()
+y_exact1.plot()
+data1.plot()
 plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629, 0), loc='lower center', ncol=1);
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
@@ -152,7 +154,7 @@ plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 # 2,2: Case 3, cont CI
 plt.sca(axs[1,1])
 plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
+lci = samples1.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact1)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -168,7 +170,7 @@ plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 # 2,3: Case 3, disc CI
 plt.sca(axs[1,2])
 plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact, markersize=SMALL_SIZE-3)
+lci = samples1.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact1, markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -185,12 +187,11 @@ plt.xticks(tick_ids, tick_ids)
 
 
 # 3,1: Case 3_b, exact solution, exact data, noisy data
-prior_samples3_c, samples3_c, parameters3_c, x_exact, y_exact, data = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
 plt.sca(axs[2,0])
 plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
-x_exact.plot()
-y_exact.plot()
-data.plot()
+x_exact2.plot()
+y_exact2.plot()
+data2.plot()
 plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629, 0), loc='lower center', ncol=1);
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
@@ -203,7 +204,7 @@ plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 # 3,2: Case 3_b, cont CI
 plt.sca(axs[2,1])
 plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_c.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact)
+lci = samples2.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact2)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -219,7 +220,7 @@ plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 # 3,3: Case 3_b, disc CI
 plt.sca(axs[2,2])
 plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples3_c.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact,  markersize=SMALL_SIZE-3)
+lci = samples2.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact2,  markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
 lci[2].set_label("95% CI")
@@ -241,3 +242,55 @@ fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.9)
 plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
 
+
+#%%
+## plot pair
+cm_to_in = 1/2.54
+nrows = 2
+ncols = 2
+fig, axs = plt.subplots(nrows=nrows, ncols=ncols,
+                        figsize=(17.8*cm_to_in, 17.8*cm_to_in),
+                        layout="constrained")
+pair_ideces = [0,1,2] 
+samples2.geometry.variables = ['$\\theta_{'+str(i)+'}$' for i in range(3)]
+samples2.burnthin(1000).plot_pair(pair_ideces, ax=axs)
+for ax in axs.flat:
+    ax.set_rasterized(True)
+
+for row_idx in range(nrows):
+    for col_idx in range(ncols):
+        if col_idx != 0:
+            axs[row_idx, col_idx].yaxis.set_ticks([])
+        if row_idx != nrows-1:
+            axs[row_idx, col_idx].xaxis.set_ticks([])
+
+fig.tight_layout(pad=0, w_pad=0, h_pad=0)
+plt.savefig(fig_file_b, bbox_inches='tight', pad_inches=0.01, dpi=1200)
+
+
+
+#%% plot trace
+az.style.use('arviz-grayscale')
+matplotlib_setup(7, 8, 9)
+#az.style.use('default')
+
+cm_to_in = 1/2.54
+fig, axs = plt.subplots(nrows=3, ncols=2,
+                        figsize=(17.8*cm_to_in, 9*cm_to_in),
+                        layout="constrained")
+samples2.burnthin(1000,5).plot_trace([0,1,2], axes=axs, backend_kwargs={'facecolor':'black'}, backend="matplotlib")
+fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.5)
+
+for ax in axs.flatten():
+    ax.title.set_fontsize(BIGGER_SIZE)
+    ax.xaxis.label.set_size(MEDIUM_SIZE)
+    ax.yaxis.label.set_size(MEDIUM_SIZE) 
+    ax.tick_params(axis='both', which='major', labelsize=SMALL_SIZE, pad=3)
+    ax.tick_params(axis='both', which='minor', labelsize=SMALL_SIZE)
+    
+    ax.set_rasterized(True)
+    #ax.title.set_text(style)
+plt.savefig(fig_file_c, bbox_inches='tight', pad_inches=0.01, dpi=1200)
+az.style.use('default')
+matplotlib_setup(7, 8, 9) 
+  # %%
