@@ -28,7 +28,7 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v1'
+version = 'v3'
 if version == 'v0':
     fig_file = fig_dir + 'paper_figure5.pdf'
     Nb = 100
@@ -42,6 +42,22 @@ elif version == 'v1':
     num_var = 3
     n_ticks = 5
     case_files = ['./data2_cont6/paper_case39', './data2_cont6/paper_case40']
+
+elif version == 'v2':
+    fig_file = fig_dir + 'paper_figure5_v1.pdf'
+    Nb = 1000
+    Nt = None
+    num_var = 3
+    n_ticks = 5
+    case_files = ['./data2_cont6/paper_case41', './data2_cont6/paper_case42']
+
+elif version == 'v3':
+    fig_file = fig_dir + 'paper_figure5_v1.pdf'
+    Nb = 200
+    Nt = None
+    num_var = 3
+    n_ticks = 5
+    case_files = ['./data2_cont6/paper_case43', './data2_cont6/paper_case44']
 
 # %% Burnthin
 
