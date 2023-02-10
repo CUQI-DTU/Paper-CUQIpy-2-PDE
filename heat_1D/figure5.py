@@ -59,6 +59,17 @@ elif version == 'v3':
     n_ticks = 5
     case_files = ['./data2_cont6/paper_case43', './data2_cont6/paper_case44']
 
+elif version == 'v4':
+    fig_file = fig_dir + 'paper_figure5_v1.pdf'
+    Nb = 200
+    Nt = None
+    num_var = 3
+    n_ticks = 5
+    case_files = ['./data2_cont6/paper_case45', './data2_cont6/paper_case46']
+
+else:
+    raise ValueError("Unknown version")
+
 # %% Burnthin
 
 # %% Create the figure
