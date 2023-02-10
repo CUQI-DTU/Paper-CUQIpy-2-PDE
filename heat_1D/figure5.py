@@ -28,7 +28,7 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v3'
+version = 'v4'
 if version == 'v0':
     fig_file = fig_dir + 'paper_figure5.pdf'
     Nb = 100
