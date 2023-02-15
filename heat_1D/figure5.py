@@ -72,6 +72,7 @@ else:
 fig_file = fig_dir + 'paper_figure5_'+version+'.pdf'
 fig_file_b = fig_dir + 'paper_figure5_'+version+'_b.pdf'
 fig_file_c = fig_dir + 'paper_figure5_'+version+'_c.pdf'
+fig_file_d = fig_dir + 'paper_figure5_'+version+'_d.pdf'
 
 prior_samples1, samples1, parameters1, x_exact1, y_exact1, data1 = load_case(case_files[0], load_sol_data=True, load_prior_samples=True)
 prior_samples2, samples2, parameters2, x_exact2, y_exact2, data2 = load_case(case_files[1], load_sol_data=True, load_prior_samples=True)
@@ -95,9 +96,9 @@ for s in prior_samples1:
     idx += 1
     if idx == 5:
         break
-plt.ylabel('$u$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 #plt.gca().set_ylim(-.22, .10)
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -110,10 +111,10 @@ for s in samples2.burnthin(1000,1000):
     if idx == 5:
         break
 
-plt.ylabel('$u$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 #plt.gca().set_ylim(-.015, .17)
 plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
@@ -125,7 +126,7 @@ plt.plot([0,1,2],parameters1["ESS"], 'd-', label=str(parameters1["noise_level"]*
 plt.plot([0,1,2],parameters2["ESS"], 'd-', label=str(parameters2["noise_level"]*100)+"$\%$ noise", color='green') 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
-plt.ylabel('ESS($\\theta_i$)')
+plt.ylabel('ESS($X_i$)')
 plt.ylim([50, 250])
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 
@@ -146,9 +147,9 @@ plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629,
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
-plt.ylabel('$u$')
+#plt.ylabel('$u$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 2,2: Case 3, cont CI
@@ -162,9 +163,9 @@ plt.legend()
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
-plt.ylabel('$u$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 2,3: Case 3, disc CI
@@ -178,7 +179,7 @@ plt.legend(ncols=1, loc ="upper right")
 #plt.ylim([-2.2,3.9])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
-plt.ylabel('$\\theta_i$')
+plt.ylabel('$X_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
@@ -196,9 +197,9 @@ plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629,
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
-plt.ylabel('$u$')
+#plt.ylabel('$u$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 3,2: Case 3_b, cont CI
@@ -212,9 +213,9 @@ plt.legend()
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
-plt.ylabel('$u$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 3,3: Case 3_b, disc CI
@@ -228,7 +229,7 @@ plt.legend()
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
-plt.ylabel('$\\theta_i$')
+plt.ylabel('$X_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
@@ -245,14 +246,19 @@ plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
 #%%
 ## plot pair
+az.style.use('arviz-grayscale')
+matplotlib_setup(7, 8, 9)
+
 cm_to_in = 1/2.54
+parentfig = plt.figure( figsize=(17.8*cm_to_in, 10*cm_to_in), constrained_layout=True)#,layout='constrained')
+
+subfigs = parentfig.subfigures(1, 2, wspace=0.1, width_ratios=[.8, 1])
+
 nrows = 2
 ncols = 2
-fig, axs = plt.subplots(nrows=nrows, ncols=ncols,
-                        figsize=(17.8*cm_to_in, 17.8*cm_to_in),
-                        layout="constrained")
+axs = subfigs[0].subplots(nrows=nrows, ncols=ncols)
 pair_ideces = [0,1,2] 
-samples2.geometry.variables = ['$\\theta_{'+str(i)+'}$' for i in range(3)]
+samples2.geometry.variables = ['$X_{'+str(i)+'}$' for i in range(3)]
 samples2.burnthin(1000).plot_pair(pair_ideces, ax=axs)
 for ax in axs.flat:
     ax.set_rasterized(True)
@@ -263,23 +269,16 @@ for row_idx in range(nrows):
             axs[row_idx, col_idx].yaxis.set_ticks([])
         if row_idx != nrows-1:
             axs[row_idx, col_idx].xaxis.set_ticks([])
+subfigs[0].suptitle('(a) pair plot', fontsize=12)
 
-fig.tight_layout(pad=0, w_pad=0, h_pad=0)
-plt.savefig(fig_file_b, bbox_inches='tight', pad_inches=0.01, dpi=1200)
-
-
-
-#%% plot trace
+# plot trace
 az.style.use('arviz-grayscale')
 matplotlib_setup(7, 8, 9)
 #az.style.use('default')
 
 cm_to_in = 1/2.54
-fig, axs = plt.subplots(nrows=3, ncols=2,
-                        figsize=(17.8*cm_to_in, 9*cm_to_in),
-                        layout="constrained")
+axs =  subfigs[1].subplots(nrows=3, ncols=2)
 samples2.burnthin(1000,5).plot_trace([0,1,2], axes=axs, backend_kwargs={'facecolor':'black'}, backend="matplotlib")
-fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.5)
 
 for ax in axs.flatten():
     ax.title.set_fontsize(BIGGER_SIZE)
@@ -290,7 +289,14 @@ for ax in axs.flatten():
     
     ax.set_rasterized(True)
     #ax.title.set_text(style)
-plt.savefig(fig_file_c, bbox_inches='tight', pad_inches=0.01, dpi=1200)
+subfigs[1].suptitle('(b) trace plot', fontsize=12)
+axs.flatten()[-1].set_xlabel('Iteration', color='w')
+axs.flatten()[-1].xaxis.set_label_coords(0.5, -0.33)
+parentfig.tight_layout(pad=0, w_pad=0, h_pad=0)
+
+
+plt.savefig(fig_file_d, bbox_inches='tight', pad_inches=0.01, dpi=1200)
+#plt.savefig(fig_file_c, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 az.style.use('default')
 matplotlib_setup(7, 8, 9) 
   # %%
