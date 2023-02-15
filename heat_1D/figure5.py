@@ -291,7 +291,7 @@ for ax in axs.flatten():
     #ax.title.set_text(style)
 subfigs[1].suptitle('(b) trace plot', fontsize=12)
 axs.flatten()[-1].set_xlabel('Iteration', color='w')
-axs.flatten()[-1].xaxis.set_label_coords(0.5, -0.33)
+axs.flatten()[-1].xaxis.set_label_coords(0.5, -0.27)
 parentfig.tight_layout(pad=0, w_pad=0, h_pad=0)
 
 
