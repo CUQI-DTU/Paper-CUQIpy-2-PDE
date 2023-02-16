@@ -106,7 +106,7 @@ plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 idx = 0
 plt.sca(axs[0,1])
 for s in samples2.burnthin(1000,1000):
-    samples1.geometry.plot(s, is_par=True, color=colors[idx])   
+    samples2.geometry.plot(s, is_par=True, color=colors[idx])   
     idx += 1
     if idx == 5:
         break
