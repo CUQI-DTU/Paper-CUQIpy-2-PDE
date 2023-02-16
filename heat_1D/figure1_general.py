@@ -67,12 +67,13 @@ for s in prior_samples3:
     idx += 1
     if idx == 5:
         break
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.45) #-0.12, 0.4
-plt.xlabel('$x$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 plt.gca().set_ylim(-.22, .10)
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.gca().set_xlim([0,1])
 # 3,2: posterior samples
 idx = 0
 plt.sca(axs[0,1])
@@ -82,13 +83,14 @@ for s in samples3.burnthin(1000,1000):
     if idx == 5:
         break
 
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.45) #-0.12, 0.4
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
 
-plt.xlabel('$x$')
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 plt.gca().set_ylim(-.015, .17)
 plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.gca().set_xlim([0,1])
 
 # 1,3:  ESS
 plt.rc('lines', markersize=SMALL_SIZE-3) 
@@ -99,14 +101,14 @@ plt.plot(parameters3_c["ESS"], 'd-', label='$T=$'
          + str(parameters3_c["T"]), color='green') 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
-plt.ylabel('ESS($\\theta_i$)')
-plt.gca().yaxis.set_label_coords(-0.18, 0.45) #-0.12, 0.4
+plt.ylabel('ESS($X_i$)')
+plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
 
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 plt.xticks(range(0, parameters3["domain_dim"], 4))
 #plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
-
+plt.gca().set_xlim([0,20])
 
 
 
@@ -121,9 +123,9 @@ plt.legend(['Exact solution', 'Exact data', 'Noisy data']);
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
 plt.xlim([0,1])
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5)
-plt.xlabel('$x$')
+#plt.ylabel('$g(\\xi;\\mathbf{x})$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.5)
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
 
 # 1,2: Case 3, cont CI
@@ -137,9 +139,9 @@ plt.legend()
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
 plt.xlim([0,1])
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5)
-plt.xlabel('$x$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.5)
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
 
 # 1,3: Case 3, disc CI
@@ -153,7 +155,7 @@ plt.legend(ncols=1, loc ="upper right")
 plt.ylim([-2.2,3.9])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
-plt.ylabel('$\\theta_i$')
+plt.ylabel('$X_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.5)
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
@@ -172,9 +174,9 @@ plt.legend(['Exact solution', 'Exact data', 'Noisy data']);
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
 plt.xlim([0,1])
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5)
-plt.xlabel('$x$')
+#plt.ylabel('$u$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.5)
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
 
 # 2,2: Case 3_b, cont CI
@@ -188,9 +190,9 @@ plt.legend()
 plt.ylim([0,0.17])
 plt.yticks([0,0.05,0.1,0.15])
 plt.xlim([0,1])
-plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5)
-plt.xlabel('$x$')
+plt.ylabel('$g(\\xi;\\mathbf{x})$')
+plt.gca().yaxis.set_label_coords(-0.21, 0.5)
+plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
 
 # 2,3: Case 3_b, disc CI
@@ -204,7 +206,7 @@ plt.legend()
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
-plt.ylabel('$\\theta_i$')
+plt.ylabel('$X_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.5)
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(0.5, -0.14)
