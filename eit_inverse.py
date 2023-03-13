@@ -5,7 +5,7 @@ import cuqi
 import matplotlib.pyplot as plt
 
 #%% 1.1 loading mesh
-mesh = dl.Mesh("mesh_fine.xml")
+mesh = dl.Mesh("mesh.xml")
 
 #%% 1.2 Define function spaces 
 parameter_space = dl.FunctionSpace(mesh, "CG", 1)
@@ -101,13 +101,13 @@ matern_geo = cuqipy_fenics.geometry.MaternExpansion(fenics_continuous_geo, lengt
 c_minus = 1
 c_plus = 10
 
-ones_vec = np.ones(376)
+ones_vec = np.ones(94)
 bnd_idx = obs_funcs[0].bnd_idx
 def heavy_map(func):
     dofs = func.vector().get_local()
     updated_dofs = c_minus*0.5*(1 + np.sign(dofs)) + c_plus*0.5*(1 - np.sign(dofs))
 
-    updated_dofs[bnd_idx] = np.ones(376)
+    updated_dofs[bnd_idx] = np.ones(94)
     func.vector().set_local(updated_dofs)
     return func
 
@@ -116,7 +116,7 @@ def heavy_map(func):
 domain_geometry = cuqipy_fenics.geometry.FEniCSMappedGeometry(matern_geo, map = heavy_map)
 
 #%% 2.2 Create the range geomtry 
-range_geometry = cuqi.geometry.Continuous1D(376) 
+range_geometry = cuqi.geometry.Continuous1D(94) 
 
 
 #%% 2.5 Create a prior
@@ -130,7 +130,7 @@ exactSolution = prior.sample()
 # of the PDE) and Create CUQI model
 
 #%% loading signal from file
-obs_data = np.load('./obs/obs_circular_inclusion_fine.npz')
+obs_data = np.load('./obs/obs_circular_inclusion_2_5per_noise.npz')
 b_exact = obs_data['b_exact']
 sigma2 = obs_data['sigma2']
 data = obs_data['data']
@@ -189,7 +189,7 @@ samples = Sampler.sample_adapt(1000000)
 #plt.figure()
 #samples.plot_mean()
 #plt.savefig( 'mean.pdf',format='pdf' )
-np.savez( './stat/stat_circular_inclusion_2_fine_5per_noise.npz', samples=samples.samples)
+np.savez( './stat/stat_circular_inclusion_2_5per_noise.npz', samples=samples.samples)
 
 #%% 3.5 Plot posterior pCN samples 
 #ims = samples.plot([0, 100, 300, 600, 800, 900],title="posterior")

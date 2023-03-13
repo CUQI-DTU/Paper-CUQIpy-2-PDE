@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 #%% 1.1 loading mesh
-mesh = dl.Mesh("mesh_fine.xml")
+mesh = dl.Mesh("mesh.xml")
 
 #%% 1.2 Define function spaces 
 parameter_space = dl.FunctionSpace(mesh, "CG", 1)
@@ -143,7 +143,7 @@ for i in range(4):
 domain_geometry = cuqipy_fenics.geometry.FEniCSContinuous(parameter_space)
 
 #%% 2.2 Create the range geomtry 
-range_geometry = cuqi.geometry.Continuous1D(376)
+range_geometry = cuqi.geometry.Continuous1D(94)
 
 PDE_models = []
 models = []
@@ -176,8 +176,8 @@ for i in range(4):
     b_exact.append( models[i](exactSolution) )
 
     #%% 2.8 Create the data distribution
-    SNR = 100
-    sigma = np.linalg.norm(b_exact[i])/SNR/np.sqrt(376)
+    SNR = 5
+    sigma = np.linalg.norm(b_exact[i])/SNR/np.sqrt(94)
     sigma2.append( sigma*sigma ) # variance of the observation Gaussian noise
     data_dists.append( cuqi.distribution.Gaussian(mean=models[i], cov=sigma2[i]*np.ones(range_geometry.par_dim), geometry=range_geometry, name='y{}'.format(i+1)) )
 
@@ -189,5 +189,5 @@ b_exact = np.array(b_exact)
 sigma2 = np.array(sigma2)
 
 noise_vec = data - b_exact
-np.savez( './obs/obs_circular_inclusion_fine.npz', data=data, b_exact=b_exact, noise_vec=noise_vec, sigma2=sigma2 )
+np.savez( './obs/obs_circular_inclusion_2_20per_noise.npz', data=data, b_exact=b_exact, noise_vec=noise_vec, sigma2=sigma2 )
 
