@@ -1482,7 +1482,7 @@ for case in selected_cases:
         x_exact = x.sample()
 
     if x_exact_raw is not None:
-        x_exact = cuqi.samples.CUQIarray(x_exact_raw, is_par=False,
+        x_exact = cuqi.array.CUQIarray(x_exact_raw, is_par=False,
                                      geometry=domain_geometry)
 
 
