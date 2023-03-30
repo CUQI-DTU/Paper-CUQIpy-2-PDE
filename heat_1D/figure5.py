@@ -7,6 +7,10 @@ from load_cases import load_case
 import numpy as np
 from figures_util import matplotlib_setup
 import arviz as az
+import cuqi
+
+plt.rc('text', usetex=True)
+plt.rc('text.latex', preamble=r'\usepackage{bm}')
 
 # %%
 SMALL_SIZE = 7
@@ -31,7 +35,7 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v4'
+version = 'v5'
 if version == 'v0':
     Nb = 100
     Nt = None
@@ -65,6 +69,12 @@ elif version == 'v4':
     n_ticks = 5
     case_files = ['./data2_cont6/paper_case45', './data2_cont6/paper_case46']
 
+elif version == 'v5':
+    Nb = 200
+    Nt = None
+    num_var = 3
+    n_ticks = 5
+    case_files = ['./data2_cont6/paper_case45', './data2_cont6/paper_case46']
 
 else:
     raise ValueError("Unknown version")
@@ -80,116 +90,130 @@ prior_samples2, samples2, parameters2, x_exact2, y_exact2, data2 = load_case(cas
 
 # %% Create the figure
 cm_to_in = 1/2.54
-fig, axs = plt.subplots(nrows=3, ncols=3,
-                        figsize=(17.8*cm_to_in, 13.5*cm_to_in),
+fig, axs = plt.subplots(nrows=2, ncols=3,
+                        figsize=(17.8*cm_to_in, 2/3*13.5*cm_to_in),
                         layout="constrained")
 
 ## plot prior posterior samples and ESS
 colors = ['C0', 'green', 'purple', 'k', 'gray']
 
 
-# 1,1: prior samples
-idx = 0
+# 1,1:  ESS
+plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[0,0])
+
+a1 = cuqi.array.CUQIarray([1,0,0], geometry=parameters2['x_exact_geometry'])
+a2 = cuqi.array.CUQIarray([0,1,0], geometry=parameters2['x_exact_geometry'])
+a3 = cuqi.array.CUQIarray([0,0,1], geometry=parameters2['x_exact_geometry'])
+
+a1.plot( label='$\\chi_1$', linestyle='--')
+a2.plot( label='$\\chi_2$', linestyle='--')
+a3.plot( label='$\\chi_3$', linestyle='--')
+
+
+
+#plt.plot([0,1,2],parameters1["ESS"], 'd-', label=str(parameters1["noise_level"]*100)+"$\%$ noise") 
+#plt.plot([0,1,2],parameters2["ESS"], 'd-', label=str(parameters2["noise_level"]*100)+"$\%$ noise", color='green') 
+plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
+#plt.ylabel()
+plt.ylim([0.1, 1.2])
+plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+
+plt.xlabel('$\\xi$')
+plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
+#plt.xticks(range(0, parameters1["domain_dim"]))
+#plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
+
+# 1,2: prior samples
+idx = 0
+plt.sca(axs[0,1])
 for s in prior_samples1:
     prior_samples1.geometry.plot(s, is_par=True, color=colors[idx]) 
     idx += 1
     if idx == 5:
         break
-plt.ylabel('$g(\\xi;\\mathbf{x})$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+plt.ylabel('$\\bm{g}$')
+plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 #plt.gca().set_ylim(-.22, .10)
-plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
-# 1,2: posterior samples
+plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
+
+# 1,3: posterior samples
 idx = 0
-plt.sca(axs[0,1])
+plt.sca(axs[0,2])
 for s in samples2.burnthin(1000,1000):
     samples2.geometry.plot(s, is_par=True, color=colors[idx])   
     idx += 1
     if idx == 5:
         break
 
-plt.ylabel('$g(\\xi;\\mathbf{x})$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+plt.ylabel('$\\bm{g}$')
+plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 #plt.gca().set_ylim(-.015, .17)
-plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
-
-# 1,3:  ESS
-plt.rc('lines', markersize=SMALL_SIZE-3) 
-plt.sca(axs[0,2])
-plt.plot([0,1,2],parameters1["ESS"], 'd-', label=str(parameters1["noise_level"]*100)+"$\%$ noise") 
-plt.plot([0,1,2],parameters2["ESS"], 'd-', label=str(parameters2["noise_level"]*100)+"$\%$ noise", color='green') 
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
-plt.ylabel('ESS($X_i$)')
-plt.ylim([50, 250])
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-
-plt.xlabel('$i$')
-plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
-plt.xticks(range(0, parameters1["domain_dim"]))
-#plt.gca().set_xticklabels(['v{}'.format(i) for i in range(c1_parameters["domain_dim"])])
 
 
 
-# 2,1: Case 3, exact solution, exact data, noisy data
-plt.sca(axs[1,0])
-plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
-x_exact1.plot()
-y_exact1.plot()
-data1.plot()
-plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629, 0), loc='lower center', ncol=1);
-plt.ylim([-0.2,1.2])
-plt.yticks([0,0.25,0.5,0.75, 1])
-plt.xlim([0,1])
-#plt.ylabel('$u$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$\\xi$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
-# 2,2: Case 3, cont CI
-plt.sca(axs[1,1])
-plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples1.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact1)
-lci[0].set_label("Mean")
-lci[1].set_label("Exact")
-lci[2].set_label("95% CI")
-plt.legend()
-plt.ylim([-0.2,1.2])
-plt.yticks([0,0.25,0.5,0.75, 1])
-plt.xlim([0,1])
-plt.ylabel('$g(\\xi;\\mathbf{x})$')
-plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
-plt.xlabel('$\\xi$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
-# 2,3: Case 3, disc CI
-plt.sca(axs[1,2])
-plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-lci = samples1.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact1, markersize=SMALL_SIZE-3)
-lci[0].set_label("Mean")
-lci[1].set_label("Exact")
-lci[2].set_label("95% CI")
-plt.legend(ncols=1, loc ="upper right")
-#plt.ylim([-2.2,3.9])
-#plt.yticks([0,0.05,0.1,0.15])
+## 2,1: Case 3, exact solution, exact data, noisy data
+#plt.sca(axs[1,0])
+#plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
+#x_exact1.plot()
+#y_exact1.plot()
+#data1.plot()
+#plt.legend(['Exact solution', 'Exact data', 'Noisy data'], bbox_to_anchor=(.629, 0), loc='lower center', ncol=1);
+#plt.ylim([-0.2,1.2])
+#plt.yticks([0,0.25,0.5,0.75, 1])
 #plt.xlim([0,1])
-plt.ylabel('$X_i$')
-plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
-plt.xlabel('$i$')
-plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
-tick_ids = np.linspace(0, num_var-1, n_ticks, dtype=int)
-plt.xticks(tick_ids, tick_ids)
+##plt.ylabel('$u$')
+#plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+#plt.xlabel('$\\xi$')
+#plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+
+## 2,2: Case 3, cont CI
+#plt.sca(axs[1,1])
+#plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
+#lci = samples1.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact1)
+#lci[0].set_label("Mean")
+#lci[1].set_label("Exact")
+#lci[2].set_label("95% CI")
+#plt.legend()
+#plt.ylim([-0.2,1.2])
+#plt.yticks([0,0.25,0.5,0.75, 1])
+#plt.xlim([0,1])
+#plt.ylabel('$g(\\xi;\\mathbf{x})$')
+#plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
+#plt.xlabel('$\\xi$')
+#plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+#
+## 2,3: Case 3, disc CI
+#plt.sca(axs[1,2])
+#plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
+#lci = samples1.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact1, markersize=SMALL_SIZE-3)
+#lci[0].set_label("Mean")
+#lci[1].set_label("Exact")
+#lci[2].set_label("95% CI")
+#plt.legend(ncols=1, loc ="upper right")
+##plt.ylim([-2.2,3.9])
+##plt.yticks([0,0.05,0.1,0.15])
+##plt.xlim([0,1])
+#plt.ylabel('$X_i$')
+#plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
+#plt.xlabel('$i$')
+#plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
+#tick_ids = np.linspace(0, num_var-1, n_ticks, dtype=int)
+#plt.xticks(tick_ids, tick_ids)
 
 
 # 3,1: Case 3_b, exact solution, exact data, noisy data
-plt.sca(axs[2,0])
-plt.annotate('(g)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.sca(axs[1,0])
+plt.annotate('(d)', xy=(0.03, 0.93), xycoords='axes fraction')
 x_exact2.plot()
 y_exact2.plot()
 data2.plot()
@@ -203,33 +227,33 @@ plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 3,2: Case 3_b, cont CI
-plt.sca(axs[2,1])
-plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.sca(axs[1,1])
+plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples2.burnthin(Nb,Nt).funvals.plot_ci(95, plot_par=False, exact=x_exact2)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
-lci[2].set_label("95% CI")
+lci[2].set_label('$95\\%\; \\mathrm{CI}$')
 plt.legend()
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
-plt.ylabel('$g(\\xi;\\mathbf{x})$')
+#plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 plt.xlabel('$\\xi$')
 plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
 
 # 3,3: Case 3_b, disc CI
-plt.sca(axs[2,2])
-plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
+plt.sca(axs[1,2])
+plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
 lci = samples2.burnthin(Nb,Nt).plot_ci(95, plot_par=True, exact=x_exact2,  markersize=SMALL_SIZE-3)
 lci[0].set_label("Mean")
 lci[1].set_label("Exact")
-lci[2].set_label("95% CI")
+lci[2].set_label("$95\\%\; \\mathrm{CI}$")
 plt.legend()
 #plt.ylim([0,0.17])
 #plt.yticks([0,0.05,0.1,0.15])
 #plt.xlim([0,1])
-plt.ylabel('$X_i$')
+plt.ylabel('$x_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.5) #-0.12, 0.4
 plt.xlabel('$i$')
 plt.gca().xaxis.set_label_coords(.53, -.12) #-0.12, 0.4
