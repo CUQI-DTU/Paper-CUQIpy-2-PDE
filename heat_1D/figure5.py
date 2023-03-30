@@ -106,9 +106,9 @@ a1 = cuqi.array.CUQIarray([1,0,0], geometry=parameters2['x_exact_geometry'])
 a2 = cuqi.array.CUQIarray([0,1,0], geometry=parameters2['x_exact_geometry'])
 a3 = cuqi.array.CUQIarray([0,0,1], geometry=parameters2['x_exact_geometry'])
 
-a1.plot( label='$\\chi_1$', linestyle='--')
-a2.plot( label='$\\chi_2$', linestyle='--')
-a3.plot( label='$\\chi_3$', linestyle='--')
+a1.plot( label='$\\bm{\\chi}_1$', linestyle='--')
+a2.plot( label='$\\bm{\\chi}_2$', linestyle='--')
+a3.plot( label='$\\bm{\\chi}_3$', linestyle='--')
 
 
 
@@ -237,6 +237,7 @@ plt.legend()
 plt.ylim([-0.2,1.2])
 plt.yticks([0,0.25,0.5,0.75, 1])
 plt.xlim([0,1])
+plt.ylabel('$\\bm{g}$')
 #plt.ylabel('$g(\\xi;\\mathbf{x})$')
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 plt.xlabel('$\\xi$')
@@ -282,7 +283,7 @@ nrows = 2
 ncols = 2
 axs = subfigs[0].subplots(nrows=nrows, ncols=ncols)
 pair_ideces = [0,1,2] 
-samples2.geometry.variables = ['$X_{'+str(i)+'}$' for i in range(3)]
+samples2.geometry.variables = ['$x_{'+str(i)+'}$' for i in range(3)]
 samples2.burnthin(1000).plot_pair(pair_ideces, ax=axs)
 for ax in axs.flat:
     ax.set_rasterized(True)
