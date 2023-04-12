@@ -98,7 +98,7 @@ fig, axs = plt.subplots(nrows=2, ncols=3,
 colors = ['C0', 'green', 'purple', 'k', 'gray']
 
 
-# 1,1:  ESS
+# 1,1:  Basis func
 plt.rc('lines', markersize=SMALL_SIZE-3) 
 plt.sca(axs[0,0])
 
@@ -117,7 +117,7 @@ a3.plot( label='$\\bm{\\chi}_3$', linestyle='--')
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.legend(frameon=False)#loc='center right', bbox_to_anchor=(1., 0.27))
 #plt.ylabel()
-plt.ylim([0.1, 1.2])
+plt.ylim([-0.2, 1.2])
 plt.gca().yaxis.set_label_coords(-0.18, 0.5) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
@@ -274,6 +274,9 @@ plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 az.style.use('arviz-grayscale')
 matplotlib_setup(7, 8, 9)
 
+plt.rc('text', usetex=True)
+plt.rc('text.latex', preamble=r'\usepackage{bm}')
+
 cm_to_in = 1/2.54
 parentfig = plt.figure( figsize=(17.8*cm_to_in, 10*cm_to_in), constrained_layout=True)#,layout='constrained')
 
@@ -284,7 +287,7 @@ ncols = 2
 axs = subfigs[0].subplots(nrows=nrows, ncols=ncols)
 pair_ideces = [0,1,2] 
 samples2.geometry.variables = ['$x_{'+str(i)+'}$' for i in range(3)]
-samples2.burnthin(1000).plot_pair(pair_ideces, ax=axs)
+samples2.burnthin(1000,5).plot_pair(pair_ideces, ax=axs)
 for ax in axs.flat:
     ax.set_rasterized(True)
 
