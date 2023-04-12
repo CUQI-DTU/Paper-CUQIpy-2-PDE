@@ -7,6 +7,8 @@ az.style.use('default')
 import numpy as np
 from cuqi.pde import TimeDependentLinearPDE
 from cuqi.geometry import StepExpansion, Continuous1D
+from cuqi.distribution import Gaussian, JointDistribution
+import cuqi
 
 # %%
 SMALL_SIZE = 7
@@ -23,9 +25,9 @@ fig_dir = fig_dir
 if not os.path.exists(fig_dir):
     os.makedirs(fig_dir)
 
-version = 'v1'
+version = 'v2'
 fig_file = fig_dir +   'paper_demo_PDE_'+version+'.pdf'
-fig_file2 = fig_dir +   'paper_demo2_PDE_'+version+'.png'
+fig_file2 = fig_dir +   'paper_demo2_PDE_'+version+'.pdf'
 
 #%%
 n_grid = 100
@@ -98,7 +100,7 @@ colors = ['C0', 'green', 'purple', 'k', 'gray']
 plt.sca(axs[0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.plot(grid, g_exact)
-plt.ylabel('$\\bm{g}$')
+plt.ylabel('$\\bm{g}^\\mathrm{custom}$')
 plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
@@ -112,13 +114,18 @@ plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
 #plt.plot(grid, u)
 
 for i in range(len(intermediate_indices)):
-    plt.plot(grid, u_intermediate[i, :], color=colors[i], linestyle='--')
+    if i==len(intermediate_indices)-1:
+        plt.plot(grid, u_intermediate[i, :], color='#1f77b4', linestyle='-')
+    else:
+        plt.plot(grid, u_intermediate[i, :], color=colors[i], linestyle='--')
 
 times_temp = [time_steps[i-1] for i in intermediate_indices]
-plt.legend(['$t={:.3f}$'.format(t) for t in times_temp], loc='upper right', ncol=2, frameon=False, bbox_to_anchor=(1, 0.95))
+# '%.2E'
+#:.4f
+plt.legend(['${:.2g}$'.format(t) for t in times_temp], loc='upper right', ncol=2, frameon=False, bbox_to_anchor=(1, 0.95))
 
 #plt.plot(grid, u)
-plt.ylabel('$\\bm{u}$')
+plt.ylabel('$\\bm{u}^\\mathrm{custom}$')
 plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
@@ -130,7 +137,7 @@ plt.xlim([0,1])
 plt.sca(axs[2])
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
 plt.plot(grid, u_obs)
-plt.ylabel('$\\bm{y}$')
+plt.ylabel('$\\bm{y}^\\mathrm{custom}$')
 plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
@@ -147,12 +154,20 @@ plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 domain_geometry = StepExpansion(grid, n_steps=3)
 range_geometry = Continuous1D(grid)
 
-parameters = [0, 1, 0.5]
-model = cuqi.model.PDEModel(PDE2, range_geometry, domain_geometry)
+x_step = [0, 1, 0.5]
+model2 = cuqi.model.PDEModel(PDE2, range_geometry, domain_geometry)
 
-y = model(parameters)
+s_noise = 0.0001
+y_step = model2(x_step)
+n_step = domain_geometry.par_dim
+m = range_geometry.par_dim 
+x = Gaussian(mean=np.zeros(n_step), cov=1, geometry=domain_geometry)
+y = Gaussian(mean=model2(x), cov=s_noise**2*np.eye(m),
+geometry=range_geometry)
 
-
+y_obs = y(x=x_step).sample()
+joint = JointDistribution(x, y)
+posterior = joint(y=y_obs) # condition on y=y_obs
 
 
 #%%
@@ -165,14 +180,28 @@ fig, axs = plt.subplots(nrows=1, ncols=3,
 colors = ['C0', 'green', 'purple', 'k', 'gray']
 
 
-# 1: step (par)
+
+
+# 1: step (fun)
 plt.sca(axs[0])
 plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
+domain_geometry.plot(x_step)
+plt.ylabel('$\\bm{g}^{\\mathrm{step}}$')
+plt.gca().yaxis.set_label_coords(-0.15, 0.45) #-0.12, 0.4
 
-domain_geometry.plot(parameters, plot_par=True)
+plt.xlabel('$\\xi$')
+plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+plt.ylim([-0.2,1.2])
+plt.xlim([0,1])
+
+# 2: step (par)
+plt.sca(axs[1])
+plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
+
+domain_geometry.plot(x_step, plot_par=True)
 
 
-plt.ylabel('$x_i$')
+plt.ylabel('$x^{\\mathrm{step}}_i$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.45) #-0.12, 0.4
 
 plt.xlabel('$i$')
@@ -184,25 +213,12 @@ plt.xticks(tick_ids, tick_ids)
 
 
 
-# 2: step (fun)
-plt.sca(axs[1])
-plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
-domain_geometry.plot(parameters)
-plt.ylabel('$\\bm{g}$')
-plt.gca().yaxis.set_label_coords(-0.15, 0.45) #-0.12, 0.4
 
-plt.xlabel('$\\xi$')
-plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
-plt.ylim([-0.2,1.2])
-plt.xlim([0,1])
-
-
-
-# 1,3: range (func)
+# 3: range (func)
 plt.sca(axs[2])
 plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-range_geometry.plot(y)
-plt.ylabel('$\\bm{y}$')
+range_geometry.plot(y_step)
+plt.ylabel('$\\bm{y}^{\\mathrm{step}}$')
 plt.gca().yaxis.set_label_coords(-0.15, 0.45) #-0.12, 0.4
 
 plt.xlabel('$\\xi$')
