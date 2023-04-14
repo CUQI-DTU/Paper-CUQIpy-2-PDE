@@ -5,3 +5,6 @@ docker
 test
 obs
 stat
+photo-acoustic_1d/stat
+*.pdf
+EIT_babak/__pycache__
