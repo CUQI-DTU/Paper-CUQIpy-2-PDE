@@ -19,7 +19,7 @@ The examples (scripts and notebooks) are organized by folders, one folder for ea
 The following case studies are included in this repository:
 
 * [Section 1: Introduction](Poisson) 2D Poisson example in the folder `Poisson`
-* [Section 2: Framework for PDE-based Bayesian inverse problems in CUQIpy](heat_1D) 1D Heat example in the folder `deconvolution1D`
+* [Section 2: Framework for PDE-based Bayesian inverse problems in CUQIpy](heat_1D) 1D Heat example in the folder `heat_1D`
 * [Section 4: CUQIpy-FEniCS example: Electrical Impedance Tomography (EIT)]() to be added
 * [Section 5: Photo-acoustic tomography through user-defined PDE models]() to be added
 
