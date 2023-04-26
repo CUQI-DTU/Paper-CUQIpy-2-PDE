@@ -1,6 +1,8 @@
+# Instructions for running the 1D heat Bayesian Inverse Problem
+
 To generate figures 2 and 3 in the paper, run the script `demo_figures.py`.
  
-To solve the four cases presented in the paper of the 1D heat Bayesian Inverse Problem, run the file heat_1D.py. It will generate data folders inside the folder `data2_cont6` for each case:
+To solve the four cases presented in the paper of the 1D heat Bayesian Inverse Problem, run the file `heat_1D.py`. It will generate data folders inside the folder `data2_cont6` for each case:
 
 - `paper_case35` for the KL expansion case presented in the second row of Figure 5
 - `paper_case37` for the KL expansion case presented in the third row of Figure 5
