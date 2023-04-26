@@ -1339,9 +1339,7 @@ case_copy['num_time_steps'] = case_copy['num_time_steps']*2
 cases.append(case_copy)
 
 
-#selected_case_names = ['paper_case39','paper_case40'] 
-#selected_case_names = ['paper_case41','paper_case42']
-selected_case_names = ['paper_case45','paper_case46']
+selected_case_names = ['paper_case35', 'paper_case37', 'paper_case38', 'paper_case46']
 
 selected_cases = [case for case in cases if case['case_name'] in selected_case_names]
 for case in selected_cases:
