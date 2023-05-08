@@ -222,8 +222,6 @@ var_func.vector().set_local( var_np )
 dl.plot(var_func)
 axes[1].set_title('variance')
 
-plt.savefig('mean.pdf',format='pdf')
-
 
 
 
