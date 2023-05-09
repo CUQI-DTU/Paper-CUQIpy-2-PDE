@@ -3,7 +3,7 @@ import scipy.linalg as linalg
 import matplotlib.pyplot as plt
 #from matern import matern
 
-from progressbar import progressbar
+#from progressbar import progressbar
 
 from dolfin import *
 
