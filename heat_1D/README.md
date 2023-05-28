@@ -1,13 +1,15 @@
 # Instructions for running the 1D heat Bayesian Inverse Problem
 
-To generate figures 2 and 3 in the paper, run the script `demo_figures.py`.
- 
-To solve the four cases presented in the paper of the 1D heat Bayesian Inverse Problem, run the file `heat_1D.py`. It will generate data folders inside the folder `data2_cont6` for each case:
+The code for sections 2.1-2.6 of the paper can be found in the python
+notebook `heat_1D_part1.ipynb`.
+It generates figures 2, 3 and 4.
+And the code for sections 2.7 of the paper can be found in the python
+notebook `heat_1D_part2.ipynb`.
+It generates figure 5. 
 
-- `paper_case35` for the KL expansion case presented in the second row of Figure 5
-- `paper_case37` for the KL expansion case presented in the third row of Figure 5
-- `paper_case38` for the KL expansion case presented in the fourth row of Figure 5
-- `paper_case46` for the step expansion case presented in the second row of Figure 4
-
-After generating the data, to generate figure 4 in the paper, run `figure_4.py` and to generate figure 5 run `figure_5.py`.
-
+The code can take very long time to run. For experimentation, you can adjust the
+parameter `Ns_factor` in the python notebooks to a value less than one to set up
+the code to generate less samples. For example `Ns_factor=0.01` will result in 
+number of samples that is 1% of the original number of samples. Note, however,
+that generating fewer samples could potentially result in poor approximation
+of the posterior.
