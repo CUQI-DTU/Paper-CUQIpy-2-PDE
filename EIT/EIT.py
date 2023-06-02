@@ -211,6 +211,10 @@ im = posterior_samples.plot_mean(subplots=False)
 axes[0].set_title('sample mean')
 
 #plotting the variance
+# Note: the following code for plotting the variance 
+# will be replaced with one line of code 
+# posterior_samples.funvals.plot_variance()
+# in future release. 
 plt.sca(axes[1])
 func_vals_np = [] # a numpy list for holding fuction values
 for s in posterior_samples:
