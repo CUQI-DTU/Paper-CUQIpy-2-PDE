@@ -52,13 +52,18 @@ def plot_figure2(fig_dir, version,
     plt.sca(axs[1])
     plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
     
-    for i in range(len(u_intermediate)):
-        if i==len(u_intermediate)-1:
-            plt.plot(grid, u_intermediate[i, :], color='#1f77b4', linestyle='-')
+    number_of_time_steps_to_plot = u_intermediate.shape[1]
+    for i in range(number_of_time_steps_to_plot):
+        if i==number_of_time_steps_to_plot-1:
+            plt.plot(
+                grid, u_intermediate[:, i], color='#1f77b4', linestyle='-')
         else:
-            plt.plot(grid, u_intermediate[i, :], color=colors[i], linestyle='--')
+            plt.plot(
+                grid, u_intermediate[:, i], color=colors[i], linestyle='--')
 
-    plt.legend(['${:.2g}$'.format(t) for t in intermediate_times], loc='upper right', ncol=2, frameon=False, bbox_to_anchor=(1, 0.95))
+    plt.legend(['${:.2g}$'.format(t) for t in intermediate_times],
+               loc='upper right', ncol=2, frameon=False,
+               bbox_to_anchor=(1, 0.95))
     
     plt.ylabel('$\\bm{u}^\\mathrm{custom}$')
     plt.gca().yaxis.set_label_coords(-0.21, 0.45) 
