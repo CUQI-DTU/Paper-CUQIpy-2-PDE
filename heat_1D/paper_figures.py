@@ -159,7 +159,7 @@ def plot_figure3(fig_dir, version, x_step, y_step):
 
 # method to plot figure 4 for the Heat 1D example
 def plot_figure4(fig_dir, version, G_step, 
-                 prior_samples, posterior_samples, Ns_factor,
+                 prior_samples, posterior_samples,
                  x_step, y_step, y_obs): 
     
     # Matplotlib setup 
@@ -168,7 +168,8 @@ def plot_figure4(fig_dir, version, G_step,
     BIGGER_SIZE = 9
     matplotlib_setup(SMALL_SIZE, MEDIUM_SIZE, BIGGER_SIZE)
 
-    Nb = int(200*Ns_factor) # burn-in
+    Ns = posterior_samples.Ns # number of samples
+    Nb = int(1/250*Ns) # burn-in
     Nt = None # thinning
     num_var = 3 # number of variables
     n_ticks = 5 # number of ticks 
@@ -226,8 +227,8 @@ def plot_figure4(fig_dir, version, G_step,
     # (c) posterior samples
     idx = 0
     plt.sca(axs[0,2])
-    for s in posterior_samples.burnthin(int(1000*Ns_factor),
-                                        int(1000*Ns_factor)):
+    for s in posterior_samples.burnthin(int(1/50*Ns),
+                                        int(1/50*Ns)):
         posterior_samples.geometry.plot(s, is_par=True, color=colors[idx])   
         idx += 1
         if idx == 5:
@@ -301,7 +302,6 @@ def plot_figure5(fig_dir, version, G_KL,
                  case1_data,
                  case2_data,
                  case3_data,
-                 Ns_factor
                 ): 
     #case data contains:  exact, y, y_obs, posterior_samples
     #
@@ -309,6 +309,8 @@ def plot_figure5(fig_dir, version, G_KL,
     SMALL_SIZE = 7
     MEDIUM_SIZE =8
     BIGGER_SIZE = 9
+
+    Ns = case1_data[-1].Ns # number of samples
         
     matplotlib_setup(7, 8, 9)
 
@@ -321,10 +323,10 @@ def plot_figure5(fig_dir, version, G_KL,
     
     fig_file = fig_dir +   'paper_figure5_'+version+'.pdf'
 
-    Nb = int(25000*Ns_factor) # burn-in
+    Nb = int(0.5*Ns) # burn-in
     Nt =  None # thinning
-    Nb_3row = int(10000*Ns_factor) # burn-in for 3-row plots
-    Nb_4row = int(10000*Ns_factor) # burn-in for 4-row plots
+    Nb_3row = int(1/5*Ns) # burn-in for 3-row plots
+    Nb_4row = int(1/5*Ns) # burn-in for 4-row plots
     n_ticks = 5
     num_var = 20
     
@@ -396,7 +398,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,2])
     plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-    for s in case2_data[-1].burnthin(int(1000*Ns_factor), int(5000*Ns_factor)):
+    for s in case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)):
         case2_data[-1].geometry.plot(s, is_par=True, color=colors[idx])   
         idx += 1
         if idx == 5:
