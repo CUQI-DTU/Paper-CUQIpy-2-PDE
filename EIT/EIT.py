@@ -171,7 +171,7 @@ posterior = joint(y1=y1_obs, y2=y2_obs, y3=y3_obs, y4=y4_obs)._as_stacked()
 
 #%% 5 sampling
 # Create Metropolis-Hastings Sampler 
-Sampler = cuqi.sampler.MetropolisHastings(posterior)
+Sampler = cuqi.sampler.MH(posterior)
 
 # Sampling using the Metropolis-Hastings sampler
 num_samples = 10000
