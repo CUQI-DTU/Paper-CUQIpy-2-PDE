@@ -41,10 +41,10 @@ def plot_figure2(fig_dir, version,
     plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
     plt.plot(grid, g_custom)
     plt.ylabel('$\\bm{g}^\\mathrm{custom}$')
-    plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
+    plt.gca().yaxis.set_label_coords(-0.21, 0.45)
     
     plt.xlabel('$\\xi$')
-    plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+    plt.gca().xaxis.set_label_coords(.5, -.12)
     plt.gca().set_ylim(0, .13)
     plt.xlim([0,1])
     
@@ -212,12 +212,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (b) prior samples
     idx = 0
     plt.sca(axs[0,1])
-    # No need to iterate over all samples in an upcoming release
-    for s in prior_samples:
-        prior_samples.geometry.plot(s, is_par=True, color=colors[idx]) 
-        idx += 1
-        if idx == 5:
-            break
+    prior_samples.plot(range(5), is_par=True)
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5) 
     plt.xlabel('$\\xi$')
@@ -227,12 +222,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (c) posterior samples
     idx = 0
     plt.sca(axs[0,2])
-    for s in posterior_samples.burnthin(int(1/50*Ns),
-                                        int(1/50*Ns)):
-        posterior_samples.geometry.plot(s, is_par=True, color=colors[idx])   
-        idx += 1
-        if idx == 5:
-            break
+    posterior_samples.burnthin(int(1/50*Ns), int(1/50*Ns)).plot(range(5), is_par=True)
     
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5)
@@ -377,14 +367,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,1])
     plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
-    # Looping over the prior samples to plot is a temporary hack.
-    # it will be fixed in future release. (prior_samples.plot() will be 
-    # used instead)
-    for s in prior_samples:
-        prior_samples.geometry.plot(s, is_par=True, color=colors[idx]) 
-        idx += 1
-        if idx == 5:
-            break
+    prior_samples.plot(range(5), is_par=True)
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     
@@ -398,11 +381,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,2])
     plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-    for s in case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)):
-        case2_data[-1].geometry.plot(s, is_par=True, color=colors[idx])   
-        idx += 1
-        if idx == 5:
-            break
+    case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)).plot(range(5), is_par=True)
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     plt.xlabel('$\\xi$')
@@ -428,7 +407,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (e)
     plt.sca(axs[1,1])
     plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case1_data[-1].burnthin(Nb,Nt).funvals.plot_ci(
+    lci = case1_data[-1].burnthin(Nb, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case1_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
@@ -445,7 +424,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (f)
     plt.sca(axs[1,2])
     plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case1_data[-1].burnthin(Nb,Nt).plot_ci(
+    lci = case1_data[-1].burnthin(Nb, Nt).plot_ci(
         95, plot_par=True, exact=case1_data[0], markersize=SMALL_SIZE-3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
@@ -476,7 +455,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (h)
     plt.sca(axs[2,1])
     plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case2_data[-1].burnthin(Nb_3row,Nt).funvals.plot_ci(
+    lci = case2_data[-1].burnthin(Nb_3row, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case2_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
@@ -493,7 +472,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (i)
     plt.sca(axs[2,2])
     plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case2_data[-1].burnthin(Nb_3row,Nt).plot_ci(
+    lci = case2_data[-1].burnthin(Nb_3row, Nt).plot_ci(
         95, plot_par=True, exact=case2_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
@@ -524,7 +503,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (k)
     plt.sca(axs[3,1])
     plt.annotate('(k)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case3_data[-1].burnthin(Nb_4row,Nt).funvals.plot_ci(
+    lci = case3_data[-1].burnthin(Nb_4row, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case3_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
@@ -541,7 +520,7 @@ def plot_figure5(fig_dir, version, G_KL,
     # (l)
     plt.sca(axs[3,2])
     plt.annotate('(l)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case3_data[-1].burnthin(Nb_4row,Nt).plot_ci(
+    lci = case3_data[-1].burnthin(Nb_4row, Nt).plot_ci(
         95, plot_par=True, exact=case3_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
