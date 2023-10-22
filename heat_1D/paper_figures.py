@@ -167,6 +167,8 @@ def plot_figure4(fig_dir, version, G_step,
     MEDIUM_SIZE = 8
     BIGGER_SIZE = 9
     matplotlib_setup(SMALL_SIZE, MEDIUM_SIZE, BIGGER_SIZE)
+    plt.rc('text', usetex=True)
+    plt.rc('text.latex', preamble=r'\usepackage{bm}')
 
     Ns = posterior_samples.Ns # number of samples
     Nb = int(1/250*Ns) # burn-in
@@ -212,7 +214,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (b) prior samples
     idx = 0
     plt.sca(axs[0,1])
-    prior_samples.plot(range(5), is_par=True)
+    prior_samples.plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5) 
     plt.xlabel('$\\xi$')
@@ -222,7 +224,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (c) posterior samples
     idx = 0
     plt.sca(axs[0,2])
-    posterior_samples.burnthin(int(1/50*Ns), int(1/50*Ns)).plot(range(5), is_par=True)
+    posterior_samples.burnthin(int(1/50*Ns), int(1/50*Ns)).plot(range(5))
     
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5)
@@ -367,7 +369,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,1])
     plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
-    prior_samples.plot(range(5), is_par=True)
+    prior_samples.plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     
@@ -381,7 +383,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,2])
     plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-    case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)).plot(range(5), is_par=True)
+    case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)).plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     plt.xlabel('$\\xi$')
