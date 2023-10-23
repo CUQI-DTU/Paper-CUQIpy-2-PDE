@@ -9,6 +9,9 @@ from cuqi.pde import TimeDependentLinearPDE
 from cuqi.geometry import StepExpansion, Continuous1D
 from cuqi.distribution import Gaussian, JointDistribution
 import cuqi
+import warnings
+# disable warnings for the cuqi.geometry module
+warnings.filterwarnings(action='ignore', module=r'cuqi.geometry')
 
 # method to plot figure 2 for the Heat 1D example
 def plot_figure2(fig_dir, version,
@@ -375,7 +378,6 @@ def plot_figure5(fig_dir, version, G_KL,
     
     plt.xlabel('$\\xi$')
     plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
-    plt.gca().set_ylim(-.175, .175)
     plt.xlim([0,1])
     
     
