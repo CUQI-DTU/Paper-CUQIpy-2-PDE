@@ -148,9 +148,9 @@ x = Gaussian(np.zeros(n_KL), 1, geometry=G_Heavi)
 # loading signal from file
 obs_data = np.load('./obs/obs_circular_inclusion_2_10per_noise.npz')
 b_exact = obs_data['b_exact']
-s_noise = np.sqrt(obs_data['sigma2'][0]) # read the noise varaince and convert
-                                         # to std (assume noise std for all
-                                         # 4 datasets is the same).
+s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise varaince and convert
+                                           # to std
+
 data = obs_data['data']
 y1_obs = data[0]
 y2_obs = data[1]
@@ -184,9 +184,16 @@ A3 = PDEModel(PDE3, range_geometry=G_cont, domain_geometry=G_Heavi)
 A4 = PDEModel(PDE4, range_geometry=G_cont, domain_geometry=G_Heavi)
 
 # creating data distributions
+s_noise = s_noise_list[0]
 y1 = Gaussian(A1(x), s_noise**2, geometry=G_cont)
+
+s_noise = s_noise_list[1]
 y2 = Gaussian(A2(x), s_noise**2, geometry=G_cont)
+
+s_noise = s_noise_list[2]
 y3 = Gaussian(A3(x), s_noise**2, geometry=G_cont)
+
+s_noise = s_noise_list[3]
 y4 = Gaussian(A4(x), s_noise**2, geometry=G_cont)
 
 # Creating the joint data distribution and the joint likelihood
