@@ -10,6 +10,9 @@ from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
                                    FEniCSMappedGeometry 
 from cuqipy_fenics.pde import SteadyStateLinearFEniCSPDE
 
+# Fix the random seed for reproducibility 
+np.random.seed(0)
+
 #%% 1 setting up FEniCS
 # loading computational mesh
 mesh = dl.Mesh("mesh.xml")
