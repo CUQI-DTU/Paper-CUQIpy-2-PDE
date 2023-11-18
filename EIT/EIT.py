@@ -239,11 +239,14 @@ plt.sca(axes[0])
 posterior_samples.plot_mean(subplots=False)
 axes[0].set_title('sample mean')
 
-#plotting the variance
+# plotting the variance
 plt.sca(axes[1])
 posterior_samples.funvals.vector.plot_variance(subplots=False)
 axes[1].set_title('variance')
 
 
+# plotting the credible intervals
+plt.figure()
+posterior_samples.plot_ci(95, plot_par=True)
 
 
