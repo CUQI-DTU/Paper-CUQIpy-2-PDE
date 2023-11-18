@@ -31,7 +31,7 @@ form_lhs = lambda sigma, v, t: dl.inner(sigma*dl.grad(v), dl.grad(t))*dl.dx
 
 # Creating rhs for frequencies k=1,2,3,4
 # Creating the boundary condition expression and DirichletBC to be used
-# in buidling the rhs (using lifting).
+# in building the rhs (using lifting).
 boundary_expression = dl.Expression("sin(k*atan2(x[1], x[0]))", k=1, degree=1)
 bc = dl.DirichletBC(solution_space,
                     boundary_expression,
@@ -63,7 +63,7 @@ form_rhs3 = lambda sigma, t: -dl.inner(dl.grad(u_lift_3), dl.grad(t))*dl.dx
 form_rhs4 = lambda sigma, t: -dl.inner(dl.grad(u_lift_4), dl.grad(t))*dl.dx
 
 #%% 1.3 defining the observation function
-# extracting indecies for elements at the boundary of the computational mesh
+# extracting indices for elements at the boundary of the computational mesh
 # Defining zero boundary for the lifted problem
 v0 = dl.Constant('0.0')
 zero_bc = dl.DirichletBC(solution_space, v0, boundary)
@@ -108,12 +108,12 @@ def observation4(sigma, v4):
     boundary_values = give_bnd_vals(assembled_form)
     return boundary_values
 
-#%% 2 paramterization and geometries
-# The geometry on which the Bayesian parameters are defined correspods to the
-# FEM paramterization
+#%% 2 parameterization and geometries
+# The geometry on which the Bayesian parameters are defined corresponds to the
+# FEM parameterization
 G_FEM = FEniCSContinuous(parameter_space)
 
-# The KL paramterization
+# The KL parameterization
 G_KL = MaternKLExpansion(G_FEM, length_scale=0.2, num_terms=64)
 
 # Defining the Heaviside map
@@ -131,12 +131,12 @@ def Heaviside(func):
     func.vector().set_local(updated_dofs)
     return func
 
-# creating the domain geometry which applies the map Heaviside mapt to G_KL 
+# creating the domain geometry which applies the map Heaviside map to G_KL 
 # realizations.
 G_Heavi = FEniCSMappedGeometry(G_KL, map=Heaviside)
 
 #%% 3 Creating the prior distribution
-# Create the range geomtry 
+# Create the range geometry 
 m = len(bnd_idx)
 G_cont = Continuous1D(m)
 
@@ -148,7 +148,7 @@ x = Gaussian(np.zeros(n_KL), 1, geometry=G_Heavi)
 # loading signal from file
 obs_data = np.load('./obs/obs_circular_inclusion_2_10per_noise.npz')
 b_exact = obs_data['b_exact']
-s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise varaince and convert
+s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise variance and convert
                                            # to std
 
 data = obs_data['data']
@@ -162,7 +162,7 @@ PDE_form1 = (form_lhs, form_rhs1)
 
 # creating PDE models
 # for the first PDE problems we specify to reuse the factorization of the lhs 
-# for the rest of the PDE modesl
+# for the rest of the PDE models
 PDE1 = SteadyStateLinearFEniCSPDE(
     PDE_form1, mesh, solution_space,
     parameter_space, zero_bc,
