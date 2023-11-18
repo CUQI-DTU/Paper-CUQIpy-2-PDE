@@ -2,7 +2,7 @@
 
 To generate the results in figures 7, 8, and 9 in the paper, run the script `EIT.py`.
  
-This script uses sampling to draw samples from the posterior of the EIT problem. The scripts uses the samples to then visulize samples from the prior distribution, posterior distribution, visualize the conducticity estimate and the uncertainty for the estimation. Finally the samples are used to visualize the estimate of the Bayesian parameters.
+This script uses sampling to draw samples from the posterior of the EIT problem. The scripts uses the samples to then visualize samples from the prior distribution, posterior distribution, visualize the conductivity estimate and the uncertainty for the estimation. Finally the samples are used to visualize the estimate of the Bayesian parameters.
 
 Data regarding different noise-levels are available in `/obs/`:
     - `/obs/obs_circular_inclusion_2_1per_noise.npz` with 1 percent noise-level.
