@@ -106,25 +106,30 @@ def observation4(sigma, v4):
     return boundary_values
 
 #%% 2 paramterization and geometries
-# The geometry on which the Bayesian parameters are defined correspods to the FEM paramterization
+# The geometry on which the Bayesian parameters are defined correspods to the
+# FEM paramterization
 G_FEM = FEniCSContinuous(parameter_space)
 
-# The KL para
+# The KL paramterization
 G_KL = MaternKLExpansion(G_FEM, length_scale=0.2, num_terms=64)
 
 # Defining the Heaviside map
 c_minus = 1
 c_plus = 10
 def Heaviside(func):
-    dofs = func.vector().get_local() # extracting the function values at FEM nodes (this only works for linear element)
-    updated_dofs = c_minus*0.5*(1 + np.sign(dofs)) + c_plus*0.5*(1 - np.sign(dofs))
+    dofs = \
+        func.vector().get_local() # extracting the function values at FEM 
+                                  # nodes (this only works for linear element)
+    updated_dofs = c_minus*0.5*(1 + np.sign(dofs))+\
+                   c_plus*0.5*(1 - np.sign(dofs))
 
     # Here we insure that the boundary values of the conductivity is always one
     updated_dofs[bnd_idx] = np.ones_like(bnd_idx)
     func.vector().set_local(updated_dofs)
     return func
 
-# creating the domain geometry which applies the map Heaviside mapt to G_KL realizations.
+# creating the domain geometry which applies the map Heaviside mapt to G_KL 
+# realizations.
 G_Heavi = FEniCSMappedGeometry(G_KL, map=Heaviside)
 
 #%% 3 Creating the prior distribution
@@ -153,14 +158,15 @@ y4_obs = data[3]
 PDE_form1 = (form_lhs, form_rhs1)
 
 # creating PDE models
-# for the first PDE problems we specify to reuse the factorization of the lhs for the rest of the PDE modesl
+# for the first PDE problems we specify to reuse the factorization of the lhs 
+# for the rest of the PDE modesl
 PDE1 = SteadyStateLinearFEniCSPDE(
     PDE_form1, mesh, solution_space,
     parameter_space, zero_bc,
     observation_operator=observation1,
     reuse_assembled=True)
 
-# We copy the PDE1 for the rest of the PDE problems 
+# We copy the PDE1 for the rest of the PDE problems with updated rhs
 PDE2 = PDE1.with_updated_rhs(form_rhs2)
 PDE2.observation_operator = observation2
 PDE3 = PDE1.with_updated_rhs(form_rhs3)
@@ -208,8 +214,7 @@ axes[1].set_title('prior samples')
 
 
 # plotting posterior samples
-posterior_samples.geometry = G_Heavi # setting the geometry to domain geometry.
-idx = np.random.permutation(num_samples) # randomizing the posterior samples
+idx = np.random.permutation(num_samples) # create randomized index
 f, axes = plt.subplots(1,3)
 plt.sca(axes[0])
 posterior_samples.plot(idx[0],subplots=False)
