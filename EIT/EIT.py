@@ -222,7 +222,6 @@ sample = x.sample()
 sample.plot(subplots=False)
 axes[1].set_title('prior samples')
 
-
 # plotting posterior samples
 idx = np.random.permutation(num_samples) # create randomized index
 f, axes = plt.subplots(1,3)
