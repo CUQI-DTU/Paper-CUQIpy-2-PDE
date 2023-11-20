@@ -220,6 +220,7 @@ plt.sca(axes[2])
 sample = x.sample()
 sample.plot(subplots=False)
 axes[1].set_title('prior samples')
+plt.savefig("plot_prior_samples.png")
 
 # plotting posterior samples
 idx = np.random.permutation(num_samples) # create randomized index
@@ -231,6 +232,7 @@ posterior_samples.plot(idx[1],subplots=False)
 plt.sca(axes[2])
 posterior_samples.plot(idx[2],subplots=False)
 axes[1].set_title('posterior samples')
+plt.savefig("plot_posterior_samples.png")
 
 # plotting the mean
 f, axes = plt.subplots(1,2)
@@ -242,10 +244,12 @@ axes[0].set_title('sample mean')
 plt.sca(axes[1])
 posterior_samples.funvals.vector.plot_variance(subplots=False)
 axes[1].set_title('variance')
-
+plt.savefig("plot_mean_variance.png")
 
 # plotting the credible intervals
 plt.figure()
 posterior_samples.plot_ci(95, plot_par=True)
+plt.savefig("plot_ci.png")
 
-
+# Save the posterior samples
+np.savez("posterior_samples.npz", samples=posterior_samples.samples)
