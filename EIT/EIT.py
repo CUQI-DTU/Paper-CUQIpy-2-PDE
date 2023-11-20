@@ -202,28 +202,28 @@ posterior = joint(y1=y1_obs, y2=y2_obs, y3=y3_obs, y4=y4_obs)
 
 #%% 5 sampling
 # Create Metropolis-Hastings Sampler 
-Sampler = MH(posterior)
+sampler = MH(posterior)
 
 # Sampling using the Metropolis-Hastings sampler
-posterior_samples = Sampler.sample_adapt(1e6)
+posterior_samples = sampler.sample_adapt(1e6)
 
 #%% 6 visualization
 # plotting prior samples
 f, axes = plt.subplots(1,3)
 plt.sca(axes[0])
-sample = x.sample()
-sample.plot(subplots=False)
+prior_sample = x.sample()
+prior_sample.plot(subplots=False)
 plt.sca(axes[1])
-sample = x.sample()
-sample.plot(subplots=False)
+prior_sample = x.sample()
+prior_sample.plot(subplots=False)
 plt.sca(axes[2])
-sample = x.sample()
-sample.plot(subplots=False)
+prior_sample = x.sample()
+prior_sample.plot(subplots=False)
 axes[1].set_title('prior samples')
 plt.savefig("plot_prior_samples.png")
 
 # plotting posterior samples
-idx = np.random.permutation(num_samples) # create randomized index
+idx = np.random.permutation(1e6) # create randomized index
 f, axes = plt.subplots(1,3)
 plt.sca(axes[0])
 posterior_samples.plot(idx[0],subplots=False)
