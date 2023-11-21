@@ -164,8 +164,11 @@ PDE_form1 = (form_lhs, form_rhs1)
 # for the first PDE problems we specify to reuse the factorization of the lhs 
 # for the rest of the PDE models
 PDE1 = SteadyStateLinearFEniCSPDE(
-    PDE_form1, mesh, solution_space,
-    parameter_space, zero_bc,
+    PDE_form1,
+    mesh,
+    solution_space,
+    parameter_space,
+    zero_bc,
     observation_operator=observation1,
     reuse_assembled=True)
 
