@@ -9,6 +9,9 @@ from cuqi.pde import TimeDependentLinearPDE
 from cuqi.geometry import StepExpansion, Continuous1D
 from cuqi.distribution import Gaussian, JointDistribution
 import cuqi
+import warnings
+# disable warnings for the cuqi.geometry module
+warnings.filterwarnings(action='ignore', module=r'cuqi.geometry')
 
 # method to plot figure 2 for the Heat 1D example
 def plot_figure2(fig_dir, version,
@@ -41,10 +44,10 @@ def plot_figure2(fig_dir, version,
     plt.annotate('(a)', xy=(0.03, 0.93), xycoords='axes fraction')
     plt.plot(grid, g_custom)
     plt.ylabel('$\\bm{g}^\\mathrm{custom}$')
-    plt.gca().yaxis.set_label_coords(-0.21, 0.45) #-0.12, 0.4
+    plt.gca().yaxis.set_label_coords(-0.21, 0.45)
     
     plt.xlabel('$\\xi$')
-    plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
+    plt.gca().xaxis.set_label_coords(.5, -.12)
     plt.gca().set_ylim(0, .13)
     plt.xlim([0,1])
     
@@ -52,13 +55,18 @@ def plot_figure2(fig_dir, version,
     plt.sca(axs[1])
     plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
     
-    for i in range(len(u_intermediate)):
-        if i==len(u_intermediate)-1:
-            plt.plot(grid, u_intermediate[i, :], color='#1f77b4', linestyle='-')
+    number_of_time_steps_to_plot = u_intermediate.shape[1]
+    for i in range(number_of_time_steps_to_plot):
+        if i==number_of_time_steps_to_plot-1:
+            plt.plot(
+                grid, u_intermediate[:, i], color='#1f77b4', linestyle='-')
         else:
-            plt.plot(grid, u_intermediate[i, :], color=colors[i], linestyle='--')
+            plt.plot(
+                grid, u_intermediate[:, i], color=colors[i], linestyle='--')
 
-    plt.legend(['${:.2g}$'.format(t) for t in intermediate_times], loc='upper right', ncol=2, frameon=False, bbox_to_anchor=(1, 0.95))
+    plt.legend(['${:.2g}$'.format(t) for t in intermediate_times],
+               loc='upper right', ncol=2, frameon=False,
+               bbox_to_anchor=(1, 0.95))
     
     plt.ylabel('$\\bm{u}^\\mathrm{custom}$')
     plt.gca().yaxis.set_label_coords(-0.21, 0.45) 
@@ -81,6 +89,7 @@ def plot_figure2(fig_dir, version,
     plt.xlim([0,1])
     
     # Save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.25, h_pad=0)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
@@ -148,13 +157,14 @@ def plot_figure3(fig_dir, version, x_step, y_step):
     plt.xlim([0,1])
 
     # Save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.25, h_pad=0)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)    
 
 
 # method to plot figure 4 for the Heat 1D example
 def plot_figure4(fig_dir, version, G_step, 
-                 prior_samples, posterior_samples, Ns_factor,
+                 prior_samples, posterior_samples,
                  x_step, y_step, y_obs): 
     
     # Matplotlib setup 
@@ -162,8 +172,11 @@ def plot_figure4(fig_dir, version, G_step,
     MEDIUM_SIZE = 8
     BIGGER_SIZE = 9
     matplotlib_setup(SMALL_SIZE, MEDIUM_SIZE, BIGGER_SIZE)
+    plt.rc('text', usetex=True)
+    plt.rc('text.latex', preamble=r'\usepackage{bm}')
 
-    Nb = int(200*Ns_factor) # burn-in
+    Ns = posterior_samples.Ns # number of samples
+    Nb = int(1/250*Ns) # burn-in
     Nt = None # thinning
     num_var = 3 # number of variables
     n_ticks = 5 # number of ticks 
@@ -206,12 +219,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (b) prior samples
     idx = 0
     plt.sca(axs[0,1])
-    # No need to iterate over all samples in an upcoming release
-    for s in prior_samples:
-        prior_samples.geometry.plot(s, is_par=True, color=colors[idx]) 
-        idx += 1
-        if idx == 5:
-            break
+    prior_samples.plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5) 
     plt.xlabel('$\\xi$')
@@ -221,12 +229,7 @@ def plot_figure4(fig_dir, version, G_step,
     # (c) posterior samples
     idx = 0
     plt.sca(axs[0,2])
-    for s in posterior_samples.burnthin(int(1000*Ns_factor),
-                                        int(1000*Ns_factor)):
-        posterior_samples.geometry.plot(s, is_par=True, color=colors[idx])   
-        idx += 1
-        if idx == 5:
-            break
+    posterior_samples.burnthin(int(1/50*Ns), int(1/50*Ns)).plot(range(5))
     
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5)
@@ -258,7 +261,7 @@ def plot_figure4(fig_dir, version, G_step,
                                                             exact=x_step)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label('$95\\%\; \\mathrm{CI}$')
+    lci[2].set_label('$95\\%\\; \\mathrm{CI}$')
     plt.legend()
     plt.ylim([-0.2,1.2])
     plt.yticks([0,0.25,0.5,0.75, 1])
@@ -276,7 +279,7 @@ def plot_figure4(fig_dir, version, G_step,
                                                     markersize=SMALL_SIZE-3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\; \\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\; \\mathrm{CI}$")
     plt.legend()
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5)
@@ -287,6 +290,7 @@ def plot_figure4(fig_dir, version, G_step,
     plt.legend(ncols=1, loc ="upper right")
     
     # save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.9)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
@@ -296,7 +300,6 @@ def plot_figure5(fig_dir, version, G_KL,
                  case1_data,
                  case2_data,
                  case3_data,
-                 Ns_factor
                 ): 
     #case data contains:  exact, y, y_obs, posterior_samples
     #
@@ -304,6 +307,8 @@ def plot_figure5(fig_dir, version, G_KL,
     SMALL_SIZE = 7
     MEDIUM_SIZE =8
     BIGGER_SIZE = 9
+
+    Ns = case1_data[-1].Ns # number of samples
         
     matplotlib_setup(7, 8, 9)
 
@@ -314,12 +319,12 @@ def plot_figure5(fig_dir, version, G_KL,
     if not os.path.exists(fig_dir):
         os.makedirs(fig_dir)
     
-    fig_file = fig_dir +   'paper_figure5_'+version+'.pdf'
+    fig_file = fig_dir + 'paper_figure5_'+version+'.pdf'
 
-    Nb = int(25000*Ns_factor) # burn-in
+    Nb = int(0.5*Ns) # burn-in
     Nt =  None # thinning
-    Nb_3row = int(10000*Ns_factor) # burn-in for 3-row plots
-    Nb_4row = int(10000*Ns_factor) # burn-in for 4-row plots
+    Nb_3row = int(1/5*Ns) # burn-in for 3-row plots
+    Nb_4row = int(1/5*Ns) # burn-in for 4-row plots
     n_ticks = 5
     num_var = 20
     
@@ -370,20 +375,12 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,1])
     plt.annotate('(b)', xy=(0.03, 0.93), xycoords='axes fraction')
-    # Looping over the prior samples to plot is a temporary hack.
-    # it will be fixed in future release. (prior_samples.plot() will be 
-    # used instead)
-    for s in prior_samples:
-        prior_samples.geometry.plot(s, is_par=True, color=colors[idx]) 
-        idx += 1
-        if idx == 5:
-            break
+    prior_samples.plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     
     plt.xlabel('$\\xi$')
     plt.gca().xaxis.set_label_coords(.5, -.12) #-0.12, 0.4
-    plt.gca().set_ylim(-.175, .175)
     plt.xlim([0,1])
     
     
@@ -391,11 +388,7 @@ def plot_figure5(fig_dir, version, G_KL,
     idx = 0
     plt.sca(axs[0,2])
     plt.annotate('(c)', xy=(0.03, 0.93), xycoords='axes fraction')
-    for s in case2_data[-1].burnthin(int(1000*Ns_factor), int(5000*Ns_factor)):
-        case2_data[-1].geometry.plot(s, is_par=True, color=colors[idx])   
-        idx += 1
-        if idx == 5:
-            break
+    case2_data[-1].burnthin(int(1/50*Ns), int(1/10*Ns)).plot(range(5))
     plt.ylabel('$\\bm{g}$')
     plt.gca().yaxis.set_label_coords(-0.16, 0.5)
     plt.xlabel('$\\xi$')
@@ -421,11 +414,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (e)
     plt.sca(axs[1,1])
     plt.annotate('(e)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case1_data[-1].burnthin(Nb,Nt).funvals.plot_ci(
+    lci = case1_data[-1].burnthin(Nb, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case1_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -438,11 +431,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (f)
     plt.sca(axs[1,2])
     plt.annotate('(f)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case1_data[-1].burnthin(Nb,Nt).plot_ci(
+    lci = case1_data[-1].burnthin(Nb, Nt).plot_ci(
         95, plot_par=True, exact=case1_data[0], markersize=SMALL_SIZE-3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
@@ -469,11 +462,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (h)
     plt.sca(axs[2,1])
     plt.annotate('(h)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case2_data[-1].burnthin(Nb_3row,Nt).funvals.plot_ci(
+    lci = case2_data[-1].burnthin(Nb_3row, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case2_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -486,11 +479,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (i)
     plt.sca(axs[2,2])
     plt.annotate('(i)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case2_data[-1].burnthin(Nb_3row,Nt).plot_ci(
+    lci = case2_data[-1].burnthin(Nb_3row, Nt).plot_ci(
         95, plot_par=True, exact=case2_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
@@ -517,11 +510,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (k)
     plt.sca(axs[3,1])
     plt.annotate('(k)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case3_data[-1].burnthin(Nb_4row,Nt).funvals.plot_ci(
+    lci = case3_data[-1].burnthin(Nb_4row, Nt).funvals.plot_ci(
         95, plot_par=False, exact=case3_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -534,11 +527,11 @@ def plot_figure5(fig_dir, version, G_KL,
     # (l)
     plt.sca(axs[3,2])
     plt.annotate('(l)', xy=(0.03, 0.93), xycoords='axes fraction')
-    lci = case3_data[-1].burnthin(Nb_4row,Nt).plot_ci(
+    lci = case3_data[-1].burnthin(Nb_4row, Nt).plot_ci(
         95, plot_par=True, exact=case3_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
