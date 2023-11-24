@@ -89,6 +89,7 @@ def plot_figure2(fig_dir, version,
     plt.xlim([0,1])
     
     # Save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.25, h_pad=0)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
@@ -156,6 +157,7 @@ def plot_figure3(fig_dir, version, x_step, y_step):
     plt.xlim([0,1])
 
     # Save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.25, h_pad=0)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)    
 
@@ -259,7 +261,7 @@ def plot_figure4(fig_dir, version, G_step,
                                                             exact=x_step)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label('$95\\%\; \\mathrm{CI}$')
+    lci[2].set_label('$95\\%\\; \\mathrm{CI}$')
     plt.legend()
     plt.ylim([-0.2,1.2])
     plt.yticks([0,0.25,0.5,0.75, 1])
@@ -277,7 +279,7 @@ def plot_figure4(fig_dir, version, G_step,
                                                     markersize=SMALL_SIZE-3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\; \\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\; \\mathrm{CI}$")
     plt.legend()
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.15, 0.5)
@@ -288,6 +290,7 @@ def plot_figure4(fig_dir, version, G_step,
     plt.legend(ncols=1, loc ="upper right")
     
     # save figure
+    fig.set_tight_layout(True)
     fig.tight_layout(pad=0, w_pad=0.1, h_pad=0.9)
     plt.savefig(fig_file, bbox_inches='tight', pad_inches=0.01, dpi=1200)
 
@@ -316,7 +319,7 @@ def plot_figure5(fig_dir, version, G_KL,
     if not os.path.exists(fig_dir):
         os.makedirs(fig_dir)
     
-    fig_file = fig_dir +   'paper_figure5_'+version+'.pdf'
+    fig_file = fig_dir + 'paper_figure5_'+version+'.pdf'
 
     Nb = int(0.5*Ns) # burn-in
     Nt =  None # thinning
@@ -415,7 +418,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=False, exact=case1_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -432,7 +435,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=True, exact=case1_data[0], markersize=SMALL_SIZE-3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
@@ -463,7 +466,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=False, exact=case2_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -480,7 +483,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=True, exact=case2_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
@@ -511,7 +514,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=False, exact=case3_data[0])
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend()
     plt.ylim([0,0.17])
     plt.yticks([0,0.05,0.1,0.15])
@@ -528,7 +531,7 @@ def plot_figure5(fig_dir, version, G_KL,
         95, plot_par=True, exact=case3_data[0], markersize=SMALL_SIZE -3)
     lci[0].set_label("Mean")
     lci[1].set_label("Exact")
-    lci[2].set_label("$95\\%\;\mathrm{CI}$")
+    lci[2].set_label("$95\\%\\;\\mathrm{CI}$")
     plt.legend(loc = 'lower right')
     plt.ylabel('$x_i$')
     plt.gca().yaxis.set_label_coords(-0.09, 0.5)
