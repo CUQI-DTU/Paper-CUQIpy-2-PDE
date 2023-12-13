@@ -11,6 +11,9 @@ from cuqi.model import Model
 from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
 FEniCSMappedGeometry
 
+# Fix the random seed for reproducibility
+np.random.seed(0)
+
 # This script solve the Photo-Acoustic with full or partial boundary data
 full_data = True # if false data are obtained only at the left boundary
                  # otherwise, data are obtained on both boundaries. 
@@ -66,7 +69,7 @@ x = Gaussian(0, cov=1, geometry=G) #
 
 #%% 5 Creating data distribution
 # Defining data distribution
-y = Gaussian(A(x), sigma2, geometry=G_cont)
+y = Gaussian(A(x), cov=sigma2*np.ones(G_cont.par_dim))
 
 # Defining the joint and the posterior distributions
 joint = JointDistribution(x, y)
@@ -136,6 +139,7 @@ else:
     ax.set_title(r'pressure, left boundary')
     ax.grid()
     ax.legend([r'noisy data',r'exact data'], loc=1)
+plt.savefig("data.png")
 
 # Plotting the the posterior mean and the uncertainty on the G_vis geometry
 f, ax = plt.subplots(1)
@@ -147,6 +151,7 @@ ax.set_xlabel(r'$\xi$')
 ax.set_ylabel(r'$g$')
 ax.grid()
 ax.set_title(r'estimated initial pressure')
+plt.savefig("posterior_cont.png")
 
 # Plotting the the posterior mean and the uncertainty for the Bayesian 
 # parameters
@@ -159,3 +164,4 @@ ax.grid()
 ax.set_xlabel(r'$i$')
 ax.set_ylabel(r'$x_i$')
 ax.set_title(r'estimated Bayesian parameters')
+plt.savefig("posterior_par.png")
