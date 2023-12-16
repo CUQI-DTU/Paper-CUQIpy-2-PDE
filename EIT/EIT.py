@@ -282,6 +282,6 @@ if __name__ == "__main__":
 
     # Save the posterior samples
     np.savez("./stat/stat_circular_inclusion_2_"
-             +str(noise_percent)+"per_noise_thinned.npz.npz",
+             +str(noise_percent)+"per_noise_thinned.npz",
              samples=posterior_samples.samples)
     
