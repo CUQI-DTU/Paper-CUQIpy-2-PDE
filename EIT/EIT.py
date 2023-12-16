@@ -146,7 +146,8 @@ x = Gaussian(np.zeros(n_KL), 1, geometry=G_Heavi)
 
 #%% 4 Creating the posterior distribution
 # loading signal from file
-obs_data = np.load('./obs/obs_circular_inclusion_2_10per_noise.npz')
+noise_percent = 10
+obs_data = np.load('./obs/obs_circular_inclusion_2_'+str(noise_percent)+'per_noise_new.npz')
 b_exact = obs_data['b_exact']
 s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise variance and convert
                                            # to std
@@ -223,7 +224,7 @@ plt.sca(axes[2])
 prior_sample = x.sample()
 prior_sample.plot(subplots=False)
 axes[1].set_title('prior samples')
-plt.savefig("plot_prior_samples.png")
+plt.savefig("plot_prior_samples"+str(noise_percent)+".png")
 
 # plotting posterior samples
 idx = np.random.permutation(1000000) # create randomized index
@@ -235,7 +236,10 @@ posterior_samples.plot(idx[1],subplots=False)
 plt.sca(axes[2])
 posterior_samples.plot(idx[2],subplots=False)
 axes[1].set_title('posterior samples')
-plt.savefig("plot_posterior_samples.png")
+plt.savefig("plot_posterior_samples"+str(noise_percent)+".png")
+
+# burn-thin the samples
+posterior_samples = posterior_samples.burnthin(200000, 4000)
 
 # plotting the mean
 f, axes = plt.subplots(1,2)
@@ -247,12 +251,12 @@ axes[0].set_title('sample mean')
 plt.sca(axes[1])
 posterior_samples.funvals.vector.plot_variance(subplots=False)
 axes[1].set_title('variance')
-plt.savefig("plot_mean_variance.png")
+plt.savefig("plot_mean_variance"+str(noise_percent)+".png")
 
 # plotting the credible intervals
 plt.figure()
 posterior_samples.plot_ci(95, plot_par=True)
-plt.savefig("plot_ci.png")
+plt.savefig("plot_ci"+str(noise_percent)+".png")
 
 # Save the posterior samples
-np.savez("posterior_samples.npz", samples=posterior_samples.samples)
+np.savez("posterior_samples"+str(noise_percent)+".npz", samples=posterior_samples.samples)
