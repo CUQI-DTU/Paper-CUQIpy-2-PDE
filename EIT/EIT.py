@@ -51,7 +51,8 @@ def create_domain_geometry(parameter_space, bnd_idx):
     
     # creating the domain geometry which applies the map Heaviside map to G_KL 
     # realizations.
-    return FEniCSMappedGeometry(G_KL, map=Heaviside)
+    G_Heavi = FEniCSMappedGeometry(G_KL, map=Heaviside)
+    return G_Heavi
 
 if __name__ == "__main__":
     # Fix the random seed for reproducibility 
