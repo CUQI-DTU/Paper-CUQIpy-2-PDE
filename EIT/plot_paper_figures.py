@@ -9,6 +9,7 @@
 import numpy as np
 import dolfin as dl
 from cuqi.samples import Samples
+from cuqi.distribution import Gaussian
 import matplotlib.pyplot as plt
 from EIT import extract_boundary_dofs_indices, create_domain_geometry
 from figures_util import plot_figure6, plot_figure7, plot_figure8, plot_figure9
@@ -62,18 +63,22 @@ cuqi_samples1 = Samples(samples1, geometry=G_Heavi)
 cuqi_samples2 = Samples(samples2, geometry=G_Heavi)
 cuqi_samples3 = Samples(samples3, geometry=G_Heavi)
 
+# Create prior samples
+x = Gaussian(0, 1, geometry=G_Heavi)
+prior_samples = x.sample(5)
+
 #%% Create plot directory if it does not exists
 if not os.path.exists('./plots'):
     os.makedirs('./plots')
 
 #%% Plot figure 6
-#plt.figure()
-#plot_figure6(parameter_space, exact_data, data)
-#plt.savefig('./plots/data.pdf',format='pdf')
+plt.figure()
+plot_figure6(parameter_space, exact_data, data)
+plt.savefig('./plots/data.pdf',format='pdf')
 
 #%% Plot figure 7
 plt.figure()
-plot_figure7(cuqi_samples1, cuqi_samples1, cuqi_samples2, cuqi_samples3)
+plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3)
 plt.savefig('./plots/samples.pdf',format='pdf')
 
 #%% Plot figure 8
