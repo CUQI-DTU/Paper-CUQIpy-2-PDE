@@ -36,6 +36,12 @@ def plot_figure6(parameter_space, exact_data, data):
     circ2 = patches.Circle([0.5,0.5], radius=0.2,color='white', fill=True)
     circ3 = patches.Circle([-0.5,0.6], radius=0.1,color='white', fill=True)
     circ4 = patches.Circle([-0.3,-0.3], radius=0.3,color='white', fill=True)
+
+    # Read theta and idx data:
+    boundary_coord_data = np.load('./obs/boundary_coordinates.npz')
+    theta = boundary_coord_data['theta']
+    idx = boundary_coord_data['idx']
+
     
     axes[0].add_patch(circ1)
     axes[0].add_patch(circ2)
@@ -169,7 +175,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[0].set_ylabel(r'$\xi_2$')
 
     plt.sca(axes[1])
-    cuqi_samples1.plot([ -2 ], subplots=False)
+    cuqi_samples1.plot([ -10 ], subplots=False)
     axes[1].set_ylabel('')
     axes[1].set_xlim([-1.1,1.1])
     axes[1].set_ylim([-1.1,1.1])
@@ -178,7 +184,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[1].set_xlabel(r'$\xi_1$')
 
     plt.sca(axes[2])
-    cuqi_samples2.plot([ -2 ], subplots=False)
+    cuqi_samples2.plot([ -10 ], subplots=False)
     axes[2].set_ylabel('')
     axes[2].set_xlim([-1.1,1.1])
     axes[2].set_ylim([-1.1,1.1])
@@ -187,7 +193,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[2].set_xlabel(r'$\xi_1$')
     
     plt.sca(axes[3])
-    cuqi_samples3.plot([ -2 ], subplots=False)
+    cuqi_samples3.plot([ -10 ], subplots=False)
     axes[3].set_ylabel('')
     axes[3].set_xlim([-1.1,1.1])
     axes[3].set_ylim([-1.1,1.1])
