@@ -40,7 +40,7 @@ data3 = np.load('./stat/stat_circular_inclusion_2_20per_noise_thinned.npz')
 samples3 = data3['samples']
 
 #%% Load the exact conductivity and the data
-obs_data3 = np.load('./obs/obs_circular_inclusion_2_20per_noise.npz')
+obs_data3 = np.load('./data/obs_circular_inclusion_2_20per_noise.npz')
 data = obs_data3['data']
 exact_data = obs_data3['b_exact']
 

@@ -166,7 +166,7 @@ if __name__ == "__main__":
     #%% 4 Creating the posterior distribution
     # loading signal from file
     noise_percent = 5
-    obs_data = np.load('./obs/obs_circular_inclusion_2_'+str(noise_percent)+'per_noise.npz')
+    obs_data = np.load('./data/obs_circular_inclusion_2_'+str(noise_percent)+'per_noise.npz')
     b_exact = obs_data['b_exact']
     s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise variance and
                                                # convert to std

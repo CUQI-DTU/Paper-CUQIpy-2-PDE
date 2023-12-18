@@ -38,7 +38,7 @@ def plot_figure6(parameter_space, exact_data, data):
     circ4 = patches.Circle([-0.3,-0.3], radius=0.3,color='white', fill=True)
 
     # Read theta and idx used for plotting data:
-    boundary_coord_data = np.load('./obs/boundary_coordinates.npz')
+    boundary_coord_data = np.load('./data/boundary_coordinates.npz')
     theta = boundary_coord_data['theta']
     idx = boundary_coord_data['idx']
 
