@@ -56,7 +56,7 @@ else:
 # Loading the data signal
 obs_data = np.load( './obs/'+label+'_boundary_5per.npz' )
 
-data = obs_data['data']
+y_obs = obs_data['data']
 s_noise = np.sqrt(obs_data['sigma2'].reshape(-1)[0])
 b_exact = obs_data['b_exact'].reshape(251,-1)
 
@@ -75,20 +75,20 @@ G_cont = Continuous2D((obs_times, obs_locations))
 A = Model(PAT, domain_geometry=G, range_geometry=G_cont)
 
 #%% 4 Creating prior distribution
-x = Gaussian(0, cov=1, geometry=G) 
+x = Gaussian(0, 1, geometry=G)
 
 #%% 5 Creating data distribution
 # Defining data distribution
-y = Gaussian(A(x), cov=s_noise**2, geometry=G_cont)
+y = Gaussian(A(x), s_noise**2, geometry=G_cont)
 
 # Defining the joint and the posterior distributions
 joint = JointDistribution(x, y)
-posterior = joint(y=data)
+posterior = joint(y=y_obs)
 
 #%% 5 Sampling the posterior
 # Defining the pCN sampler and sampling
 sampler = pCN(posterior)
-samples = sampler.sample_adapt(200000)
+samples = sampler.sample_adapt(50000)
 
 # Thin the samples
 samples = samples.burnthin(0, 100)
@@ -119,8 +119,8 @@ t = np.linspace(0,1,251)
 labels = np.linspace(0,1,5)
 if full_data:
     f, ax = plt.subplots(1,2)
-    data = data.reshape(251,-1)
-    ax[0].plot(t,data[:,0])
+    y_obs = y_obs.reshape(251,-1)
+    ax[0].plot(t,y_obs[:,0])
     ax[0].plot(t,b_exact[:,0])
     ax[0].set_xticks(labels)
     ax[0].set_xticklabels(labels)
@@ -130,7 +130,7 @@ if full_data:
     ax[0].set_ylabel(r'$u(\xi_L)$')
     ax[0].set_title(r'pressure, left boundary')
     ax[0].grid()
-    ax[1].plot(t,data[:,1])
+    ax[1].plot(t,y_obs[:,1])
     ax[1].plot(t,b_exact[:,1])
     ax[1].set_xticks(labels)
     ax[1].set_xticklabels(labels)
@@ -143,7 +143,7 @@ if full_data:
     ax[1].legend([r'noisy data',r'exact data'], loc=1)
 else:
     f, ax = plt.subplots(1)
-    ax.plot(t,data)
+    ax.plot(t,y_obs)
     ax.plot(t,b_exact[:,0])
     ax.set_xticks(labels)
     ax.set_xticklabels(labels)
