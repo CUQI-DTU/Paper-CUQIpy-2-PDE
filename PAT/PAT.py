@@ -1,7 +1,6 @@
 #%% Importing the required libraries
 import numpy as np
 from dolfin import *
-import dolfin as dl
 import matplotlib.pyplot as plt
 from wave import wave
 from cuqi.geometry import Continuous2D, Continuous1D
@@ -17,7 +16,7 @@ import os
 np.random.seed(0)
 
 # This script solve the Photo-Acoustic with full or partial boundary data
-full_data = False # if false data are obtained only at the left boundary
+full_data = True # if false, data are obtained only at the left boundary
                   # otherwise, data are obtained on both boundaries. 
 
 #%% 1 Setting up FEniCS function spaces
@@ -89,10 +88,10 @@ posterior = joint(y=data)
 #%% 5 Sampling the posterior
 # Defining the pCN sampler and sampling
 sampler = pCN(posterior)
-samples = sampler.sample_adapt(20)
+samples = sampler.sample_adapt(200000)
 
 # Thin the samples
-samples = samples.burnthin(0, 2)
+samples = samples.burnthin(0, 100)
 
 #%% 6 Visualization and plotting
 # Generating a numpy array of the function values of the samples
