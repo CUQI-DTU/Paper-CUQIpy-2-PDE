@@ -38,7 +38,7 @@ def prior_map(func):
     return func
 
 # Defining the domain geometry
-G = FEniCSMappedGeometry(G_KL, map = prior_map)
+G = FEniCSMappedGeometry(G_KL, map=prior_map)
 
 #%% 3 Defining the photo-acoustic forward operator
 # Loading the blackbox forward operator
