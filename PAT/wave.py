@@ -148,16 +148,14 @@ class wave():
         for i in range(self.num_time_steps):
             self.stormer_verlet_step()
             obs.append( self.extract_full_boundary() )
-
-        return np.array(obs).reshape(-1)
+        return np.array(obs)
 
     def read_time_half_boundary(self):
         obs = []
         for i in range(self.num_time_steps):
             self.stormer_verlet_step()
             obs.append( self.extract_half_boundary() )
-
-        return np.array(obs).reshape(-1)
+        return np.array(obs)
 
     def extract_full_boundary(self):
         obs = []
@@ -187,7 +185,7 @@ class wave():
         plt.figure()
         x = np.linspace(0,1,121)
         plt.plot(x,self.u_past.vector().get_local()[::-1])
-        plt.savefig('./plots/true_pressure.pdf',format='pdf',dpi=300)
+        #plt.savefig('./plots/true_pressure.pdf',format='pdf',dpi=300)
 
         b_exact = self.read_time_full_boundary()
         plt.figure()
