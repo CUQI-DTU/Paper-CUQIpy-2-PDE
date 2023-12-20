@@ -1,22 +1,24 @@
+#%% Importing the required libraries
 import numpy as np
 from dolfin import *
 import dolfin as dl
 import matplotlib.pyplot as plt
 from wave import wave
-from cuqi.geometry import Continuous1D
+from cuqi.geometry import Continuous2D, Continuous1D
 from cuqi.distribution import Gaussian, JointDistribution
 from cuqi.sampler import pCN
 from cuqi.samples import Samples
 from cuqi.model import Model
 from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
 FEniCSMappedGeometry
+import os
 
 # Fix the random seed for reproducibility
 np.random.seed(0)
 
 # This script solve the Photo-Acoustic with full or partial boundary data
-full_data = True # if false data are obtained only at the left boundary
-                 # otherwise, data are obtained on both boundaries. 
+full_data = False # if false data are obtained only at the left boundary
+                  # otherwise, data are obtained on both boundaries. 
 
 #%% 1 Setting up FEniCS function spaces
 mesh = UnitIntervalMesh(120) # defining the mesh
@@ -42,34 +44,43 @@ G = FEniCSMappedGeometry(G_KL, map = prior_map)
 #%% 3 Defining the photo-acoustic forward operator
 # Loading the blackbox forward operator
 problem = wave()
-# The function that maps the initial pressure to the boundary observations
+# The function `PAT` that maps the initial pressure to the boundary observations
 if full_data:
     PAT = problem.forward_full
+    r = 2 # number of sensors
+    label = 'full'
 else:
     PAT = problem.forward_half
+    r = 1 # number of sensors
+    label = 'half'
 
 # Loading the data signal
-if full_data: 
-    obs_data = np.load( './obs/full_boundary_5per.npz' )
-else:
-    obs_data = np.load( './obs/half_boundary_5per.npz' )
+obs_data = np.load( './obs/'+label+'_boundary_5per.npz' )
+
 data = obs_data['data']
-sigma2 = obs_data['sigma2']
+s_noise = np.sqrt(obs_data['sigma2'].reshape(-1)[0])
 b_exact = obs_data['b_exact'].reshape(251,-1)
 
 # Defining the range geometry
-m = data.shape[0] # dimension of the observation
-G_cont = Continuous1D(m)
+m = 251 # dimension of the observation
+obs_times = np.linspace(0,1,m)
+
+if full_data:
+    obs_locations = np.array([0.001, 0.999])
+else:
+    obs_locations = np.array([0.001])
+
+G_cont = Continuous2D((obs_times, obs_locations))
 
 # Defining the CUQIpy forward operator
 A = Model(PAT, domain_geometry=G, range_geometry=G_cont)
 
 #%% 4 Creating prior distribution
-x = Gaussian(0, cov=1, geometry=G) # 
+x = Gaussian(0, cov=1, geometry=G) 
 
 #%% 5 Creating data distribution
 # Defining data distribution
-y = Gaussian(A(x), cov=sigma2*np.ones(G_cont.par_dim))
+y = Gaussian(A(x), cov=s_noise**2, geometry=G_cont)
 
 # Defining the joint and the posterior distributions
 joint = JointDistribution(x, y)
@@ -77,15 +88,17 @@ posterior = joint(y=data)
 
 #%% 5 Sampling the posterior
 # Defining the pCN sampler and sampling
-num_samples=200000
 sampler = pCN(posterior)
-samples = sampler.sample_adapt(num_samples)
+samples = sampler.sample_adapt(20)
+
+# Thin the samples
+samples = samples.burnthin(0, 2)
 
 #%% 6 Visualization and plotting
 # Generating a numpy array of the function values of the samples
 continuous_samples = G.par2fun(samples.samples)
 fun_vals = []
-for i in range(num_samples):
+for i in range(len(samples.samples.T)):
     fun_vals.append(continuous_samples[i].vector().get_local()[::-1])
 fun_vals = np.array(fun_vals)
 
@@ -97,9 +110,12 @@ cuqi_continuous_samples = Samples(fun_vals.T, geometry=G_vis)
 
 # Loading the true initial pressure profile
 init_pressure_data = np.load('./obs/init_pressure.npz')
-exact_solution = init_pressure_data['init_pressure']
+g_true = init_pressure_data['init_pressure']
 
 # Plotting the data
+# create `plots` directory if it does not exist
+if not os.path.exists('plots'):
+    os.makedirs('plots') 
 t = np.linspace(0,1,251)
 labels = np.linspace(0,1,5)
 if full_data:
@@ -139,11 +155,11 @@ else:
     ax.set_title(r'pressure, left boundary')
     ax.grid()
     ax.legend([r'noisy data',r'exact data'], loc=1)
-plt.savefig("data.png")
+plt.savefig("./plots/data_"+label+".png")
 
-# Plotting the the posterior mean and the uncertainty on the G_vis geometry
+# Plotting the the posterior mean and the uncertainty on the continuous domain
 f, ax = plt.subplots(1)
-cuqi_continuous_samples.plot_ci(95, exact=exact_solution)
+cuqi_continuous_samples.plot_ci(95, exact=g_true)
 ax.legend([r'95% CI',r'Mean',r'Exact'], loc=1)
 ax.set_xlim([-.05,1.05])
 ax.set_ylim([-0.3,0.7])
@@ -151,10 +167,9 @@ ax.set_xlabel(r'$\xi$')
 ax.set_ylabel(r'$g$')
 ax.grid()
 ax.set_title(r'estimated initial pressure')
-plt.savefig("posterior_cont.png")
+plt.savefig("./plots/posterior_cont_"+label+".png")
 
-# Plotting the the posterior mean and the uncertainty for the Bayesian 
-# parameters
+# Plotting the the posterior mean and the uncertainty for the KL parameters
 f, ax = plt.subplots(1)
 samples.plot_ci(95, plot_par=True, marker='.')
 ax.legend([r'Mean',r'95% CT'], loc=4)
@@ -164,4 +179,12 @@ ax.grid()
 ax.set_xlabel(r'$i$')
 ax.set_ylabel(r'$x_i$')
 ax.set_title(r'estimated Bayesian parameters')
-plt.savefig("posterior_par.png")
+plt.savefig("./plots/posterior_par_"+label+".png")
+
+# %%
+# Saving the samples
+# create `stat` directory if it does not exist
+if not os.path.exists('stat'):
+    os.makedirs('stat')
+# save the samples
+np.savez('stat/samples_thinned_'+label+'.npz', samples=samples.samples)
