@@ -1,6 +1,5 @@
 # Paper-CUQIpy-2-PDE
 
-(Note: This repository is to be updated)
 
 This contains the code for the paper "CUQIpy – Part II: computational uncertainty quantification for PDE-based inverse problems in Python".
 
