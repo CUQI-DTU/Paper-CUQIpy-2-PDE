@@ -96,7 +96,6 @@ def plot_figure11(g_true, samples_full, samples_half):
     
     plt.tight_layout()
 
-
 def plot_figure12(samples_full, samples_half):
     """Function to plot figure 12 in the paper."""
     cm_to_in = 1/2.54
