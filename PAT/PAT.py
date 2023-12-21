@@ -16,8 +16,8 @@ def create_domain_geometry(parameter_space):
     """
     This function creates the domain geometry for the PAT problem.
     """
-    # The geometry on which the Bayesian parameters are defined corresponds to the 
-    # FEM parameterization
+    # The geometry on which the Bayesian parameters are defined corresponds to
+    # the FEM parameterization
     G_FEM = FEniCSContinuous(parameter_space)
     # The KL parameterization
     G_KL = MaternKLExpansion(G_FEM, length_scale=0.1, nu=0.75, num_terms=100)
@@ -51,7 +51,8 @@ if __name__ == "__main__":
     #%% 3 Defining the photo-acoustic forward operator
     # Loading the blackbox forward operator
     problem = wave()
-    # The function `PAT` that maps the initial pressure to the boundary observations
+    # The function `PAT` that maps the initial pressure to the boundary
+    # observations
     if full_data:
         PAT = problem.forward_full
         r = 2 # number of sensors
@@ -164,7 +165,8 @@ if __name__ == "__main__":
         ax.legend([r'noisy data',r'exact data'], loc=1)
     plt.savefig("./plots/data_"+label+".png")
     
-    # Plotting the the posterior mean and the uncertainty on the continuous domain
+    # Plotting the the posterior mean and the uncertainty on the continuous
+    # domain
     f, ax = plt.subplots(1)
     cuqi_continuous_samples.plot_ci(95, exact=g_true)
     ax.legend([r'95% CI',r'Mean',r'Exact'], loc=1)
