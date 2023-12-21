@@ -1,14 +1,11 @@
 import matplotlib.pyplot as plt
-import dolfin as dl
 import numpy as np
-import matplotlib.patches as patches
 
 def plot_figure10(g_true, b_exact, y_obs):
     """Function to plot figure 10 in the paper."""
     cm_to_in = 1/2.54
-    #fig = plt.figure( figsize=(17.8*cm_to_in, 5*cm_to_in),layout='constrained')
-    #subfigs = fig.subfigures(1)
-    f, axes = plt.subplots(1,3, figsize=(17.8*cm_to_in, 6*cm_to_in), sharey=True)
+    f, axes = plt.subplots(
+        1,3, figsize=(17.8*cm_to_in, 6*cm_to_in), sharey=True)
     
     t = np.linspace(0,1,251)
     labels = np.linspace(0,1,5)
@@ -65,7 +62,8 @@ def plot_figure11(g_true, samples_full, samples_half):
     """Function to plot figure 11 in the paper."""
     cm_to_in = 1/2.54
 
-    f, axes = plt.subplots(1,2, figsize=(17.8*cm_to_in, 6*cm_to_in), sharey=True)
+    f, axes = plt.subplots(
+        1,2, figsize=(17.8*cm_to_in, 6*cm_to_in), sharey=True)
     
     labels = np.linspace(0,1,5)
     
@@ -103,7 +101,8 @@ def plot_figure12(samples_full, samples_half):
     """Function to plot figure 12 in the paper."""
     cm_to_in = 1/2.54
 
-    f, axes = plt.subplots(1,2, figsize=(17.8*cm_to_in, 5*cm_to_in), sharey=True)
+    f, axes = plt.subplots(
+        1,2, figsize=(17.8*cm_to_in, 5*cm_to_in), sharey=True)
     
     labels = list(range(0,36,7))
     
