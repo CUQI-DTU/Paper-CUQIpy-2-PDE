@@ -6,7 +6,7 @@ from wave import wave
 from cuqi.geometry import Continuous2D, Continuous1D
 from cuqi.distribution import Gaussian, JointDistribution
 from cuqi.sampler import pCN
-from cuqi.samples import Samples
+from cuqi.array import CUQIarray
 from cuqi.model import Model
 from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
 FEniCSMappedGeometry
@@ -103,23 +103,16 @@ if __name__ == "__main__":
     samples = samples.burnthin(0, 100)
     
     #%% 10 Visualization and plotting
-    # Generating a numpy array of the function values of the samples
-    continuous_samples = G.par2fun(samples.samples)
-    fun_vals = []
-    for i in range(len(samples.samples.T)):
-        fun_vals.append(continuous_samples[i].vector().get_local()[::-1])
-    fun_vals = np.array(fun_vals)
-    
-    # Computing a visualization grid
-    grid = np.linspace(0,1,121)
-    G_vis = Continuous1D(grid)
-    
-    cuqi_continuous_samples = Samples(fun_vals.T, geometry=G_vis)
     
     # Loading the true initial pressure profile
     init_pressure_data = np.load('./obs/init_pressure.npz')
     g_true = init_pressure_data['init_pressure']
     
+    # Create FEniCS function for g_true wrapped in CUQIarray
+    g_true_function = Function(parameter_space)
+    g_true_function.vector().set_local(g_true[::-1])
+    g_true = CUQIarray(
+        g_true_function, is_par=False, geometry=G)
     # Plotting the data
     # create `plots` directory if it does not exist
     if not os.path.exists('plots'):
@@ -168,7 +161,7 @@ if __name__ == "__main__":
     # Plotting the the posterior mean and the uncertainty on the continuous
     # domain
     f, ax = plt.subplots(1)
-    cuqi_continuous_samples.plot_ci(95, exact=g_true)
+    samples.funvals.vector.plot_ci(95, exact=g_true)
     ax.legend([r'95% CI',r'Mean',r'Exact'], loc=1)
     ax.set_xlim([-.05,1.05])
     ax.set_ylim([-0.3,0.7])
