@@ -1,7 +1,11 @@
 # Instructions for running the PAT 1D Bayesian Inverse Problem
 
-To generate figures 10, 11, and 12 in the paper, run the script `PAT.py`.
+To generate figures 10, 11, and 12 in the paper, first run the script `PAT.py`
+for the full data case (set `full_data = True`) and for the partial data case 
+(set `full_data = False`). The result samples will be saved in the folder
+`stat`. Then run the script `plot_paper_figures.py` to generate the figures 10,
+11, and 12. The figures will be saved in the folder `plots`.
 
-This script performs the sampling using the pCN method for the photo-acoustic forward problem and them plots the data, estimates for the pressure profile and estimates of the Bayesian parameters.
- 
-To switch between the full-boundary data and partial data you can comment and uncomment lines 38, 39 and 42, 43, i.e. for full-data use the lines 38 and 42, for partial data use the lines 39 and 43.
+The `PAT.py` script performs the sampling using the pCN method for the 
+photo-acoustic tomography problem and generate samples and point-estimates for
+the posterior.
