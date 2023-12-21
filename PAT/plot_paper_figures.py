@@ -10,12 +10,10 @@ import numpy as np
 from dolfin import *
 from cuqi.samples import Samples
 from cuqi.array import CUQIarray
-from cuqi.distribution import Gaussian
 import matplotlib.pyplot as plt
 from figures_util import plot_figure10, plot_figure11, plot_figure12
 import os
 from PAT import create_domain_geometry
-from wave import wave
 
 # Set up matplotlib parameters
 SMALL_SIZE = 7
@@ -36,9 +34,8 @@ b_exact = obs_data_full['b_exact'].reshape(251,2)
 obs_data_half = np.load( './obs/half_boundary_5per.npz' )
 y_obs_half = obs_data_half['data'].reshape(251,1)
 
-init_pressure_data = np.load( './obs/init_pressure.npz' )
-
 # Load true parameter
+init_pressure_data = np.load( './obs/init_pressure.npz' )
 g_true = init_pressure_data['init_pressure']
 
 # Load samples
@@ -50,11 +47,12 @@ print('data 2 ...')
 data_half = np.load('./stat/samples_thinned_half.npz')
 samples_half = data_half['samples']
 
+# Create domain geometry
 mesh = UnitIntervalMesh(120)
 parameter_space = FunctionSpace(mesh,'CG', 1)
-
 G = create_domain_geometry(parameter_space)
 
+# Create CUQIpy samples
 cuqi_samples_full = Samples(samples_full, geometry=G)
 cuqi_samples_half = Samples(samples_half, geometry=G)
 
