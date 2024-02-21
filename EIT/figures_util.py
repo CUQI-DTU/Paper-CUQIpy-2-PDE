@@ -116,14 +116,16 @@ def plot_figure6(parameter_space, exact_data, data):
     subfigs[1].subplots_adjust(wspace=0, bottom=0.2, top=0.8)
 
 
-def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
+def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3,
+                 prior_samples_idx_to_plot=[0, 2], 
+                 posterior_samples_idx_to_plot=[0, 1]):
     cm_to_in = 1/2.54
     fig = plt.figure( figsize=(17.8*cm_to_in, 10.5*cm_to_in),layout='constrained')
     subfigs = fig.subfigures(2, 1)
     
     axes = subfigs[0].subplots(1,4,sharey=True)
     plt.sca(axes[0])
-    prior_samples.plot([ 0 ], subplots=False)
+    prior_samples.plot([prior_samples_idx_to_plot[0]], subplots=False)
     axes[0].set_xlim([-1.1,1.1])
     axes[0].set_ylim([-1.1,1.1])
     axes[0].set_xticks([-1,0,1])
@@ -134,7 +136,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[0].set_ylabel(r'$\xi_2$')
 
     plt.sca(axes[1])
-    cuqi_samples1.plot([ 0 ], subplots=False)
+    cuqi_samples1.plot([posterior_samples_idx_to_plot[0]], subplots=False)
     axes[1].set_ylabel('')
     axes[1].set_xlim([-1.1,1.1])
     axes[1].set_ylim([-1.1,1.1])
@@ -143,7 +145,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[1].set_xlabel(r'$\xi_1$')
 
     plt.sca(axes[2])
-    cuqi_samples2.plot([ 0 ], subplots=False)
+    cuqi_samples2.plot([posterior_samples_idx_to_plot[0]], subplots=False)
     axes[2].set_ylabel('')
     axes[2].set_xlim([-1.1,1.1])
     axes[2].set_ylim([-1.1,1.1])
@@ -152,9 +154,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[2].set_xlabel(r'$\xi_1$')
 
     plt.sca(axes[3])
-    cuqi_samples3.plot([ 0 ], subplots=False)
-    #prior_samples.plot([ 3 ], subplots=False)
-    #axes[0,3].set_yticks([])
+    cuqi_samples3.plot([posterior_samples_idx_to_plot[0]], subplots=False)
     axes[3].set_ylabel('')
     axes[3].set_xlim([-1.1,1.1])
     axes[3].set_ylim([-1.1,1.1])
@@ -164,7 +164,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     
     axes = subfigs[1].subplots(1,4,sharey=True)
     plt.sca(axes[0])
-    prior_samples.plot([ 2 ], subplots=False)
+    prior_samples.plot([prior_samples_idx_to_plot[1]], subplots=False)
     axes[0].set_xlim([-1.1,1.1])
     axes[0].set_ylim([-1.1,1.1])
     axes[0].set_xticks([-1,0,1])
@@ -175,7 +175,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[0].set_ylabel(r'$\xi_2$')
 
     plt.sca(axes[1])
-    cuqi_samples1.plot([ -2 ], subplots=False) #TEMP: was -10
+    cuqi_samples1.plot([posterior_samples_idx_to_plot[1]], subplots=False)
     axes[1].set_ylabel('')
     axes[1].set_xlim([-1.1,1.1])
     axes[1].set_ylim([-1.1,1.1])
@@ -184,7 +184,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[1].set_xlabel(r'$\xi_1$')
 
     plt.sca(axes[2])
-    cuqi_samples2.plot([ -2 ], subplots=False) #TEMP: was -10
+    cuqi_samples2.plot([posterior_samples_idx_to_plot[1]], subplots=False)
     axes[2].set_ylabel('')
     axes[2].set_xlim([-1.1,1.1])
     axes[2].set_ylim([-1.1,1.1])
@@ -193,7 +193,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[2].set_xlabel(r'$\xi_1$')
     
     plt.sca(axes[3])
-    cuqi_samples3.plot([ -2 ], subplots=False) #TEMP: was -10
+    cuqi_samples3.plot([posterior_samples_idx_to_plot[1]], subplots=False)
     axes[3].set_ylabel('')
     axes[3].set_xlim([-1.1,1.1])
     axes[3].set_ylim([-1.1,1.1])
