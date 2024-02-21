@@ -175,7 +175,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[0].set_ylabel(r'$\xi_2$')
 
     plt.sca(axes[1])
-    cuqi_samples1.plot([ -10 ], subplots=False)
+    cuqi_samples1.plot([ -2 ], subplots=False) #TEMP: was -10
     axes[1].set_ylabel('')
     axes[1].set_xlim([-1.1,1.1])
     axes[1].set_ylim([-1.1,1.1])
@@ -184,7 +184,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[1].set_xlabel(r'$\xi_1$')
 
     plt.sca(axes[2])
-    cuqi_samples2.plot([ -10 ], subplots=False)
+    cuqi_samples2.plot([ -2 ], subplots=False) #TEMP: was -10
     axes[2].set_ylabel('')
     axes[2].set_xlim([-1.1,1.1])
     axes[2].set_ylim([-1.1,1.1])
@@ -193,7 +193,7 @@ def plot_figure7(prior_samples, cuqi_samples1, cuqi_samples2, cuqi_samples3):
     axes[2].set_xlabel(r'$\xi_1$')
     
     plt.sca(axes[3])
-    cuqi_samples3.plot([ -10 ], subplots=False)
+    cuqi_samples3.plot([ -2 ], subplots=False) #TEMP: was -10
     axes[3].set_ylabel('')
     axes[3].set_xlim([-1.1,1.1])
     axes[3].set_ylim([-1.1,1.1])
