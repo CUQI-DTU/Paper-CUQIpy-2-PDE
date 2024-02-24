@@ -2,6 +2,7 @@ import numpy as np
 import dolfin as dl
 import matplotlib.pyplot as plt
 import os
+import sys
 from cuqi.geometry import Continuous1D
 from cuqi.model import PDEModel
 from cuqi.distribution import Gaussian, JointDistribution
@@ -9,6 +10,8 @@ from cuqi.sampler import MH
 from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
                                    FEniCSMappedGeometry 
 from cuqipy_fenics.pde import SteadyStateLinearFEniCSPDE
+import cuqi
+import cuqipy_fenics
 
 # Function for extracting the indices of the boundary nodes
 def extract_boundary_dofs_indices(solution_space):
@@ -55,6 +58,22 @@ def create_domain_geometry(parameter_space, bnd_idx):
     return G_Heavi
 
 if __name__ == "__main__":
+    # Parse noise level which is passed as a command line argument. Only
+    # 5, 10, and 20 percent noise levels are supported.
+    if len(sys.argv) != 2:
+        print("Usage: python EIT.py <noise_percent>")
+        sys.exit(1)
+
+    noise_percent = int(sys.argv[1])
+    if noise_percent not in [5, 10, 20]:
+        print("Only 5, 10, and 20 percent noise levels are supported")
+        sys.exit(1)
+    print("Running EIT with noise level: ", noise_percent, "%")
+
+    # Print cuqi and cuqipy_fenics version
+    print("cuqi version: ", cuqi.__version__)
+    print("cuqipy_fenics version: ", cuqipy_fenics.__version__)
+
     # Fix the random seed for reproducibility 
     np.random.seed(2)
     
@@ -165,7 +184,6 @@ if __name__ == "__main__":
     
     #%% 4 Creating the posterior distribution
     # loading signal from file
-    noise_percent = 5
     obs_data = np.load('./data/obs_circular_inclusion_2_'+str(noise_percent)+'per_noise.npz')
     b_exact = obs_data['b_exact']
     s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise variance and
