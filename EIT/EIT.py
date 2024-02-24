@@ -58,13 +58,22 @@ def create_domain_geometry(parameter_space, bnd_idx):
     return G_Heavi
 
 if __name__ == "__main__":
+    # Parse command line arguments: noise level, number of samples,
+    # number of burn-in samples, thinning factor, and random seed.
     # Parse noise level which is passed as a command line argument. Only
     # 5, 10, and 20 percent noise levels are supported.
-    if len(sys.argv) != 2:
-        print("Usage: python EIT.py <noise_percent>")
+
+    if len(sys.argv) != 6:
+        print("Usage: python EIT.py <noise_percent> <num_samples> <num_burnin> <thinning_factor> <random_seed>")
         sys.exit(1)
 
     noise_percent = int(sys.argv[1])
+    Ns = int(sys.argv[2])
+    Nb = int(sys.argv[3])
+    Nt = int(sys.argv[4])
+    seed = int(sys.argv[5])
+
+    # Check if noise level is supported
     if noise_percent not in [5, 10, 20]:
         print("Only 5, 10, and 20 percent noise levels are supported")
         sys.exit(1)
@@ -75,7 +84,7 @@ if __name__ == "__main__":
     print("cuqipy_fenics version: ", cuqipy_fenics.__version__)
 
     # Fix the random seed for reproducibility 
-    np.random.seed(2)
+    np.random.seed(seed)
     
     #%% 1 setting up FEniCS
     # loading computational mesh
@@ -246,7 +255,7 @@ if __name__ == "__main__":
     sampler = MH(posterior)
     
     # Sampling using the Metropolis-Hastings sampler
-    posterior_samples = sampler.sample_adapt(1000000)
+    posterior_samples = sampler.sample_adapt(Ns)
     
     #%% 6 visualization
     # plotting prior samples
@@ -264,7 +273,7 @@ if __name__ == "__main__":
     plt.savefig("plot_prior_samples"+str(noise_percent)+".png")
     
     # plotting posterior samples
-    idx = np.random.permutation(1000000) # create randomized index
+    idx = np.random.permutation(Ns) # create randomized index
     f, axes = plt.subplots(1,3)
     plt.sca(axes[0])
     posterior_samples.plot(idx[0],subplots=False)
@@ -276,7 +285,7 @@ if __name__ == "__main__":
     plt.savefig("plot_posterior_samples"+str(noise_percent)+".png")
     
     # burn-thin the samples
-    posterior_samples = posterior_samples.burnthin(200000, 4000)
+    posterior_samples = posterior_samples.burnthin(Nb, Nt)
     
     # plotting the mean
     f, axes = plt.subplots(1,2)
