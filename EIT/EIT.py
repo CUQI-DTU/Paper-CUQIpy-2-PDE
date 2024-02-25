@@ -2,6 +2,7 @@ import numpy as np
 import dolfin as dl
 import matplotlib.pyplot as plt
 import os
+import sys
 from cuqi.geometry import Continuous1D
 from cuqi.model import PDEModel
 from cuqi.distribution import Gaussian, JointDistribution
@@ -9,6 +10,8 @@ from cuqi.sampler import MH
 from cuqipy_fenics.geometry import FEniCSContinuous, MaternKLExpansion,\
                                    FEniCSMappedGeometry 
 from cuqipy_fenics.pde import SteadyStateLinearFEniCSPDE
+import cuqi
+import cuqipy_fenics
 
 # Function for extracting the indices of the boundary nodes
 def extract_boundary_dofs_indices(solution_space):
@@ -55,8 +58,33 @@ def create_domain_geometry(parameter_space, bnd_idx):
     return G_Heavi
 
 if __name__ == "__main__":
+    # Parse command line arguments: noise level, number of samples,
+    # number of burn-in samples, thinning factor, and random seed.
+    # Parse noise level which is passed as a command line argument. Only
+    # 5, 10, and 20 percent noise levels are supported.
+
+    if len(sys.argv) != 6:
+        print("Usage: python EIT.py <noise_percent> <num_samples> <num_burnin> <thinning_factor> <random_seed>")
+        sys.exit(1)
+
+    noise_percent = int(sys.argv[1])
+    Ns = int(sys.argv[2])
+    Nb = int(sys.argv[3])
+    Nt = int(sys.argv[4])
+    seed = int(sys.argv[5])
+
+    # Check if noise level is supported
+    if noise_percent not in [5, 10, 20]:
+        print("Only 5, 10, and 20 percent noise levels are supported")
+        sys.exit(1)
+    print("Running EIT with noise level: ", noise_percent, "%")
+
+    # Print cuqi and cuqipy_fenics version
+    print("cuqi version: ", cuqi.__version__)
+    print("cuqipy_fenics version: ", cuqipy_fenics.__version__)
+
     # Fix the random seed for reproducibility 
-    np.random.seed(2)
+    np.random.seed(seed)
     
     #%% 1 setting up FEniCS
     # loading computational mesh
@@ -165,7 +193,6 @@ if __name__ == "__main__":
     
     #%% 4 Creating the posterior distribution
     # loading signal from file
-    noise_percent = 5
     obs_data = np.load('./data/obs_circular_inclusion_2_'+str(noise_percent)+'per_noise.npz')
     b_exact = obs_data['b_exact']
     s_noise_list = np.sqrt(obs_data['sigma2']) # read the noise variance and
@@ -228,7 +255,7 @@ if __name__ == "__main__":
     sampler = MH(posterior)
     
     # Sampling using the Metropolis-Hastings sampler
-    posterior_samples = sampler.sample_adapt(1000000)
+    posterior_samples = sampler.sample_adapt(Ns)
     
     #%% 6 visualization
     # plotting prior samples
@@ -246,7 +273,7 @@ if __name__ == "__main__":
     plt.savefig("plot_prior_samples"+str(noise_percent)+".png")
     
     # plotting posterior samples
-    idx = np.random.permutation(1000000) # create randomized index
+    idx = np.random.permutation(Ns) # create randomized index
     f, axes = plt.subplots(1,3)
     plt.sca(axes[0])
     posterior_samples.plot(idx[0],subplots=False)
@@ -258,7 +285,7 @@ if __name__ == "__main__":
     plt.savefig("plot_posterior_samples"+str(noise_percent)+".png")
     
     # burn-thin the samples
-    posterior_samples = posterior_samples.burnthin(200000, 4000)
+    posterior_samples = posterior_samples.burnthin(Nb, Nt)
     
     # plotting the mean
     f, axes = plt.subplots(1,2)
